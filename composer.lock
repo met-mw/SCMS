@@ -1,0 +1,75 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "6e7c05480db60ce4c569be2db696b6f4",
+    "packages": [
+        {
+            "name": "met_mw/sframework",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/met-mw/SFramework.git",
+                "reference": "12724bb201b4fb004eaf6f14cfc4538fcb930896"
+            },
+            "require": {
+                "met_mw/sorm": "@dev",
+                "php": ">=5.6.0"
+            },
+            "type": "framework",
+            "autoload": {
+                "psr-4": {
+                    "SFramework\\": "src/SFramework",
+                    "App\\": "App/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "met-mw",
+                    "email": "met-mw@rambler.ru"
+                }
+            ],
+            "time": "2016-01-09 23:30:59"
+        },
+        {
+            "name": "met_mw/sorm",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/met-mw/SORM.git",
+                "reference": "5a3a03edaa6f0dfb655a72c6f174e79b77f962f6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SORM\\": "src/SORM"
+                }
+            },
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "met-mw",
+                    "email": "met-mw@rambler.ru"
+                }
+            ],
+            "description": "Simple and lightweight ORM library.",
+            "time": "2016-01-09 10:53:51"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "met_mw/sframework": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.6.0"
+    },
+    "platform-dev": []
+}

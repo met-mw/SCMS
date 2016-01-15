@@ -1,0 +1,30 @@
+{
+    "name": "met-mw/scms",
+    "authors": [
+        {
+            "name": "met-mw",
+            "email": "met-mw@rambler.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "version": "0.0.1",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/met-mw/SORM.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/met-mw/SFramework.git"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0",
+        "met_mw/sframework": "@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    }
+}
