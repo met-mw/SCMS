@@ -5,7 +5,6 @@ namespace App\Modules\Structures\Views\Admin;
 use App\Models\Module;
 use App\Modules\Structures\Models\Structure;
 use App\Views\Admin\ViewNotifications;
-use SFramework\Classes\NotificationLog;
 use SFramework\Classes\View;
 
 class ViewStructureEdit extends View {
@@ -59,96 +58,107 @@ class ViewStructureEdit extends View {
                 <legend><?= ($isNew ? 'Добавление' : 'Редактирование') ?> структуры</legend>
                 <input type="hidden" id="structure-id" name="structure-id" value="<?= $id ?>" />
 
-                <div class="control-group">
-                    <label>№</label>
-                    <div class="controls">
-                        <input class="edit-form-id" name="structure-number" id="structure-number" disabled="disabled" type="number" placeholder="№" value="<?= $id ?>">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <div class="form-group">
+                                    <label for="structure-number">№</label>
+                                    <input class="form-control" name="structure-number" id="structure-number" disabled="disabled" type="number" placeholder="№" value="<?= $id ?>">
+                                    <span class="help-block">Номер</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label for="structure-name">Наименование</label>
+                                    <input class="form-control" name="structure-name" id="structure-name" type="text" placeholder="Наименование" value="<?= $name ?>">
+                                    <span class="help-block">Отображается в заголовке страницы</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="structure-priority">Приоритет</label>
+                                    <input class="form-control" name="structure-priority" id="structure-priority" title="Отвечает за порядок вывода элементов структуры в меню." type="number" placeholder="Приоритет" value="<?= $priority ?>">
+                                    <span class="help-block">Сортировка в списке</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="structure-description">Описание</label>
+                                    <textarea class="form-control" rows="5" name="structure-description" id="structure-description" placeholder="Описание"><?= $description ?></textarea>
+                                    <span class="help-block">Служебная информация, к заполнению не обязательна.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="structure-path">Путь</label>
+                                    <input class="form-control" name="structure-path" id="structure-path" type="text" placeholder="Путь" value="<?= $path ?>">
+                                    <span class="help-block">Путь к странице в адресной строке.</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="structure-parent">Родительский раздел</label>
+                                    <select class="form-control" name="structure-parent" id="structure-parent">
+                                        <option title="Родительский раздел не назначен" value="0">Без раздела</option>
+                                        <? foreach ($this->structuresList as $oStructure): ?>
+                                            <option title="<?= $oStructure->description ?>" value="<?= $oStructure->id ?>"<?= ($oStructure->id == $structureId ? ' selected="selected"' : '') ?>><?= $oStructure->name ?></option>
+                                        <? endforeach; ?>
+                                    </select>
+                                    <span class="help-block">Родительский раздел страницы</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="structure-frame">Фрейм</label>
+                                    <input class="form-control" name="structure-frame" id="structure-frame" type="text" placeholder="Фрейм" value="<?= $frame ?>">
+                                    <span class="help-block">Имя фрейма, используемого при отображении страницы.</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <span class="help-block">Идетификатор структуры, заполняется автоматически, редактированию не подлежит.</span>
-                </div>
-
-                <div class="control-group">
-                    <label>Наименование</label>
-                    <div class="controls">
-                        <input class="edit-form-text" name="structure-name" id="structure-name" type="text" placeholder="Наименование" value="<?= $name ?>">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="structure-module">Модуль отображения</label>
+                            <select class="form-control" name="structure-module" id="structure-module">
+                                <option title="Модуль для отображения не используется" value="0">Без модуля</option>
+                                <? foreach ($this->modulesList as $module): ?>
+                                    <option title="<?= $module->description ?>" value="<?= $module->id ?>"<?= ($module->id == $moduleId ? ' selected="selected"' : '') ?>><?= $module->alias ?></option>
+                                <? endforeach; ?>
+                            </select>
+                            <span class="help-block">Модуль отображения страницы</span>
+                        </div>
+                        <div class="alert alert-info" id="module-controls-container">
+                            <? if ($this->currentModuleConfigView): ?>
+                                <? $this->currentModuleConfigView->render(); ?>
+                            <? endif; ?>
+                        </div>
                     </div>
-                    <span class="help-block">Отображается в заголовке страницы</span>
                 </div>
 
-                <div class="control-group">
-                    <label>Описание</label>
-                    <div class="controls">
-                        <textarea class="edit-form-text" name="structure-description" id="structure-description" placeholder="Описание"><?= $description ?></textarea>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="structure-anchor">Фрагмент структуры</label>
+                                    <input class="checkbox" name="structure-anchor" id="structure-anchor" title="Является ли данный элемент сруктуры фрагментом родительской структуры." type="checkbox"<?= ($anchor ? ' CHECKED' : '') ?>>
+                                    <span class="help-block">Является ли данный элемент сруктуры фрагментом родительской структуры.</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="structure-active">Активность</label>
+                                    <input class="checkbox" name="structure-active" id="structure-active" title="Доступен ли данный раздел в пользовательской части сайта." type="checkbox"<?= ($active || $isNew ? ' CHECKED' : '') ?>>
+                                    <span class="help-block">Доступен ли данный раздел в пользовательской части сайта.</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <span class="help-block">Служебная информация, к заполнению не обязательна.</span>
-                </div>
-
-                <div class="control-group">
-                    <label>Родительский раздел</label>
-                    <div class="controls">
-                        <select name="structure-parent" id="structure-parent">
-                            <option title="Родительский раздел не назначен" value="0">Без раздела</option>
-                            <? foreach ($this->structuresList as $oStructure): ?>
-                                <option title="<?= $oStructure->description ?>" value="<?= $oStructure->id ?>"<?= ($oStructure->id == $structureId ? ' selected="selected"' : '') ?>><?= $oStructure->name ?></option>
-                            <? endforeach; ?>
-                        </select>
-                    </div>
-                    <span class="help-block">Родительский раздел страницы</span>
-                </div>
-
-                <div class="control-group">
-                    <label>Путь</label>
-                    <div class="controls">
-                        <input class="edit-form-text" name="structure-path" id="structure-path" type="text" placeholder="Путь" value="<?= $path ?>">
-                    </div>
-                    <span class="help-block">Путь к странице в адресной строке.</span>
-                </div>
-
-                <div class="control-group">
-                    <label>Фрейм</label>
-                    <div class="controls">
-                        <input class="edit-form-text" name="structure-frame" id="structure-frame" type="text" placeholder="Фрейм" value="<?= $frame ?>">
-                    </div>
-                    <span class="help-block">Имя фрейма, используемого при отображении страницы.</span>
-                </div>
-
-                <div class="control-group">
-                    <label>Модуль отображения</label>
-                    <div class="controls">
-                        <select name="structure-module" id="structure-module">
-                            <option title="Модуль для отображения не используется" value="0">Без модуля</option>
-                            <? foreach ($this->modulesList as $module): ?>
-                                <option title="<?= $module->description ?>" value="<?= $module->id ?>"<?= ($module->id == $moduleId ? ' selected="selected"' : '') ?>><?= $module->alias ?></option>
-                            <? endforeach; ?>
-                        </select>
-                    </div>
-                    <span class="help-block">Модуль отображения страницы</span>
-                </div>
-
-                <div class="control-group" id="module-controls-container">
-                    <? if ($this->currentModuleConfigView): ?>
-                        <? $this->currentModuleConfigView->render(); ?>
-                    <? endif; ?>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                        <input name="structure-anchor" id="structure-anchor" type="checkbox"<?= ($anchor ? ' CHECKED' : '') ?>> фрагмент родительской страницы
-                    </label>
-                </div>
-
-                <div class="control-group">
-                    <label>Приоритет</label>
-                    <div class="controls">
-                        <input class="edit-form-id" name="structure-priority" type="number" placeholder="Приоритет" value="<?= $priority ?>">
-                    </div>
-                    <span class="help-block">Отвечает за порядок вывода элементов структуры в меню.</span>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                        <input name="structure-active" type="checkbox"<?= ($active || $isNew ? ' CHECKED' : '') ?>> активна
-                    </label>
                 </div>
 
                 <hr/>

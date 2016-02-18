@@ -52,16 +52,17 @@ class ControllerMain extends MasterAdminController {
             $offset = $this->pager->getOffset();
         }
 
-        $dataSet = new ArrayDataSet($retriever->getCategoriesAndItems($parentCategoryId, $conditions, $limit, $offset));
+        $categoriesAndItems = $retriever->getCategoriesAndItems($parentCategoryId, $conditions, $limit, $offset);
+        $dataSet = new ArrayDataSet($categoriesAndItems);
         $dataGrid->addDataSet($dataSet);
 
         if ($this->pager) {
             $this->pager->prepare();
         }
 
-        if ($this->pager) {
-            $this->fillPager($view);
-        }
+//        if ($this->pager) {
+//            $this->fillPager($view);
+//        }
 
 
 //        $this->buildBreadcrumbs();
@@ -71,7 +72,7 @@ class ControllerMain extends MasterAdminController {
 //        $viewBreadcrumbs->breadcrumbs = $this->breadcrumbs->build();
 //        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
 
-        $this->frame->bindView('content', $view);
+//        $this->frame->bindView('content', $view);
 
         $this->frame->render();
     }

@@ -22,22 +22,25 @@ class Authorizator {
     }
 
     public function authorize($email, $password) {
-        $employees = DataSource::factory(Employee::cls());
-        $employees->builder()
-            ->where('active=1')
-            ->whereAnd()
+        /** @var Employee $oEmployees */
+        $oEmployees = DataSource::factory(Employee::cls());
+        $oEmployees->builder()
             ->where("email='{$email}'")
             ->whereAnd()
-            ->where("password='{$password}'");
-        $employees = $employees->findAll();
-        if (empty($employees)) {
+            ->where('active=1');
+        /** @var Employee[] $aEmployees */
+        $aEmployees = $oEmployees->findAll();
+        if (empty($aEmployees)) {
             return false;
         }
-        /** @var Employee $employee */
-        $employee = reset($employees);
 
-        $_SESSION['employee'] = $employee->id;
-        $this->currentUser = $employee;
+        $oEmployee = $aEmployees[0];
+        if (!password_verify($password . Employee::SALT, $oEmployee->password)) {
+            return false;
+        }
+
+        $_SESSION['employee'] = $oEmployee->id;
+        $this->currentUser = $oEmployee;
 
         return true;
     }

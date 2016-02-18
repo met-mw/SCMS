@@ -24,10 +24,10 @@ class ControllerSave extends MasterAdminController{
 
         $name = Param::post('structure-name')->noEmpty('Заполните поле "Наименование"')->asString();
         $description = Param::post('structure-description')->asString();
-        $parent = Param::post('structure-parent')->asInteger();
-        $path = Param::post('structure-path')->noEmpty('Заполните поле "Путь"')->asString();
+        $parent = Param::post('structure-parent')->asInteger(true, 'Поле "Родительский раздел" заполнено неверно.');
+        $path = Param::post('structure-path')->asString();
         $frame = Param::post('structure-frame')->asString();
-        $module = Param::post('structure-module')->asInteger();
+        $module = Param::post('structure-module')->asInteger(true, 'Поле "Модуль" заполнено неверно.');
         $anchor = (int)Param::post('structure-anchor', false)->exists();
         $priority = Param::post('structure-priority', false)->asString();
         $active = (int)Param::post('structure-active', false)->exists();
@@ -39,35 +39,38 @@ class ControllerSave extends MasterAdminController{
             return;
         }
 
-        /** @var Structure $structure */
-        $structure = DataSource::factory(Structure::cls(), $structureId == 0 ? null : $structureId);
-        $oldPath = $helper->getPath($structure);
+        /** @var Structure $oStructure */
+        $oStructure = DataSource::factory(Structure::cls(), $structureId == 0 ? null : $structureId);
+        $oldPath = $helper->getPath($oStructure);
 
-        $structure->name = $name;
-        $structure->description = $description;
-        $structure->structure_id = $parent;
-        $structure->path = $path;
-        $structure->frame = $frame;
-        $structure->module_id = $module;
-        $structure->anchor = $anchor;
-        $structure->priority = $priority;
-        $structure->active = $active;
+        $oStructure->name = $name;
+        $oStructure->description = $description;
+        $oStructure->structure_id = $parent;
+        $oStructure->path = $path;
+        $oStructure->frame = $frame;
+        $oStructure->module_id = $module;
+        $oStructure->anchor = $anchor;
+        $oStructure->priority = $priority;
+        $oStructure->active = $active;
+        if (!$oStructure->getPrimaryKey()) {
+            $oStructure->deleted = false;
+        }
 
-        $structure->commit();
-        $this->applyStructureSettings($structure);
+        $oStructure->commit();
+        $this->applyStructureSettings($oStructure);
 
         if ($structureId != 0) {
             $helper->removeProxyController($oldPath);
         }
-        $helper->createProxyController($helper->getPath($structure));
+        $helper->createProxyController($helper->getPath($oStructure));
 
         if (!NotificationLog::instance()->hasProblems()) {
-            NotificationLog::instance()->pushMessage("Структура \"{$structure->name}\" успешно " . ($structureId == 0 ? 'добавлена' : 'отредактирована') . ".");
+            NotificationLog::instance()->pushMessage("Структура \"{$oStructure->name}\" успешно " . ($structureId == 0 ? 'добавлена' : 'отредактирована') . ".");
         }
 
-        $redirect = "/admin/modules/structures/edit/?pk={$structure->getPrimaryKey()}";
+        $redirect = "/admin/modules/structures/edit/?pk={$oStructure->getPrimaryKey()}";
         if ($accept->exists()) {
-            $redirect = '/admin/modules/structures/' . ($structure->structure_id == 0 ? '' : "?parent_pk={$structure->structure_id}");
+            $redirect = '/admin/modules/structures/' . ($oStructure->structure_id == 0 ? '' : "?parent_pk={$oStructure->structure_id}");
         } elseif ($structureId != 0) {
             $redirect = '';
         }
@@ -75,18 +78,18 @@ class ControllerSave extends MasterAdminController{
         $this->response->send($redirect);
     }
 
-    protected function applyStructureSettings(Structure $structure) {
-        if (is_null($structure->module_id)) {
+    protected function applyStructureSettings(Structure $oStructure) {
+        if (!$oStructure->module_id) {
             return;
         }
 
-        /** @var Module $module */
-        $module = DataSource::factory(Module::cls(), $structure->module_id == 0 ? null : $structure->module_id);
+        /** @var Module $oModule */
+        $oModule = $oStructure->field('module_id')->loadRelation(Module::cls());
         /** @var ModuleSetting[] $moduleSettings */
-        $moduleSettings = $module->field()->loadRelation(ModuleSetting::cls());
+        $moduleSettings = $oModule->field()->loadRelation(ModuleSetting::cls());
 
         /** @var StructureSetting[] $structureSettings */
-        $structureSettings = $structure->field()->loadRelation(StructureSetting::cls());
+        $structureSettings = $oStructure->field()->loadRelation(StructureSetting::cls());
 
         foreach ($moduleSettings as $oModuleSetting) {
             $changed = false;
@@ -103,7 +106,7 @@ class ControllerSave extends MasterAdminController{
             if (!$changed) {
                 /** @var StructureSetting $oNewStructureSetting */
                 $oNewStructureSetting = DataSource::factory(StructureSetting::cls());
-                $oNewStructureSetting->structure_id = $structure->id;
+                $oNewStructureSetting->structure_id = $oStructure->id;
                 $oNewStructureSetting->module_setting_id = $oModuleSetting->id;
                 $oNewStructureSetting->value = is_null($oModuleSetting->entity)
                     ? Param::post($oModuleSetting->parameter)->asString()

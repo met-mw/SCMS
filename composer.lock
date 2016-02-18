@@ -39,7 +39,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/met-mw/SORM.git",
-                "reference": "5a3a03edaa6f0dfb655a72c6f174e79b77f962f6"
+                "reference": "28b8db597d4ef368bc0d5eef3c85d198f05cbc8f"
             },
             "type": "library",
             "autoload": {
@@ -57,7 +57,7 @@
                 }
             ],
             "description": "Simple and lightweight ORM library.",
-            "time": "2016-01-09 10:53:51"
+            "time": "2016-02-17 21:52:51"
         }
     ],
     "packages-dev": [],

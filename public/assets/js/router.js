@@ -24,6 +24,16 @@ define(
                     'modules': ['module.employee.authorization']
                 },
                 {
+                    'base-path': '/admin/modules/employees/registration',
+                    'pattern': '^/admin/modules/employees/registration(/?)$',
+                    'modules': ['module.employee.registration']
+                },
+                {
+                    'base-path': '/admin/modules/employees',
+                    'pattern': '^/admin/modules/employees(/?)(\\?pk=[0-9]+)?$',
+                    'modules': ['entity']
+                },
+                {
                     'base-path': '/admin/modules/pages',
                     'pattern': '^/admin/modules/pages(/?)$',
                     'modules': ['entity']

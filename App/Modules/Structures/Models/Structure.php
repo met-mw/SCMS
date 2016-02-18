@@ -11,16 +11,17 @@ use SORM\Entity;
  * Class Structure
  * @package App\Modules\Structures\Models
  *
- * @property int $id;
- * @property string $name;
- * @property string $description;
- * @property int $structure_id;
- * @property string $path;
- * @property string $frame;
- * @property int $module_id;
- * @property int $anchor;
- * @property int $priority;
- * @property int $active;
+ * @property int $id
+ * @property string $name
+ * @property string $description
+ * @property int $structure_id
+ * @property string $path
+ * @property string $frame
+ * @property int $module_id
+ * @property int $anchor
+ * @property int $priority
+ * @property int $active
+ * @property int $deleted
  */
 class Structure extends Entity {
 

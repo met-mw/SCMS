@@ -14,26 +14,30 @@ class ControllerDelete extends MasterAdminController {
     public function actionIndex() {
         $this->authorizeIfNot();
         $structureId = Param::get('pk')->asInteger();
-        /** @var Structure $structure */
-        $structure = DataSource::factory(Structure::cls(), $structureId);
-        $this->deepDelete($structure);
-        NotificationLog::instance()->pushMessage("Структура \"$structure->name\" успешно удалена.");
+        /** @var Structure $oStructure */
+        $oStructure = DataSource::factory(Structure::cls(), $structureId);
+        $name = $oStructure->name;
+        $this->deepDelete($oStructure);
+        NotificationLog::instance()->pushMessage("Структура \"{$name}\" успешно удалена.");
+
         $this->response->send();
     }
+
 
     /**
      * Удаление элемента структуры и всех её дочерних элементов.
      *
-     * @param Structure $structure
+     * @param Structure $oStructure
      */
-    private function deepDelete(Structure $structure) {
+    private function deepDelete(Structure $oStructure) {
         /** @var Structure[] $aStructures */
-        $aStructures = $structure->field()->loadRelation(Structure::cls());
-        foreach ($aStructures as $structure) {
-            $this->deepDelete($structure);
+        $aStructures = $oStructure->field()->loadRelation(Structure::cls());
+        foreach ($aStructures as $oStructure) {
+            $this->deepDelete($oStructure);
         }
 
-        $structure->delete();
+        $oStructure->deleted = true;
+        $oStructure->commit();
     }
 
 } 

@@ -14,7 +14,7 @@ class ControllerEdit extends MasterAdminController {
     public function actionIndex() {
         $this->authorizeIfNot();
 
-        $pageId = Param::get('pk', false)->asInteger();
+        $pageId = Param::get('pk', false)->asInteger(false);
 
         $view = new ViewEditForm();
         $view->page = is_null($pageId) ? null : DataSource::factory(Page::cls(), $pageId);
@@ -39,7 +39,7 @@ class ControllerEdit extends MasterAdminController {
         } else {
             $bcPages->addChildNode('Редкатирование', 'edit', true, true);
             $bcEdit = $bcPages->findChildNodeByPath('edit');
-            $bcEdit->addChildNode("Редкатирование \"{$page->name}\"", "pk={$page->getPrimaryKey()}", false, false, true);
+            $bcEdit->addChildNode("Редактирование \"{$page->name}\"", "pk={$page->getPrimaryKey()}", false, false, true);
         }
     }
 

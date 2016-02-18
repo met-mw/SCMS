@@ -68,7 +68,7 @@ abstract class MasterAdminController extends Controller {
     protected function buildBreadcrumbs() {
         $this->breadcrumbs->getRoot()
             ->addChildNode('Конфигурация', 'configuration')
-            ->addChildNode('Модули', 'modules')
+            ->addChildNode('Модули', 'modules', false, true)
         ;
     }
 

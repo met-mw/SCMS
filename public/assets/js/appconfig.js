@@ -13,6 +13,7 @@ requirejs.config({
         'entity': 'admin/entity',
         'module.structure.edit': '/App/Modules/Structures/public/assets/js/admin/form/structure',
         'module.employee.authorization': '/App/Modules/Employees/public/assets/js/admin/form/authorization',
+        'module.employee.registration': '/App/Modules/Employees/public/assets/js/admin/form/registration',
         'module.pages.edit': '/App/Modules/Pages/public/assets/js/admin/form/page',
         'module.pages.tinymce-config': '/App/Modules/Pages/public/assets/js/admin/form/tinymce-config'
     },

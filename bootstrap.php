@@ -8,8 +8,8 @@ use SORM\DataSource;
 
 require_once('vendor' . DIRECTORY_SEPARATOR . 'autoload.php');
 
-//NotificationLog::instance()->setProductionMode();
-NotificationLog::instance()->setDevelopMode();
+NotificationLog::instance()->setProductionMode();
+//NotificationLog::instance()->setDevelopMode();
 
 DataSource::setup('mysql', include('App' . DIRECTORY_SEPARATOR . 'Config' . DIRECTORY_SEPARATOR . 'mysql.php'));
 DataSource::setCurrent('mysql');

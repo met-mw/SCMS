@@ -9,7 +9,8 @@ class CatalogueRetriever {
 
     public function getCategoriesAndItems($categoryId, $conditions = '', $limit = null, $offset = null) {
         $driver = DataSource::getCurrent();
-        $driver->query('select
+
+        $sql = 'select
 	        SQL_CALC_FOUND_ROWS
 	        *
         from
@@ -18,7 +19,7 @@ class CatalogueRetriever {
 	        from
 		        module_catalogue_category
 	        where
-		        and category_id=' . $categoryId . '
+		        category_id=' . $categoryId . '
 	        order by
 		        priority)
 	        union
@@ -33,7 +34,9 @@ class CatalogueRetriever {
 	        ) as childs
 	    ' . (!empty($conditions) ? " where {$conditions}" : '') . '
 	    ' . (is_null($limit) ? '' : " limit {$limit}") . '
-	    ' . (is_null($offset) ? '' : " offset {$offset}"));
+	    ' . (is_null($offset) ? '' : " offset {$offset}");
+
+        $driver->query($sql);
 
         return $driver->fetchAll();
     }

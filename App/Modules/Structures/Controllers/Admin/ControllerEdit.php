@@ -10,6 +10,7 @@ use App\Modules\Structures\Models\Structure;
 use App\Modules\Structures\Views\Admin\ViewStructureEdit;
 use App\Views\Admin\ViewBreadcrumbs;
 use App\Views\Admin\ViewModuleConfiguration;
+use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 use SORM\Entity;
@@ -108,50 +109,63 @@ class ControllerEdit extends MasterAdminController {
     public function actionAjaxModuleConfig() {
         $this->authorizeIfNot();
 
-        $structureId = Param::get('structure_id', false)->asInteger(false);
-        $moduleId = Param::get('module_id')->asInteger();
-        /** @var Structure $structure */
-        $structure = DataSource::factory(Structure::cls(), $structureId == 0 ? null : $structureId);
-        /** @var Module $module */
-        $module = DataSource::factory(Module::cls(), $moduleId == 0 ? null : $moduleId);
+        $structureId = Param::get('structure_id')
+            ->noEmpty('Пропущен обязательный параметр "structure_id".')
+            ->asInteger(true, '"structure_id" должен быть числом.');
+        if ($structureId == 0) {
+            NotificationLog::instance()->pushError("Не указана целевая структура.");
+            $this->response->send();
+            exit;
+        }
+
+        $moduleId = Param::get('module_id')
+            ->noEmpty('Пропущен обязательный параметр "module_id".')
+            ->asInteger(true, '"structure_id" должен быть числом.');
+
+        /** @var Structure $oStructure */
+        $oStructure = DataSource::factory(Structure::cls(), $structureId);
+        /** @var Module $oModule */
+        $oModule = DataSource::factory(Module::cls(), $moduleId == 0 ? null : $moduleId);
 
         ob_start();
-        $view = $this->getModuleConfigView($structure, $module);
+        $view = $this->getModuleConfigView($oStructure, $oModule);
         $view->render();
         $form = ob_get_clean();
 
         $this->response->send('', ['form' => $form]);
     }
 
-    protected function getModuleConfigView(Structure $structure, Module $module) {
-        /** @var Module $module */
+    protected function getModuleConfigView(Structure $oStructure, Module $oModule) {
         $moduleConfigView = new ViewModuleConfiguration();
 
-        /** @var ModuleSetting[] $moduleSettings */
-        $moduleSettings = $module->field()->loadRelation(ModuleSetting::cls());
         $settings = [];
-        foreach ($moduleSettings as $moduleSetting) {
-            /** @var Entity $list */
-            $list = DataSource::factory($moduleSetting->entity)->findAll();
-            $structureSetting = null;
-            if ($structure->id) {
-                /** @var StructureSetting $oStructureSettings */
-                $oStructureSettings = $structure->field()->prepareRelation(StructureSetting::cls());
-                $oStructureSettings->builder()
-                    ->whereAnd()
-                    ->where("module_setting_id={$moduleSetting->getPrimaryKey()}");
-                /** @var StructureSetting[] $aStructureSettings */
-                $aStructureSettings = $oStructureSettings->findAll();
-                $structureSetting = reset($aStructureSettings);
+        if ($oModule->getPrimaryKey()) {
+            /** @var ModuleSetting[] $moduleSettings */
+            $moduleSettings = $oModule->field()->loadRelation(ModuleSetting::cls());
+            foreach ($moduleSettings as $moduleSetting) {
+                /** @var Entity $list */
+                $list = DataSource::factory($moduleSetting->entity)->findAll();
+                $oStructureSetting = null;
+                if ($oStructure->id) {
+                    /** @var StructureSetting $oStructureSettings */
+                    $oStructureSettings = $oStructure->field()->prepareRelation(StructureSetting::cls());
+                    $oStructureSettings->builder()
+                        ->whereAnd()
+                        ->where("module_setting_id={$moduleSetting->getPrimaryKey()}");
+                    /** @var StructureSetting[] $aStructureSettings */
+                    $aStructureSettings = $oStructureSettings->findAll();
+                    if (!empty($aStructureSettings)) {
+                        $oStructureSetting = $aStructureSettings[0];
+                    }
+                }
+
+                $settings[] = [
+                    'setting' => $moduleSetting,
+                    'list' => $list,
+                    'value' => is_null($oStructureSetting) ? null : $oStructureSetting->value
+                ];
             }
-
-            $settings[] = [
-                'setting' => $moduleSetting,
-                'list' => $list,
-                'value' => is_null($structureSetting) ? null : $structureSetting->value
-            ];
         }
-
         $moduleConfigView->settings = $settings;
 
         return $moduleConfigView;

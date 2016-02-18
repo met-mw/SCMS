@@ -26,7 +26,7 @@ class ControllerMain extends MasterAdminController {
         if ($parentPK != 0) {
             $addItemUrl .= "?parent_pk={$parentPK}";
         }
-        $view->menu->addItem('Добавить', $addItemUrl, 'glyphicon-plus');
+        $view->menu->addItem('Добавить новый элемент структуры', $addItemUrl, 'glyphicon-plus');
 
         $manifest = $this->moduleInstaller->getManifest($this->moduleName);
 

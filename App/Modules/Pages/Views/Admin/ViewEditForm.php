@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: metr
- * Date: 22.11.15
- */
-
 namespace App\Modules\Pages\Views\Admin;
 
 

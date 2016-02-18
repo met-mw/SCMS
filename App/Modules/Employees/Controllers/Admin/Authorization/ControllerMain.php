@@ -10,7 +10,7 @@ use SFramework\Classes\Registry;
 class ControllerMain extends MasterAdminController {
 
     public function actionIndex() {
-        $error = Param::get('error', false)->asInteger();
+        $error = Param::get('error', false)->asInteger(false);
 
         $frame = Registry::frame('back_clear');
         $view = new ViewAuthorization();

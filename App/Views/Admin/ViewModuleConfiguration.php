@@ -12,13 +12,9 @@ class ViewModuleConfiguration extends View {
     public $settings;
 
     public function currentRender() {
-        ?>
-        <div class="thumbnail">
-        <h3>Настройки модуля</h3>
-        <?
         if (count($this->settings) == 0):
             ?>
-            Модуль не выбран, настройки не требуются.
+            Настройки не требуются.
             <?
         else:
             foreach ($this->settings as $settingsData) {
@@ -29,33 +25,22 @@ class ViewModuleConfiguration extends View {
                 $value = $settingsData['value'];
                 ?>
                 <div class="control-group">
-                    <label><?= $setting->alias ?></label>
-                    <div class="controls">
-                        <?
-                        if ($setting->entity != '') {
-                            ?>
-                            <select name="<?= $setting->parameter ?>">
-                                <option title="Не выбрано" value="0" <?= (is_null($value) ? 'selected="selected"' : '') ?>>Не выбрано</option>
-                                <? foreach ($list as $entity): ?>
-                                    <option title="<?= $entity->description ?>" value="<?= $entity->getPrimaryKey() ?>" <?= (!is_null($value) && $entity->getPrimaryKey() == $value ? 'selected="selected"' : '') ?>><?= $entity->name ?></option>
-                                <? endforeach; ?>
-                            </select>
-                        <?
-                        } else {
-                            ?>
-                            <input type="text" name="<?= $setting->parameter ?>" value="<?= $value ?>" />
-                        <?
-                        }
-                        ?>
-                    </div>
+                    <label for="<?= $setting->parameter ?>"><?= $setting->alias ?></label>
+                    <? if ($setting->entity != ''): ?>
+                    <select class="form-control" name="<?= $setting->parameter ?>" id="<?= $setting->parameter ?>">
+                        <option title="Не выбрано" value="0" <?= (is_null($value) ? 'selected="selected"' : '') ?>>Не выбрано</option>
+                        <? foreach ($list as $entity): ?>
+                            <option title="<?= $entity->description ?>" value="<?= $entity->getPrimaryKey() ?>" <?= (!is_null($value) && $entity->getPrimaryKey() == $value ? 'selected="selected"' : '') ?>><?= $entity->name ?></option>
+                        <? endforeach; ?>
+                        </select>
+                    <? else: ?>
+                        <input type="text" name="<?= $setting->parameter ?>"  id="<?= $setting->parameter ?>" value="<?= $value ?>" />
+                    <? endif; ?>
                     <span class="help-block"><?= $setting->description ?></span>
                 </div>
             <?
             }
         endif;
-        ?>
-        </div>
-    <?
     }
 
 }
