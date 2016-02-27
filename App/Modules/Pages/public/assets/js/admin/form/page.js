@@ -10,9 +10,11 @@ define(
         "use strict";
 
         $(document).ready(function() {
-            $('#page-save, #page-accept').click(function() {
+            $('#page-edit-save, #page-edit-accept').click(function() {
+                tinyMCE.triggerSave();
+
                 var self = $(this);
-                var form = $('#page-form');
+                var form = $('#page-edit-form');
                 var action = form.attr('action');
                 var params = form.sForm().collectFields();
                 params[self.attr('name')] = self.val();

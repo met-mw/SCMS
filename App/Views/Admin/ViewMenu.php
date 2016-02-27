@@ -20,7 +20,7 @@ class ViewMenu extends ViewMasterMenu {
 
     public function currentRender() {
         ?>
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-inverse navbar-static-top">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-expanded="false">
@@ -39,7 +39,7 @@ class ViewMenu extends ViewMasterMenu {
                             <a href="/admin/modules/employees/authorization/unauthorize">Выход</a>
                         </li>
                     </ul>
-                    <p class="navbar-text navbar-right"><span class="label label-success">Активный сотрудник: <?= $this->currentEmployee->name ?></span></p>
+                    <p class="navbar-text navbar-right"><span class="label label-info">Активный сотрудник: <?= $this->currentEmployee->name ?></span></p>
                 </div>
             </div>
         </nav>

@@ -12,7 +12,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/met-mw/SFramework.git",
-                "reference": "12724bb201b4fb004eaf6f14cfc4538fcb930896"
+                "reference": "76271f918d9259cae701aa91e1cef0734e146039"
             },
             "require": {
                 "met_mw/sorm": "@dev",
@@ -31,7 +31,7 @@
                     "email": "met-mw@rambler.ru"
                 }
             ],
-            "time": "2016-01-09 23:30:59"
+            "time": "2016-02-27 16:35:01"
         },
         {
             "name": "met_mw/sorm",

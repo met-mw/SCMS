@@ -13,37 +13,44 @@ class ControllerSave extends MasterAdminController {
     public function actionIndex() {
         $this->authorizeIfNot();
 
-        $pageId = Param::post('page-id', false)->asInteger(false);
+        $pageId = Param::post('page-edit-id', false)->asInteger(false);
 
-        $name = Param::post('page-name')->noEmpty('Поле "Наименование" должно быть заполнено.')->asString();
-        $description = Param::post('page-description')->asString();
-        $content = Param::post('page-content')->asString();
+        $name = Param::post('page-edit-name')
+            ->noEmpty('Поле "Наименование" должно быть заполнено.')
+            ->asString();
+        $description = Param::post('page-edit-description')
+            ->asString();
+        $content = Param::post('page-edit-content')
+            ->asString();
+        $active = (bool)Param::post('page-edit-active')
+            ->exists();
 
         if (!NotificationLog::instance()->hasProblems()) {
-            /** @var Page $page */
-            $page = DataSource::factory(Page::cls(), $pageId == 0 ? null : $pageId);
-            $page->name = $name;
-            $page->description = $description;
-            $page->content = $content;
-            $page->commit();
-        } else {
-            $this->response->send();
-            exit;
-        }
+            /** @var Page $oPage */
+            $oPage = DataSource::factory(Page::cls(), $pageId == 0 ? null : $pageId);
+            $oPage->name = $name;
+            $oPage->description = $description;
+            $oPage->content = $content;
+            $oPage->active = $active;
+            if (!$oPage->getPrimaryKey()) {
+                $oPage->deleted = false;
+            }
 
-        $redirect = '';
-        if (!NotificationLog::instance()->hasProblems()) {
-            NotificationLog::instance()->pushMessage("Страница \"{$page->name}\" успешно " . ($pageId == 0 ? 'добавлена' : 'отредактирована') . '.');
-            if (Param::post('page-accept', false)->exists()) {
+            $oPage->commit();
+
+            NotificationLog::instance()->pushMessage("Страница \"{$oPage->name}\" успешно " . ($pageId == 0 ? 'добавлена' : 'отредактирована') . '.');
+            $redirect = '';
+            if (Param::post('page-edit-accept', false)->exists()) {
                 $redirect = '/admin/modules/pages/';
             } else {
-                if ($pageId == 0) {
-                    $redirect = "/admin/modules/pages/edit/?pk={$page->getPrimaryKey()}";
+                if ($pageId == 1) {
+                    $redirect = "/admin/modules/pages/edit/?pk={$oPage->getPrimaryKey()}";
                 }
             }
+            $this->response->send($redirect);
+        } else {
+            $this->response->send();
         }
-
-        $this->response->send($redirect);
     }
 
 }

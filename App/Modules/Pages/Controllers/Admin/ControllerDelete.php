@@ -12,11 +12,20 @@ class ControllerDelete extends MasterAdminController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
-        $pageId = Param::get('pk')->asInteger();
-        /** @var Page $page */
-        $page = DataSource::factory(Page::cls(), $pageId);
-        NotificationLog::instance()->pushMessage("Страница \"$page->name\" успешно удалена.");
-        $page->delete();
+
+        $pageId = Param::get('pk')
+            ->noEmpty('Не задан обязательный параметр.')
+            ->asInteger(true, 'Параметр должен быть числом.');
+
+        /** @var Page $oPage */
+        $oPage = DataSource::factory(Page::cls(), $pageId);
+        if (is_null($oPage) || !$oPage->getPrimaryKey()) {
+            NotificationLog::instance()->pushError('Статическая страница не найдена.');
+        } else {
+            NotificationLog::instance()->pushMessage("Страница \"$oPage->name\" успешно удалена.");
+            $oPage->deleted = true;
+            $oPage->commit();
+        }
 
         $this->response->send();
     }

@@ -27,14 +27,14 @@ class ViewModuleConfiguration extends View {
                 <div class="control-group">
                     <label for="<?= $setting->parameter ?>"><?= $setting->alias ?></label>
                     <? if ($setting->entity != ''): ?>
-                    <select class="form-control" name="<?= $setting->parameter ?>" id="<?= $setting->parameter ?>">
+                    <select class="form-control input-sm" name="<?= $setting->parameter ?>" id="<?= $setting->parameter ?>">
                         <option title="Не выбрано" value="0" <?= (is_null($value) ? 'selected="selected"' : '') ?>>Не выбрано</option>
                         <? foreach ($list as $entity): ?>
                             <option title="<?= $entity->description ?>" value="<?= $entity->getPrimaryKey() ?>" <?= (!is_null($value) && $entity->getPrimaryKey() == $value ? 'selected="selected"' : '') ?>><?= $entity->name ?></option>
                         <? endforeach; ?>
                         </select>
                     <? else: ?>
-                        <input type="text" name="<?= $setting->parameter ?>"  id="<?= $setting->parameter ?>" value="<?= $value ?>" />
+                        <input class="form-control input-sm" type="text" name="<?= $setting->parameter ?>"  id="<?= $setting->parameter ?>" value="<?= $value ?>" />
                     <? endif; ?>
                     <span class="help-block"><?= $setting->description ?></span>
                 </div>

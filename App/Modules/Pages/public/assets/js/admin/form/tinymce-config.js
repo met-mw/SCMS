@@ -2,7 +2,7 @@ require(
     ['tinymce'],
     function() {
         tinymce.init({
-            selector: "#page-content",
+            selector: "#page-edit-content",
             plugins: [
                 "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak",
                 "searchreplace wordcount visualblocks visualchars code insertdatetime media nonbreaking",
@@ -15,6 +15,8 @@ require(
 
             menubar: false,
             toolbar_items_size: 'small',
+
+            height: "600",
 
             style_formats: [{
                 title: 'Bold text',
@@ -55,7 +57,7 @@ require(
                 content: 'Test 2'
             }],
             content_css: [
-                '/public/bower_components/bootstrap/dist/css/bootstrap.css',
+                '/public/assets/js/bower_components/bootstrap/dist/css/bootstrap.css',
                 '/public/assets/css/tinymce/default.css'
             ]
         });

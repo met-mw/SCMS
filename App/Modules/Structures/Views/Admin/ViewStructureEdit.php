@@ -64,21 +64,21 @@ class ViewStructureEdit extends View {
                             <div class="col-lg-1">
                                 <div class="form-group">
                                     <label for="structure-number">№</label>
-                                    <input class="form-control" name="structure-number" id="structure-number" disabled="disabled" type="number" placeholder="№" value="<?= $id ?>">
+                                    <input class="form-control input-sm" name="structure-number" id="structure-number" disabled="disabled" type="number" placeholder="№" value="<?= $id ?>">
                                     <span class="help-block">Номер</span>
                                 </div>
                             </div>
                             <div class="col-lg-8">
                                 <div class="form-group">
                                     <label for="structure-name">Наименование</label>
-                                    <input class="form-control" name="structure-name" id="structure-name" type="text" placeholder="Наименование" value="<?= $name ?>">
+                                    <input class="form-control input-sm" name="structure-name" id="structure-name" type="text" placeholder="Наименование" value="<?= $name ?>">
                                     <span class="help-block">Отображается в заголовке страницы</span>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="structure-priority">Приоритет</label>
-                                    <input class="form-control" name="structure-priority" id="structure-priority" title="Отвечает за порядок вывода элементов структуры в меню." type="number" placeholder="Приоритет" value="<?= $priority ?>">
+                                    <input class="form-control input-sm" name="structure-priority" id="structure-priority" title="Отвечает за порядок вывода элементов структуры в меню." type="number" placeholder="Приоритет" value="<?= $priority ?>">
                                     <span class="help-block">Сортировка в списке</span>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@ class ViewStructureEdit extends View {
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="structure-description">Описание</label>
-                                    <textarea class="form-control" rows="5" name="structure-description" id="structure-description" placeholder="Описание"><?= $description ?></textarea>
+                                    <textarea class="form-control input-sm" rows="5" name="structure-description" id="structure-description" placeholder="Описание"><?= $description ?></textarea>
                                     <span class="help-block">Служебная информация, к заполнению не обязательна.</span>
                                 </div>
                             </div>
@@ -96,14 +96,14 @@ class ViewStructureEdit extends View {
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="structure-path">Путь</label>
-                                    <input class="form-control" name="structure-path" id="structure-path" type="text" placeholder="Путь" value="<?= $path ?>">
+                                    <input class="form-control input-sm" name="structure-path" id="structure-path" type="text" placeholder="Путь" value="<?= $path ?>">
                                     <span class="help-block">Путь к странице в адресной строке.</span>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="structure-parent">Родительский раздел</label>
-                                    <select class="form-control" name="structure-parent" id="structure-parent">
+                                    <select class="form-control input-sm" name="structure-parent" id="structure-parent">
                                         <option title="Родительский раздел не назначен" value="0">Без раздела</option>
                                         <? foreach ($this->structuresList as $oStructure): ?>
                                             <option title="<?= $oStructure->description ?>" value="<?= $oStructure->id ?>"<?= ($oStructure->id == $structureId ? ' selected="selected"' : '') ?>><?= $oStructure->name ?></option>
@@ -115,7 +115,7 @@ class ViewStructureEdit extends View {
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="structure-frame">Фрейм</label>
-                                    <input class="form-control" name="structure-frame" id="structure-frame" type="text" placeholder="Фрейм" value="<?= $frame ?>">
+                                    <input class="form-control input-sm" name="structure-frame" id="structure-frame" type="text" placeholder="Фрейм" value="<?= $frame ?>">
                                     <span class="help-block">Имя фрейма, используемого при отображении страницы.</span>
                                 </div>
                             </div>
@@ -124,7 +124,7 @@ class ViewStructureEdit extends View {
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="structure-module">Модуль отображения</label>
-                            <select class="form-control" name="structure-module" id="structure-module">
+                            <select class="form-control input-sm" name="structure-module" id="structure-module">
                                 <option title="Модуль для отображения не используется" value="0">Без модуля</option>
                                 <? foreach ($this->modulesList as $module): ?>
                                     <option title="<?= $module->description ?>" value="<?= $module->id ?>"<?= ($module->id == $moduleId ? ' selected="selected"' : '') ?>><?= $module->alias ?></option>
