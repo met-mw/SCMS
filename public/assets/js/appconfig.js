@@ -7,6 +7,7 @@ requirejs.config({
         'underscore.string': 'bower_components/underscore.string/dist/underscore.string.min',
         'tinymce': 'bower_components/tinymce/tinymce.min',
         'tinymce-ru': 'tinymce/langs/ru',
+        'tinymce-file-manager': 'tinymce/plugins/responsivefilemanager/plugin.min',
         'sform': 'forms/jquery.sform',
         'sajaxloader': 'jquery.sajaxloader',
         'modal': 'forms/modal',

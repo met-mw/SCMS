@@ -8,28 +8,44 @@ class ViewMain extends View {
 
     public function currentRender() {
         ?>
-        <div class="page-header">
-            <h1>SCMS<small>&trade;</small> <small>(Simple Content Management System)</small>.</h1>
-            <blockquote>
-                <p class="text-primary">Простая система управления контентом - теперь Вы можете просто взять и начнать бизнес в интернете.</p>
-                <footer>С уважением, <a href="http://sproject.ru" target="_blank" <cite title="SProject">SProject</cite></a></footer>
-            </blockquote>
-        </div>
-        <br/>
-        <br/>
-        <h3>Базовые модули системы:</h3>
-        <div class="panel panel-info">
-            <!-- Default panel contents -->
-            <div class="panel-heading">Общая информация</div>
-            <div class="panel-body">
-                <p>
-                    Модуль - элемент расширения функционала сайта.
-                    Добавляя в систему новые модули, можно наделить сайт новыми возможностями.
-                    Каждая страница сайта может отображать неограниченное количество модулей, благодаря этому, владелец сайта может получить любой желаемый функционал.
-                </p>
+        <div class="row">
+            <div class="col-lg-4">
+                <h4>SCMS<small>&trade;</small> <small>(Simple Content Management System)</small>.</h4>
+                <blockquote>
+                    <p class="text-primary"><small>Простая система управления контентом - теперь Вы можете просто взять и начнать бизнес в интернете.</small></p>
+                    <footer>С уважением, <a href="http://sproject.ru" target="_blank" <cite title="SProject">SProject</cite></a></footer>
+                </blockquote>
+            </div>
+            <div class="col-lg-8">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <caption>Ошибки системы:</caption>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Сообщение</th>
+                                <th>Дата</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Попытка неавторизованного доступа к панели администратора. IP: 212.133.1.23</td>
+                                <td>20.01.2016 16:03</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>fopen() bad parameter!</td>
+                                <td>20.01.2016 16:03</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <br/>
+        <h3>Базовые модули системы:</h3>
+        <hr/>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6">

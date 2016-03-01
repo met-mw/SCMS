@@ -90,8 +90,8 @@ abstract class MasterAdminController extends Controller {
         $modulesMenu->itemsList
             ->addItem('structures', 'Структура сайта')
             ->addItem('pages', 'Статичные страницы')
-            ->addItem('employees', 'Сотрудники')
             ->addItem('catalogue', 'Каталог')
+            ->addItem('employees', 'Сотрудники')
             ->addItem('frames', 'Фреймы')
             ->addItem('modules', 'Модули')
         ;
