@@ -50,6 +50,18 @@ class MasterController extends MasterDefaultController {
         $frame = $this->structure->frame != ''
             ? Registry::frame($this->structure->frame)
             : $this->frame;
+
+        $seoTitle = $this->structure->seo_title;
+        $seoDescription = $this->structure->seo_description;
+        $seoKeywords = $this->structure->seo_keywords;
+        $frame->setTitle(empty($seoTitle) ? $this->structure->name : $seoTitle);
+        if (!empty($seoDescription)) {
+            $frame->addMeta(['name' => 'description', 'content' => $seoDescription]);
+        }
+        if (!empty($seoKeywords)) {
+            $frame->addMeta(['name' => 'keywords', 'content' => $seoKeywords]);
+        }
+
         $controllerName = "App\\Modules\\" . ucfirst($module->name) . "\\{$manifest['run']['controller']}";
 
         /** @var ModuleSetting[] $moduleSettings */

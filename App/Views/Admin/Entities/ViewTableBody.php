@@ -37,9 +37,7 @@ class ViewTableBody extends ViewMasterTableBody {
                 <? if (!empty($this->actions)): ?>
                 <td style="width: 80px;">
                     <? foreach ($this->actions as $action): ?>
-                        <a href="<?= $action['url'] ?>?pk=<?= $entity->getPrimaryKey() ?>">
-                            <span class="glyphicon <?= $action['icon'] ?><?= (' ' . implode(' ', $action['classes'])) ?>" title="<?= $action['name'] ?>"></span>
-                        </a>
+                        <a href="<?= $action['url'] ?>?pk=<?= $entity->getPrimaryKey() ?>"><span class="glyphicon <?= $action['icon'] ?><?= (' ' . implode(' ', $action['classes'])) ?>" title="<?= $action['name'] ?>"></span></a>
                     <? endforeach; ?>
                 </td>
                 <? endif; ?>

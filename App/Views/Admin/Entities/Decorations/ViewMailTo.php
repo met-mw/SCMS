@@ -2,10 +2,10 @@
 namespace App\Views\Admin\Entities\Decorations;
 
 
-use App\Views\Admin\MainList\Decorations\MasterView;
+use App\Views\Admin\MainList\Decorations\MasterView as MainListMasterView;
 use SORM\Entity;
 
-class ViewMailTo extends MasterView {
+class ViewMailTo extends MainListMasterView {
 
     public $displayFieldName;
 

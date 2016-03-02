@@ -43,8 +43,11 @@ class ViewStructureEdit extends View {
             $anchor = $this->structure->anchor;
             $priority = $this->structure->priority;
             $active = $this->structure->active;
+            $seoTitle = $this->structure->seo_title;
+            $seoDescription = $this->structure->seo_description;
+            $seoKeywords = $this->structure->seo_keywords;
         } else {
-            $id = $name = $description = $path = $frame = '';
+            $id = $name = $description = $path = $frame = $seoTitle = $seoDescription = $seoKeywords = '';
             $structureId = $this->parentId;
             $moduleId = 0;
             $anchor = 0;
@@ -117,6 +120,29 @@ class ViewStructureEdit extends View {
                                     <label for="structure-frame">Фрейм</label>
                                     <input class="form-control input-sm" name="structure-frame" id="structure-frame" type="text" placeholder="Фрейм" value="<?= $frame ?>">
                                     <span class="help-block">Имя фрейма, используемого при отображении страницы.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="structure-seo-title">SEO заголовок</label>
+                                    <textarea class="form-control input-sm" rows="5" name="structure-seo-title" id="structure-seo-title" placeholder="SEO заголовок"><?= $seoTitle ?></textarea>
+                                    <span class="help-block">Заголовок раздела для поисковых систем.</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="structure-seo-description">SEO описание</label>
+                                    <textarea class="form-control input-sm" rows="5" name="structure-seo-description" id="structure-seo-description" placeholder="SEO описание"><?= $seoDescription ?></textarea>
+                                    <span class="help-block">Описание раздела для поисковых систем.</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="structure-seo-keywords">SEO ключевые слова</label>
+                                    <textarea class="form-control input-sm" rows="5" name="structure-seo-keywords" id="structure-seo-keywords" placeholder="SEO ключевые слова"><?= $seoKeywords ?></textarea>
+                                    <span class="help-block">Ключевые слова раздела для поисковых систем.</span>
                                 </div>
                             </div>
                         </div>

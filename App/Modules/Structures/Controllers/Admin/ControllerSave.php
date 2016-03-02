@@ -31,6 +31,9 @@ class ControllerSave extends MasterAdminController{
         $anchor = (int)Param::post('structure-anchor', false)->exists();
         $priority = Param::post('structure-priority', false)->asString();
         $active = (int)Param::post('structure-active', false)->exists();
+        $seoTitle = Param::post('structure-seo-title', false)->asString();
+        $seoDescription = Param::post('structure-seo-description', false)->asString();
+        $seoKeywords = Param::post('structure-seo-keywords', false)->asString();
 
         $accept = Param::post('structure-accept', false);
 
@@ -52,6 +55,9 @@ class ControllerSave extends MasterAdminController{
         $oStructure->anchor = $anchor;
         $oStructure->priority = $priority;
         $oStructure->active = $active;
+        $oStructure->seo_title = $seoTitle;
+        $oStructure->seo_description = $seoDescription;
+        $oStructure->seo_keywords = $seoKeywords;
         if (!$oStructure->getPrimaryKey()) {
             $oStructure->deleted = false;
         }

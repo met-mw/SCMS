@@ -7,7 +7,7 @@ require(
                 "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak",
                 "searchreplace wordcount visualblocks visualchars code insertdatetime media nonbreaking",
                 "table contextmenu directionality emoticons template textcolor paste textcolor",
-                "colorpicker textpattern"
+                "colorpicker textpattern responsivefilemanager"
             ],
 
             toolbar1: "newdocument | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",

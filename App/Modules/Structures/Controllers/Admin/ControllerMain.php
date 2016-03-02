@@ -7,6 +7,7 @@ use App\Models\Module;
 use App\Modules\Structures\Models\Structure;
 use App\Views\Admin\Entities\Decorations\ViewActive;
 use App\Views\Admin\Entities\Decorations\ViewCallback;
+use App\Views\Admin\Entities\Decorations\ViewIsEmpty;
 use App\Views\Admin\Entities\Decorations\ViewParent;
 use App\Views\Admin\Entities\ViewList;
 use App\Views\Admin\ViewBreadcrumbs;
@@ -64,10 +65,16 @@ class ControllerMain extends MasterAdminController {
             ->addColumn('frame', 'Фрейм')
             ->addColumn('module_id', 'Модуль')
             ->addColumn('priority', 'Приоритет')
+            ->addColumn('seo_title', 'SEO T')
+            ->addColumn('seo_description', 'SEO D')
+            ->addColumn('seo_keywords', 'SEO K')
             ->addColumn('anchor', 'Фрагмент')
             ->addColumn('active', 'Активна')
         ;
 
+        $view->table->tableBody->addDecoration('seo_title', new ViewIsEmpty('seo_title'));
+        $view->table->tableBody->addDecoration('seo_description', new ViewIsEmpty('seo_description'));
+        $view->table->tableBody->addDecoration('seo_keywords', new ViewIsEmpty('seo_keywords'));
         $view->table->tableBody->addDecoration('anchor', new ViewActive('anchor'));
         $view->table->tableBody->addDecoration('active', new ViewActive('active'));
 

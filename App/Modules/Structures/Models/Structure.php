@@ -20,6 +20,9 @@ use SORM\Entity;
  * @property int $module_id
  * @property int $anchor
  * @property int $priority
+ * @property string $seo_title
+ * @property string $seo_description
+ * @property string $seo_keywords
  * @property int $active
  * @property int $deleted
  */

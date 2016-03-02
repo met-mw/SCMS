@@ -2,7 +2,6 @@
 namespace App\Views\Admin\Entities\Decorations;
 
 
-use App\Views\Admin\MainList\Decorations\MasterView;
 use SORM\Entity;
 
 /**
@@ -13,17 +12,12 @@ use SORM\Entity;
  */
 class ViewActive extends MasterView {
 
-    public $fieldName;
-
-    public function __construct($fieldName) {
-        $this->fieldName = $fieldName;
-    }
-
     public function currentRender() {
         /** @var Entity $data */
+        $isActive = $this->data->{$this->field};
         ?>
-        <span class="label label-<?= ($this->data->{$this->fieldName} == 1 ? 'success' : 'default') ?>">
-            <?= ($this->data->{$this->fieldName} == 1 ? 'Да' : 'Нет') ?>
+        <span class="label label-<?= $isActive ? 'success' : 'default' ?>">
+            <?= $isActive ? 'Да' : 'Нет' ?>
         </span>
         <?
     }

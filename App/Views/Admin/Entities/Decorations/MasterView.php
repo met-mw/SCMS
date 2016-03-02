@@ -1,16 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: metr
- * Date: 22.11.15
- */
-
 namespace App\Views\Admin\Entities\Decorations;
 
 
-use App\Views\Admin\MainList\Decorations\MasterView as MasterDefaultView;
+use App\Views\Admin\MainList\Decorations\MasterView as MainListMasterView;
 
-abstract class MasterView extends MasterDefaultView {
+abstract class MasterView extends MainListMasterView {
 
     public $field;
 

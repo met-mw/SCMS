@@ -2,7 +2,7 @@
 namespace App\Views\Admin\Entities\Decorations;
 
 
-use App\Views\Admin\MainList\Decorations\MasterView;
+use App\Views\Admin\MainList\Decorations\MasterView as MainListMasterView;
 use SORM\Entity;
 
 /**
@@ -11,7 +11,7 @@ use SORM\Entity;
  *
  * @property Entity $data;
  */
-class ViewParent extends MasterView {
+class ViewParent extends MainListMasterView {
 
     public $url;
     public $displayFieldName;

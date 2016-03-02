@@ -18,7 +18,6 @@ class ControllerMain extends MasterController {
         if ($this->page_id != 0) {
             /** @var Page $oPage */
             $oPage = DataSource::factory(Page::cls(), $this->page_id);
-            $frame->setTitle($oPage->name);
             $view->page = $oPage;
             $frame->bindView('content', $view);
         } else {
