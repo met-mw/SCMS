@@ -31,7 +31,11 @@ class ControllerMain extends MasterAdminController {
         ;
 
         $employees = DataSource::factory(Employee::cls());
-        $employees->builder()->sqlCalcFoundRows();
+        $employees->builder()
+            ->where('deleted=0')
+            ->whereAnd()
+            ->where('active=1')
+            ->sqlCalcFoundRows();
         $view->table->tableBody->data = $employees->findAll();
         $this->pager->prepare();
         $view->table

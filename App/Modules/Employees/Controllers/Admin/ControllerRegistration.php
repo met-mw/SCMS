@@ -65,7 +65,7 @@ class ControllerRegistration extends MasterAdminController {
             $oEmployee = DataSource::factory(Employee::cls());
             $oEmployee->name = $name;
             $oEmployee->email = $email;
-            $oEmployee->password = password_hash($password . Employee::SALT, PASSWORD_DEFAULT);
+            $oEmployee->password = $this->employeeAuthorizator->preparePassword($password);
             $oEmployee->active = true;
             $oEmployee->deleted = false;
             $oEmployee->commit();

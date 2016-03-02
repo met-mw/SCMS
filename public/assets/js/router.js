@@ -42,6 +42,11 @@ define(
                     'base-path': '/admin/modules/pages/edit',
                     'pattern': '^/admin/modules/pages/edit(/?)(\\?pk=[0-9]+)?$',
                     'modules': ['tinymce', 'tinymce-ru', 'tinymce-file-manager', 'module.pages.tinymce-config', 'module.pages.edit']
+                },
+                {
+                    'base-path': '/admin/modules/employees/edit',
+                    'pattern': '^/admin/modules/employees/edit(/?)(\\?pk=[0-9]+)?$',
+                    'modules': ['module.employees.edit']
                 }
 
                 // Пользовательская часть

@@ -21,7 +21,7 @@ class ViewEmployeeEdit extends View {
 
     public function currentRender() {
         ?>
-        <form action="/admin/modules/employees/save/" method="post" id="employee-edit-form">
+        <form action="/admin/modules/employees/save/" method="post" id="employee-form">
             <fieldset>
                 <legend>Редактирование сотрудника</legend>
                 <input type="hidden" id="employee-id" name="employee-id" value="<?= $this->employee->getPrimaryKey() ?>" />
@@ -58,9 +58,9 @@ class ViewEmployeeEdit extends View {
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="employee-current-password">Пароль текущего пользователя</label>
+                                    <label for="employee-current-password">Ваш пароль</label>
                                     <input class="form-control input-sm" name="employee-current-password" id="employee-current-password" type="password" placeholder="Пароль текущего пользователя">
-                                    <span class="help-block">Для изменения пароля сотрудника нужно указать пароль акстивного пользователя.</span>
+                                    <span class="help-block">Для изменения пароля сотрудника нужно указать пароль активного пользователя.</span>
                                 </div>
                                 <div class="form-group">
                                     <label for="employee-new-password">Новый пароль</label>
@@ -78,8 +78,8 @@ class ViewEmployeeEdit extends View {
                 </div>
 
                 <hr/>
-                <button name="structure-save" id="structure-save" type="submit" class="btn btn-primary">Сохранить</button>
-                <button name="structure-accept" id="structure-accept" type="submit" class="btn btn-success">Применить</button>
+                <button name="employee-save" id="employee-save" type="submit" class="btn btn-primary">Сохранить</button>
+                <button name="employee-accept" id="employee-accept" type="submit" class="btn btn-success">Применить</button>
             </fieldset>
         </form>
         <?

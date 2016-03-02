@@ -16,7 +16,7 @@ class ControllerMain extends MasterAdminController {
         $this->authorizeIfNot();
 
         $view = new ViewList();
-        $view->menu->addItem('Добавить', '/admin/modules/pages/edit/', 'glyphicon-plus');
+        $view->menu->addItem('Добавить статическую страницу', '/admin/modules/pages/edit/', 'glyphicon-plus');
 
         $manifest = $this->moduleInstaller->getManifest($this->moduleName);
 

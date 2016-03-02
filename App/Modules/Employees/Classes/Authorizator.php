@@ -21,6 +21,14 @@ class Authorizator {
         return isset($_SESSION['employee']);
     }
 
+    public function preparePassword($password) {
+        return password_hash($password . Employee::SALT, PASSWORD_DEFAULT);
+    }
+
+    public function verifyPassword(Employee $oEmployee, $password) {
+        return password_verify($password . Employee::SALT, $oEmployee->password);
+    }
+
     public function authorize($email, $password) {
         /** @var Employee $oEmployees */
         $oEmployees = DataSource::factory(Employee::cls());
@@ -35,7 +43,7 @@ class Authorizator {
         }
 
         $oEmployee = $aEmployees[0];
-        if (!password_verify($password . Employee::SALT, $oEmployee->password)) {
+        if (!$this->verifyPassword($oEmployee, $password)) {
             return false;
         }
 
