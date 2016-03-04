@@ -68,10 +68,12 @@ class ViewTable extends View {
             </div>
         </div>
         <form>
-            <table class="table table-striped table-bordered table-hover">
-                <? $this->tableHead->render(); ?>
-                <? $this->tableBody->render(); ?>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <? $this->tableHead->render(); ?>
+                    <? $this->tableBody->render(); ?>
+                </table>
+            </div>
         </form>
     <?
     }

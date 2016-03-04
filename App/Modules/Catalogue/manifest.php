@@ -3,7 +3,7 @@ return [
     'version' => '1.0.0',
     'meta' => [
         'name' => 'CatalogueRetriever',
-        'alias' => 'Каталог',
+        'alias' => 'Каталог товаров',
         'description' => 'Управление товарами и их представление пользователю в удобном виде.',
     ],
     'author' => [

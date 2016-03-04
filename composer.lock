@@ -12,7 +12,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/met-mw/SFramework.git",
-                "reference": "b210467bb9289b2af91b05d52a7c8478707a52cf"
+                "reference": "98ab7a0d104ebc67b5416e96cd5bf2ad83563af2"
             },
             "require": {
                 "met_mw/sorm": "@dev",
@@ -31,7 +31,7 @@
                     "email": "met-mw@rambler.ru"
                 }
             ],
-            "time": "2016-03-02 13:30:33"
+            "time": "2016-03-04 20:45:47"
         },
         {
             "name": "met_mw/sorm",
@@ -39,7 +39,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/met-mw/SORM.git",
-                "reference": "28b8db597d4ef368bc0d5eef3c85d198f05cbc8f"
+                "reference": "c1532b485299b37c326fca6ed40bc47d5d8951a1"
             },
             "type": "library",
             "autoload": {
@@ -57,7 +57,7 @@
                 }
             ],
             "description": "Simple and lightweight ORM library.",
-            "time": "2016-02-17 21:52:51"
+            "time": "2016-03-03 12:12:05"
         }
     ],
     "packages-dev": [],
