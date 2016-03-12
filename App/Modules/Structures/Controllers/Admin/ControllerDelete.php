@@ -13,7 +13,7 @@ class ControllerDelete extends MasterAdminController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
-        $structureId = Param::get('pk')->asInteger();
+        $structureId = Param::get('id')->asInteger();
         /** @var Structure $oStructure */
         $oStructure = DataSource::factory(Structure::cls(), $structureId);
         $name = $oStructure->name;
@@ -21,6 +21,10 @@ class ControllerDelete extends MasterAdminController {
         NotificationLog::instance()->pushMessage("Структура \"{$name}\" успешно удалена.");
 
         $this->response->send();
+    }
+
+    public function actionGroup() {
+        // TODO: реализовать групповое удаление
     }
 
 

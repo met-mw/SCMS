@@ -4,7 +4,7 @@ namespace App\Modules\Structures\Views\Admin;
 
 use App\Models\Module;
 use App\Modules\Structures\Models\Structure;
-use App\Views\Admin\ViewNotifications;
+use App\Views\Admin\ViewNotificationsModal;
 use SFramework\Classes\View;
 
 class ViewStructureEdit extends View {
@@ -19,11 +19,11 @@ class ViewStructureEdit extends View {
     public $structuresList;
     /** @var int */
     public $parentId;
-    /** @var ViewNotifications */
+    /** @var ViewNotificationsModal */
     public $notificationsView;
 
     public function __construct() {
-        $this->notificationsView = new ViewNotifications();
+        $this->notificationsView = new ViewNotificationsModal();
 
         $this->optional[] = 'currentModuleConfigView';
         $this->optional[] = 'structure';

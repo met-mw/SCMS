@@ -1,11 +1,12 @@
 <?php
-namespace App\Views\Admin;
+namespace App\Views\Admin\DataGrid;
 
 
-use SFramework\Classes\Pagination;
 use SFramework\Views\ViewPagination as ViewMasterPagination;
 
 class ViewPagination extends ViewMasterPagination {
+
+    public $formName;
 
     public function currentRender() {
         if ($this->pagesCount == 1) {
@@ -14,8 +15,9 @@ class ViewPagination extends ViewMasterPagination {
 
         $isFirst = (int)$this->currentPage <= 1;
 
+        $parameterName = "{$this->formName}-{$this->parameterName}";
         list($urlPath, $urlParams) = explode('?', $this->currentURL);
-        $urlParams = array_diff(explode('&', $urlParams), ['', "{$this->parameterName}={$this->currentPage}"]);
+        $urlParams = array_diff(explode('&', $urlParams), ['', "{$parameterName}={$this->currentPage}"]);
 
         $firstParams = $urlParams;
         $lastParams = $urlParams;
@@ -25,7 +27,7 @@ class ViewPagination extends ViewMasterPagination {
         $previousParams = $urlParams;
         if (!$isFirst) {
             $firstUrl = "{$urlPath}" . (!empty($firstParams) ? '?' : '') . implode('&', $firstParams);
-            $previousParams[] = "{$this->parameterName}=" . ($this->currentPage - 1);
+            $previousParams[] = "{$parameterName}=" . ($this->currentPage - 1);
             $previousUrl = "{$urlPath}?" . implode('&', $previousParams);
         }
 
@@ -34,9 +36,9 @@ class ViewPagination extends ViewMasterPagination {
         $lastUrl = '#';
         $nextParams = $urlParams;
         if (!$isLast) {
-            $nextParams[] = "{$this->parameterName}=" . (is_null($this->currentPage) ? 2 : $this->currentPage + 1);
+            $nextParams[] = "{$parameterName}=" . (is_null($this->currentPage) ? 2 : $this->currentPage + 1);
             $nextUrl = "{$urlPath}?" . implode('&', $nextParams);
-            $lastParams[] = "{$this->parameterName}={$this->pagesCount}";
+            $lastParams[] = "{$parameterName}={$this->pagesCount}";
             $lastUrl = "{$urlPath}?" . implode('&', $lastParams);
         }
 
@@ -68,7 +70,7 @@ class ViewPagination extends ViewMasterPagination {
                         <span><?= $i ?></span>
                     </li>
                     <? else: ?>
-                    <? $pageParams[] = "{$this->parameterName}={$i}"; ?>
+                    <? $pageParams[] = "{$parameterName}={$i}"; ?>
                     <li>
                         <a href="<?= "$urlPath?" . implode('&', $pageParams) ?>"><?= $i ?></a>
                     </li>

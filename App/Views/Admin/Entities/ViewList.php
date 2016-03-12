@@ -5,9 +5,7 @@ namespace App\Views\Admin\Entities;
 use App\Views\Admin\MainList\ViewList as ViewMasterList;
 use App\Views\Admin\MainList\ViewMenu;
 use App\Views\Admin\MainList\ViewTable;
-use App\Views\Admin\ViewConfirmModal;
-use App\Views\Admin\ViewNotifications;
-use App\Views\Admin\ViewPagination;
+use App\Views\ViewPagination;
 
 class ViewList extends ViewMasterList {
 
@@ -19,8 +17,6 @@ class ViewList extends ViewMasterList {
         $this->table->tableHead = new ViewTableHead();
         $this->table->tableBody = new ViewTableBody();
         $this->pagination = new ViewPagination();
-        $this->notificationsView = new ViewNotifications();
-        $this->confirmModalView = new ViewConfirmModal();
     }
 
 }

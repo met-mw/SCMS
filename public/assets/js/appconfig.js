@@ -1,7 +1,9 @@
 requirejs.config({
     paths: {
+        'text': 'bower_components/text/text',
         'router': 'router',
         'jquery': 'bower_components/jquery/dist/jquery.min',
+        'jquery-tmpl': 'bower_components/jquery-tmpl/jquery.tmpl.min',
         'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap.min',
         'underscore': 'bower_components/underscore/underscore-min',
         'underscore.string': 'bower_components/underscore.string/dist/underscore.string.min',
@@ -11,7 +13,11 @@ requirejs.config({
         'sform': 'forms/jquery.sform',
         'sajaxloader': 'jquery.sajaxloader',
         'modal': 'forms/modal',
+        'modal-popup': 'library/modal-popup',
         'entity': 'admin/entity',
+        's-datagrid': 'library/s-datagrid',
+        's-confirmation': 'library/s-confirmation',
+        's-notification': 'library/s-notification',
         'module.structure.edit': '/App/Modules/Structures/public/assets/js/admin/form/structure',
         'module.employee.authorization': '/App/Modules/Employees/public/assets/js/admin/form/authorization',
         'module.employee.registration': '/App/Modules/Employees/public/assets/js/admin/form/registration',

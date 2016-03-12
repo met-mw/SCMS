@@ -6,6 +6,7 @@ use App\Classes\MasterAdminController;
 use App\Modules\Pages\Models\Page;
 use App\Modules\Pages\Views\Admin\ViewEditForm;
 use App\Views\Admin\ViewBreadcrumbs;
+use SFramework\Classes\Breadcrumb;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
@@ -14,33 +15,30 @@ class ControllerEdit extends MasterAdminController {
     public function actionIndex() {
         $this->authorizeIfNot();
 
-        $pageId = Param::get('pk', false)->asInteger(false);
+        $pageId = Param::get('id', false)->asInteger(false);
+
+        /** @var Page $oPage */
+        $oPage = is_null($pageId) ? null : DataSource::factory(Page::cls(), $pageId);
 
         $view = new ViewEditForm();
-        $view->page = is_null($pageId) ? null : DataSource::factory(Page::cls(), $pageId);
+        $view->page = $oPage;
 
-        $this->buildBreadcrumbs();
-        $this->fillBreadcrumbs($view->page);
+        // Подготовка хлебных крошек
         $viewBreadcrumbs = new ViewBreadcrumbs();
-        $viewBreadcrumbs->breadcrumbs = $this->breadcrumbs->build();
-        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
-
-        $this->frame->bindView('content', $view);
-
-        $this->frame->render();
-    }
-
-    protected function fillBreadcrumbs(Page $page = null) {
-        $bcModules = $this->breadcrumbs->getRoot()->findChildNodeByPath('modules');
-        $bcModules->addChildNode('Статичные страницы', 'pages');
-        $bcPages = $bcModules->findChildNodeByPath('pages');
-        if (is_null($page)) {
-            $bcPages->addChildNode('Добавление', 'edit');
+        $viewBreadcrumbs->breadcrumbs = [
+            new Breadcrumb('Панель управления', '/admin'),
+            new Breadcrumb('Модули', '/modules'),
+            new Breadcrumb('Статичные страницы', '/pages')
+        ];
+        if ($oPage !== null) {
+            $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb("Редактирование \"{$oPage->name}\"", '');
         } else {
-            $bcPages->addChildNode('Редкатирование', 'edit', true, true);
-            $bcEdit = $bcPages->findChildNodeByPath('edit');
-            $bcEdit->addChildNode("Редактирование \"{$page->name}\"", "pk={$page->getPrimaryKey()}", false, false, true);
+            $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb('Добавление новой статичной страницы', '');
         }
+
+        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
+        $this->frame->bindView('content', $view);
+        $this->frame->render();
     }
 
 } 

@@ -39,7 +39,7 @@ class CatalogueRetriever {
 		        priority)
 	        ) as childs
 	        left join module_catalogue_category mcc on mcc.id = childs.category_id
-	    ' . (!empty($conditions) ? " where {$conditions}" : '') . '
+	    ' . (!empty($conditions) ? " where{$conditions}" : '') . '
 	    ' . (is_null($limit) ? '' : " limit {$limit}") . '
 	    ' . (is_null($offset) ? '' : " offset {$offset}");
 

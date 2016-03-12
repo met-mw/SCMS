@@ -4,8 +4,9 @@ namespace App\Classes;
 
 use App\Modules\Employees\Classes\Authorizator;
 use App\Views\Admin\MainList\ViewList;
+use App\Views\Admin\ViewConfirmationModal;
 use App\Views\Admin\ViewMenu;
-use App\Views\Admin\ViewNotifications;
+use App\Views\Admin\ViewNotificationsModal;
 use SFramework\Classes\Breadcrumbs;
 use SFramework\Classes\Controller;
 use SFramework\Classes\NotificationLog;
@@ -42,8 +43,6 @@ abstract class MasterAdminController extends Controller {
     protected $response;
     /** @var ModuleInstaller */
     protected $moduleInstaller;
-    /** @var Breadcrumbs */
-    protected $breadcrumbs;
 
     public function __construct($moduleName = '') {
         $this->moduleName = $moduleName;
@@ -59,21 +58,9 @@ abstract class MasterAdminController extends Controller {
         $this->employeeAuthorizator = new Authorizator();
         $this->pager = new Pagination(DataSource::getCurrent(), $pageNumber->asInteger(false), 15);
 
-        $this->breadcrumbs = new Breadcrumbs($this->router->getRoute(), 'Панель управления', '', 'admin');
-
         $this->frame->bindView('menu', $this->buildMenu());
-        $this->frame->bindView('notifications', new ViewNotifications());
-    }
-
-    protected function buildBreadcrumbs() {
-        $this->breadcrumbs->getRoot()
-            ->addChildNode('Конфигурация', 'configuration')
-            ->addChildNode('Модули', 'modules', false, true)
-        ;
-    }
-
-    protected function fillBreadcrumbs() {
-
+        $this->frame->bindView('modal-notification', new ViewNotificationsModal());
+        $this->frame->bindView('modal-confirmation', new ViewConfirmationModal());
     }
 
     /**
@@ -107,13 +94,6 @@ abstract class MasterAdminController extends Controller {
             header('Location: /admin/modules/employees/authorization');
             exit;
         }
-    }
-
-    public function fillPager(ViewList $view) {
-        $view->pagination->pagesCount = $this->pager->getPagesCount();
-        $view->pagination->currentURL = $this->pager->getUrl();
-        $view->pagination->currentPage = $this->pager->getCurrentPage();
-        $view->pagination->parameterName = $this->pager->getParameterName();
     }
 
 } 

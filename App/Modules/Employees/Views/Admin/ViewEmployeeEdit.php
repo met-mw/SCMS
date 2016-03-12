@@ -5,18 +5,18 @@ namespace App\Modules\Employees\Views\Admin;
 
 
 use App\Modules\Employees\Models\Admin\Employee;
-use App\Views\Admin\ViewNotifications;
+use App\Views\Admin\ViewNotificationsModal;
 use SFramework\Classes\View;
 
 class ViewEmployeeEdit extends View {
 
     /** @var Employee */
     public $employee;
-    /** @var ViewNotifications */
+    /** @var ViewNotificationsModal */
     public $notificationsView;
 
     public function __construct() {
-        $this->notificationsView = new ViewNotifications();
+        $this->notificationsView = new ViewNotificationsModal();
     }
 
     public function currentRender() {

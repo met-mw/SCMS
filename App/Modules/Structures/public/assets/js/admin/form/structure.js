@@ -2,11 +2,11 @@ define(
     'module.structure.edit',
     [
         'jquery',
-        'modal',
+        's-notification',
         'sform',
         'sajaxloader'
     ],
-    function($, modal) {
+    function($, notification) {
         "use strict";
 
         $(document).ready(function() {
@@ -26,9 +26,9 @@ define(
                     params,
                     function(data, status) {
                         var response = $.parseJSON(data);
-                        modal.modalByResponse(response, status);
                         elementsForDisable.prop('disabled', false);
                         loader.hide();
+                        notification.modalByResponse(response, status);
                     }
                 );
                 return false;
@@ -43,7 +43,7 @@ define(
                     },
                     function(data, status) {
                         var response = $.parseJSON(data);
-                        modal.modalByResponse(response, status);
+                        notification.modalByResponse(response, status);
                         $('#module-controls-container').html(response.additional_data.form);
                     }
                 );

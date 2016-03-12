@@ -11,7 +11,7 @@ define(
                 {
                     'base-path': '/admin/modules/structures',
                     'pattern': '^/admin/modules/structures(/?)(\\?parent_pk=[0-9]+)?$',
-                    'modules': ['entity']
+                    'modules': ['s-datagrid']
                 },
                 {
                     'base-path': '/admin/modules/structures/edit',
@@ -31,12 +31,12 @@ define(
                 {
                     'base-path': '/admin/modules/employees',
                     'pattern': '^/admin/modules/employees(/?)(\\?pk=[0-9]+)?$',
-                    'modules': ['entity']
+                    'modules': ['s-datagrid']
                 },
                 {
                     'base-path': '/admin/modules/pages',
                     'pattern': '^/admin/modules/pages(/?)$',
-                    'modules': ['entity']
+                    'modules': ['s-datagrid']
                 },
                 {
                     'base-path': '/admin/modules/pages/edit',
@@ -47,7 +47,12 @@ define(
                     'base-path': '/admin/modules/employees/edit',
                     'pattern': '^/admin/modules/employees/edit(/?)(\\?pk=[0-9]+)?$',
                     'modules': ['module.employees.edit']
-                }
+                },
+                {
+                    'base-path': '/admin/modules/catalogue',
+                    'pattern': '^/admin/modules/catalogue(/?)',
+                    'modules': ['s-datagrid']
+                },
 
                 // Пользовательская часть
             ],

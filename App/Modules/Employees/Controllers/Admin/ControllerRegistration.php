@@ -6,6 +6,7 @@ use App\Classes\MasterAdminController;
 use App\Modules\Employees\Models\Admin\Employee;
 use App\Modules\Employees\Views\Admin\Forms\ViewRegistration;
 use App\Views\Admin\ViewBreadcrumbs;
+use SFramework\Classes\Breadcrumb;
 use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
@@ -16,23 +17,18 @@ class ControllerRegistration extends MasterAdminController {
         $this->authorizeIfNot();
         $view = new ViewRegistration();
 
-        $this->buildBreadcrumbs();
-        $this->fillBreadcrumbs();
+        // Подготовка хлебных крошек
         $viewBreadcrumbs = new ViewBreadcrumbs();
-        $this->breadcrumbs->setIgnores(['page', 'back_params']);
-        $viewBreadcrumbs->breadcrumbs = $this->breadcrumbs->build();
-        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
+        $viewBreadcrumbs->breadcrumbs = [
+            new Breadcrumb('Панель управления', '/admin'),
+            new Breadcrumb('Модули', '/modules'),
+            new Breadcrumb('Сотрудники', '/employees'),
+            new Breadcrumb('Добавление нового сотрудника', '')
+        ];
 
-        $this->frame
+        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs)
             ->bindView('content', $view)
             ->render();
-    }
-
-    protected function fillBreadcrumbs() {
-        $bcModules = $this->breadcrumbs->getRoot()->findChildNodeByPath('modules');
-        $bcModules->addChildNode('Сотрудники', 'employees');
-        $bcEmployees = $bcModules->findChildNodeByPath('employees');
-        $bcEmployees->addChildNode('Добавление нового сотрудника', 'registration');
     }
 
     public function actionSignup() {

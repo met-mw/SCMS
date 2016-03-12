@@ -1,7 +1,5 @@
 (function($){
     $.fn.sForm = function() {
-//        var form = this;
-
         return {
             form: this,
             collectFields: function(withDisabled) {
