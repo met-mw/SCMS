@@ -1,5 +1,15 @@
 body {
     font-family: Georgia, Times, "Times New Roman", serif;
+    overflow-y: scroll;
+}
+
+body.modal-open {
+    overflow-y: scroll;
+    margin: 0;
+}
+
+.modal {
+    overflow: auto;
 }
 
 #map {

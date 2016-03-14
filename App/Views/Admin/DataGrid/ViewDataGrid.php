@@ -82,7 +82,14 @@ class ViewDataGrid extends View {
                                 <? endforeach; ?>
                                 <td>
                                     <? foreach ($this->dataGrid->getActions() as $action): ?>
-                                        <a name="<?= $this->dataGrid->getName() ?>-action-<?= $action->getName() ?>-<?= $this->dataGrid->getKey() ?>" href="<?= CoreFunctions::addGETParamToURI($action->getURI(), $action->getParamName(), $row[$this->dataGrid->getKey()]) ?>"><span <?= $action->buildAttributes() ?> title="<?= $action->getTitle() ?>"><?= $action->getDisplayName() ?></span></a>
+                                        <?
+                                            $actionURI = $action->getURI();
+                                            foreach ($action->getAdditionalParameters() as $additionalParameter) {
+                                                $actionURI = CoreFunctions::addGETParamToURI($actionURI, $additionalParameter, $row[$additionalParameter]);
+                                            }
+                                            $actionURI = CoreFunctions::addGETParamToURI($actionURI, $action->getParamName(), $row[$this->dataGrid->getKey()]);
+                                        ?>
+                                        <a name="<?= $this->dataGrid->getName() ?>-action-<?= $action->getName() ?>-<?= $this->dataGrid->getKey() ?>" href="<?= $actionURI ?>"><span <?= $action->buildAttributes() ?> title="<?= $action->getTitle() ?>"><?= $action->getDisplayName() ?></span></a>
                                     <? endforeach; ?>
                                 </td>
                             </tr>
@@ -116,7 +123,7 @@ class ViewDataGrid extends View {
                                         <option<?= $this->dataGrid->getItemsPerPage() == 500 ? ' selected="selected"' : '' ?>>500</option>
                                         <option<?= $this->dataGrid->getItemsPerPage() == 1000 ? ' selected="selected"' : '' ?>>1000</option>
                                     </select>
-                                    <button name="<?= $this->dataGrid->getName() ?>-set-items-per-page" type="submit" class="btn btn-info btn-sm" title="Отобразить" formmethod="get"><span class="glyphicon glyphicon-ok"></span></button>
+                                    <button name="<?= $this->dataGrid->getName() ?>-set-items-per-page-button" type="submit" class="btn btn-info btn-sm" title="Отобразить" formmethod="get"><span class="glyphicon glyphicon-ok"></span></button>
                                 </div>
                             </td>
                         </tr>

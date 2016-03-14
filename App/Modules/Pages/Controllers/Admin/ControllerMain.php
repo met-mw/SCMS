@@ -39,8 +39,8 @@ class ControllerMain extends MasterAdminController {
         ;
 
         $dataGrid
-            ->addAction(new Action('id', '/admin/modules/pages/edit/', 'edit', '', ['class' => 'glyphicon glyphicon-pencil'], 'Редактировать'))
-            ->addAction(new Action('id', '/admin/modules/pages/delete/', 'delete', '', ['class' => 'glyphicon glyphicon-trash'], 'Удалить', true))
+            ->addAction(new Action('id', '/admin/modules/pages/edit/', 'edit', '', [], ['class' => 'glyphicon glyphicon-pencil'], 'Редактировать'))
+            ->addAction(new Action('id', '/admin/modules/pages/delete/', 'delete', '', [], ['class' => 'glyphicon glyphicon-trash'], 'Удалить', true))
         ;
 
         $dataGrid

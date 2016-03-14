@@ -16,6 +16,7 @@ use SORM\Entity;
  * @property float $price;
  * @property int $priority;
  * @property bool $active;
+ * @property bool $deleted;
  */
 class Item extends Entity {
 
@@ -28,7 +29,8 @@ class Item extends Entity {
         'category_id' => 'Категория',
         'price' => 'Цена',
         'priority' => 'Приоритет',
-        'active' => 'Активность'
+        'active' => 'Активность',
+        'deleted' => 'Удалён'
     ];
 
     public function prepareRelations() {

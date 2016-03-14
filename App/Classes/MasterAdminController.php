@@ -47,8 +47,6 @@ abstract class MasterAdminController extends Controller {
     public function __construct($moduleName = '') {
         $this->moduleName = $moduleName;
 
-        $pageNumber = Param::get('page', false);
-
         $this->moduleInstaller = new ModuleInstaller($this->moduleName);
         $this->response = new Response(NotificationLog::instance());
 
@@ -56,8 +54,8 @@ abstract class MasterAdminController extends Controller {
         $this->frame = Registry::frame('back');
         $this->router = Registry::router();
         $this->employeeAuthorizator = new Authorizator();
-        $this->pager = new Pagination(DataSource::getCurrent(), $pageNumber->asInteger(false), 15);
 
+        $this->frame->addCss('/public/assets/js/fancybox2/source/jquery.fancybox.css');
         $this->frame->bindView('menu', $this->buildMenu());
         $this->frame->bindView('modal-notification', new ViewNotificationsModal());
         $this->frame->bindView('modal-confirmation', new ViewConfirmationModal());

@@ -4,6 +4,8 @@ requirejs.config({
         'router': 'router',
         'jquery': 'bower_components/jquery/dist/jquery.min',
         'jquery-tmpl': 'bower_components/jquery-tmpl/jquery.tmpl.min',
+        'jquery-fancybox': '/public/assets/js/fancybox2/source/jquery.fancybox.pack',
+        'jquery-textchange': 'bower_components/jquery-textchange/jquery.textchange',
         'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap.min',
         'underscore': 'bower_components/underscore/underscore-min',
         'underscore.string': 'bower_components/underscore.string/dist/underscore.string.min',
@@ -23,7 +25,8 @@ requirejs.config({
         'module.employee.registration': '/App/Modules/Employees/public/assets/js/admin/form/registration',
         'module.pages.edit': '/App/Modules/Pages/public/assets/js/admin/form/page',
         'module.pages.tinymce-config': '/App/Modules/Pages/public/assets/js/admin/form/tinymce-config',
-        'module.employees.edit': '/App/Modules/Employees/public/assets/js/admin/form/employee'
+        'module.employees.edit': '/App/Modules/Employees/public/assets/js/admin/form/employee',
+        'module.catalogue.category.edit': '/App/Modules/Catalogue/public/assets/js/admin/form/catalogue-category'
     },
     shim: {
         'jquery': {

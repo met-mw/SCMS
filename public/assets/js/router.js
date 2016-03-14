@@ -53,7 +53,11 @@ define(
                     'pattern': '^/admin/modules/catalogue(/?)',
                     'modules': ['s-datagrid']
                 },
-
+                {
+                    'base-path': '/admin/modules/catalogue/edit',
+                    'pattern': '^/admin/modules/catalogue/edit(/?)',
+                    'modules': ['module.catalogue.category.edit']
+                }
                 // Пользовательская часть
             ],
             execute: function() {

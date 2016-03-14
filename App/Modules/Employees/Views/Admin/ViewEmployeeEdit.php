@@ -5,19 +5,12 @@ namespace App\Modules\Employees\Views\Admin;
 
 
 use App\Modules\Employees\Models\Admin\Employee;
-use App\Views\Admin\ViewNotificationsModal;
 use SFramework\Classes\View;
 
 class ViewEmployeeEdit extends View {
 
     /** @var Employee */
     public $employee;
-    /** @var ViewNotificationsModal */
-    public $notificationsView;
-
-    public function __construct() {
-        $this->notificationsView = new ViewNotificationsModal();
-    }
 
     public function currentRender() {
         ?>
@@ -83,7 +76,6 @@ class ViewEmployeeEdit extends View {
             </fieldset>
         </form>
         <?
-        $this->notificationsView->render();
     }
 
 }

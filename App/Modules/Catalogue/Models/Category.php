@@ -13,8 +13,10 @@ use SORM\Entity;
  * @property string $name;
  * @property string $description;
  * @property int $category_id;
+ * @property string $thumbnail;
  * @property int $priority;
  * @property bool $active;
+ * @property bool $deleted;
  */
 class Category extends Entity {
 
@@ -25,8 +27,10 @@ class Category extends Entity {
         'name' => 'Наименование',
         'description' => 'Описание',
         'category_id' => 'Категория',
+        'thumbnail' => 'Изображение',
         'priority' => 'Приоритет',
-        'active' => 'Активность'
+        'active' => 'Активность',
+        'deleted' => 'Удалён'
     ];
 
     public function prepareRelations() {

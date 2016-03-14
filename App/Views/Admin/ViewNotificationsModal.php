@@ -8,7 +8,7 @@ class ViewNotificationsModal extends View {
 
     public function currentRender() {
         ?>
-        <div id="modal-notification" class="modal fade" tabindex="-1" role="dialog" data-show="true">
+        <div id="modal-notification" class="modal" tabindex="-1" role="dialog" data-show="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

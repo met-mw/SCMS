@@ -13,33 +13,37 @@ class CatalogueRetriever {
         $sql = 'select
 	        SQL_CALC_FOUND_ROWS
 	        childs.id,
+	        childs.is_category,
 	        childs.name,
 	        childs.description,
 	        case when mcc.name is null then \'Не назначена\' else mcc.name end as category,
+	        childs.thumbnail,
 	        childs.priority,
 	        childs.active,
 	        childs.price
         from
 	        ((select
-		        id, name, description, category_id, priority, active, null as price
+		        id, true is_category, name, description, category_id, thumbnail, priority, active, null as price
 	        from
 		        module_catalogue_category
 	        where
-		        category_id=' . $categoryId . '
+	            deleted = 0
+		        and category_id=' . $categoryId . '
 	        order by
 		        priority)
 	        union
 	        (select
-		        id, name, description, category_id, priority, active, price
+		        id, false is_category, name, description, category_id, thumbnail, priority, active, price
 	        from
 		        module_catalogue_item
 	        where
-		        category_id=' . $categoryId . '
+	            deleted = 0
+		        and category_id=' . $categoryId . '
 	        order by
 		        priority)
 	        ) as childs
 	        left join module_catalogue_category mcc on mcc.id = childs.category_id
-	    ' . (!empty($conditions) ? " where{$conditions}" : '') . '
+	    ' . (!empty($conditions) ? " where {$conditions}" : '') . '
 	    ' . (is_null($limit) ? '' : " limit {$limit}") . '
 	    ' . (is_null($offset) ? '' : " offset {$offset}");
 
