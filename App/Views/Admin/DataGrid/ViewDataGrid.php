@@ -60,7 +60,9 @@ class ViewDataGrid extends View {
                                 <? endif; ?>
                                 <? foreach ($this->dataGrid->getHeaders() as $header): ?>
                                     <th>
+                                        <? if ($header->isFiltered()): ?>
                                         <input class="form-control input-sm" style="width: 100%;" name="<?= $this->dataGrid->getName() ?>-filter-<?= $header->getKey() ?>" id="<?= $this->dataGrid->getName() ?>-filter-<?= $header->getKey() ?>" type="text" placeholder="" value="<?= $header->getFilterValue() ?>">
+                                        <? endif; ?>
                                     </th>
                                 <? endforeach; ?>
                                 <th style="width: 40px;">
