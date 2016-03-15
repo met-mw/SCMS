@@ -16,8 +16,9 @@ use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SFramework\Views\DataGrid\ViewChange;
 use SFramework\Views\DataGrid\ViewCondition;
+use SFramework\Views\DataGrid\ViewCutString;
 use SFramework\Views\DataGrid\ViewDefault;
-use SFramework\Views\DataGrid\ViewImage;
+use SFramework\Views\DataGrid\ViewImageLink;
 use SFramework\Views\DataGrid\ViewLink;
 use SFramework\Views\DataGrid\ViewMoney;
 use SFramework\Views\DataGrid\ViewStub;
@@ -51,6 +52,7 @@ class ControllerMain extends MasterAdminController {
         $dataGridView = new ViewDataGrid();
         $retriever = new CatalogueRetriever();
         $dataGrid = new DataGrid('catalogue', '/admin/modules/catalogue/', 'id', $manifest['meta']['alias'], $pageNumber, $itemsPerPage, $manifest['meta']['description']);
+        $dataGrid->addHiddenField('parent_pk', $parentCategoryId);
 
         $dataGrid->getMenu()
             ->addElement(new DataGrid\Menu\Item('Добавить категорию', '/admin/modules/catalogue/edit/?is_category=1' . ($parentCategoryId ? "&parent_pk={$parentCategoryId}" : '')))
@@ -65,10 +67,9 @@ class ControllerMain extends MasterAdminController {
         $dataGrid
             ->addHeader(new Header('id', '№', null, ['class' => 'text-center', 'style' => 'width: 50px;'], ['class' => 'text-center'], true, Param::get('catalogue-filter-id', false)->asString(false)))
             ->addHeader(new Header('is_category', 'Тип', new ViewChange('', [[0, '<span class="glyphicon glyphicon-file"></span>'], [1, '<span class="glyphicon glyphicon-folder-open"></span>']]), ['class' => 'text-center', 'style' => 'width: 50px;'], ['class' => 'text-center'], true, Param::get('catalogue-filter-is_category', false)->asString(false)))
-            ->addHeader(new Header('name', 'Наименование', new ViewCondition(new ViewDefault(), [['field' => 'is_category', 'value' => 1, 'view' => new ViewLink('/admin/modules/catalogue/?parent_pk={label}', false, 'id')]]), ['class' => 'text-center', 'style' => 'width: 300px'], [], true, Param::get('catalogue-filter-name', false)->asString(false)))
-            ->addHeader(new Header('description', 'Описание', null, ['class' => 'text-center'], [], true, Param::get('catalogue-filter-description', false)->asString(false)))
-            ->addHeader(new Header('category', 'Категория', null, ['class' => 'text-center', 'style' => 'width: 300px;'], []))
-            ->addHeader(new Header('thumbnail', 'Миниатюра', new ViewCondition(new ViewImage(['class' => 'img-circle', 'style' => 'height: 20px;']), [['field' => 'thumbnail', 'value' => '/public/assets/images/system/no-image.svg', 'view' => new ViewStub('Нет миниатюры')]]), ['class' => 'text-center', 'style' => 'width: 50px;'], ['class' => 'text-center']))
+            ->addHeader(new Header('name', 'Наименование', new ViewCondition(new ViewDefault(), [['field' => 'is_category', 'value' => 1, 'view' => new ViewLink('/admin/modules/catalogue/?parent_pk={label}', false, 'id')]]), ['class' => 'text-center'], [], true, Param::get('catalogue-filter-name', false)->asString(false)))
+            ->addHeader(new Header('description', 'Описание', new ViewCutString(20, true, ['class' => 'cut-string-display-to-modal', 'style' => 'cursor: pointer;'], ['style' => 'display: none;']), ['class' => 'text-center'], ['class' => 'modal-display-field'], true, Param::get('catalogue-filter-description', false)->asString(false)))
+            ->addHeader(new Header('thumbnail', 'Миниатюра', new ViewCondition(new ViewImageLink(true, ['class' => 'fancybox'], ['class' => 'img-rounded', 'style' => 'height: 20px;']), [['field' => 'thumbnail', 'value' => '/public/assets/images/system/no-image.svg', 'view' => new ViewStub('<span class="glyphicon glyphicon-picture"></span>')]]), ['class' => 'text-center', 'style' => 'width: 50px;'], ['class' => 'text-center']))
             ->addHeader(new Header('price', '<span class="glyphicon glyphicon-ruble" title="Цена"></span>', new ViewMoney('<span class="glyphicon glyphicon-ruble"></span>'), ['class' => 'text-center', 'style' => 'width: 100px;'], ['class' => 'text-center'], true, Param::get('catalogue-filter-price', false)->asString(false)))
             ->addHeader(new Header('priority', '<span class="glyphicon glyphicon-sort-by-attributes" title="Приоритет"></span>', null, ['class' => 'text-center', 'style' => 'width: 50px;'], ['class' => 'text-center'], true, Param::get('catalogue-filter-priority', false)->asString(false)))
             ->addHeader(new Header('active', '<span class="glyphicon glyphicon-asterisk" title="Активность"></span>', new ViewSwitch(), ['class' => 'text-center', 'style' => 'width: 50px;'], ['class' => 'text-center'], true, Param::get('catalogue-filter-active', false)->asString(false)))

@@ -20,13 +20,17 @@ requirejs.config({
         's-datagrid': 'library/s-datagrid',
         's-confirmation': 'library/s-confirmation',
         's-notification': 'library/s-notification',
+        's-information': 'library/s-information',
         'module.structure.edit': '/App/Modules/Structures/public/assets/js/admin/form/structure',
         'module.employee.authorization': '/App/Modules/Employees/public/assets/js/admin/form/authorization',
         'module.employee.registration': '/App/Modules/Employees/public/assets/js/admin/form/registration',
         'module.pages.edit': '/App/Modules/Pages/public/assets/js/admin/form/page',
         'module.pages.tinymce-config': '/App/Modules/Pages/public/assets/js/admin/form/tinymce-config',
         'module.employees.edit': '/App/Modules/Employees/public/assets/js/admin/form/employee',
-        'module.catalogue.category.edit': '/App/Modules/Catalogue/public/assets/js/admin/form/catalogue-category'
+        'module.catalogue': '/App/Modules/Catalogue/public/assets/js/admin/catalogue',
+        'module.catalogue.category.edit': '/App/Modules/Catalogue/public/assets/js/admin/form/catalogue-category',
+        'module.catalogue.item.edit': '/App/Modules/Catalogue/public/assets/js/admin/form/catalogue-item',
+        'module.catalogue.tinymce-config': '/App/Modules/Catalogue/public/assets/js/admin/form/tinymce-config'
     },
     shim: {
         'jquery': {

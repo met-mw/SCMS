@@ -35,7 +35,7 @@ class ControllerDelete extends MasterAdminController {
             $oItem->deleted = true;
             $oItem->commit();
 
-            NotificationLog::instance()->pushMessage("Категория \"{$oItem->name}\" успешно удалена.");
+            NotificationLog::instance()->pushMessage("Позиция \"{$oItem->name}\" успешно удалена.");
         }
 
         $this->response->send();
@@ -54,6 +54,16 @@ class ControllerDelete extends MasterAdminController {
         $aChildCategories = $oChildCategories->findAll();
         foreach ($aChildCategories as $oChildCategory) {
             $this->categoryDeepDelete($oChildCategory);
+        }
+
+        /** @var Item $oItems */
+        $oItems = DataSource::factory(Item::cls());
+        $oItems->builder()->where("category_id={$oCategory->getPrimaryKey()}");
+        /** @var Item[] $aItems */
+        $aItems = $oItems->findAll();
+        foreach ($aItems as $oItem) {
+            $oItem->deleted = true;
+            $oItem->commit();
         }
 
         $oCategory->deleted = true;

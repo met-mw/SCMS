@@ -3,7 +3,6 @@ namespace App\Modules\Employees\Views\Admin;
 
 
 use App\Modules\Employees\Views\Admin\Forms\ViewAuthorization as ViewFormAuthorization;
-use App\Views\Admin\ViewNotificationsModal;
 use SFramework\Classes\View;
 
 class ViewAuthorization extends View {
@@ -11,13 +10,10 @@ class ViewAuthorization extends View {
     /** @var ViewFormAuthorization */
     public $form;
     public $errorText;
-    /** @var ViewNotificationsModal */
-    public $notificationsView;
 
     public function __construct() {
         $this->optional = ['errorText'];
         $this->form = new ViewFormAuthorization();
-        $this->notificationsView = new ViewNotificationsModal();
     }
 
     public function currentRender() {
@@ -42,7 +38,6 @@ class ViewAuthorization extends View {
             <? $this->form->render(); ?>
         </div>
         <?
-        $this->notificationsView->render();
     }
 
 }

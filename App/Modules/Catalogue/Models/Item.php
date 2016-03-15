@@ -13,6 +13,7 @@ use SORM\Entity;
  * @property string $name;
  * @property string $description;
  * @property int $category_id;
+ * @property string thumbnail;
  * @property float $price;
  * @property int $priority;
  * @property bool $active;

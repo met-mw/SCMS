@@ -1,5 +1,5 @@
 define(
-    'module.catalogue.category.edit',
+    'module.catalogue.item.edit',
     [
         'jquery',
         's-notification',
@@ -12,12 +12,12 @@ define(
         "use strict";
 
         $(document).ready(function() {
-            var thumbnailPath = $('#catalogue-category-thumbnail'),
-                thumbnailImg = $('#catalogue-category-thumbnail-img'),
-                thumbnailA = $('#catalogue-category-thumbnail-a'),
-                thumbnailRemoveButton = $('#catalogue-category-thumbnail-remove-btn');
+            var thumbnailPath = $('#catalogue-item-thumbnail'),
+                thumbnailImg = $('#catalogue-item-thumbnail-img'),
+                thumbnailA = $('#catalogue-item-thumbnail-a'),
+                thumbnailRemoveButton = $('#catalogue-item-thumbnail-remove-btn');
 
-            $('.catalogue-category-thumbnail-btn').fancybox({
+            $('.catalogue-item-thumbnail-btn').fancybox({
                 width: 900,
                 height: 600,
                 type: 'iframe',
@@ -46,11 +46,11 @@ define(
                 thumbnailA.attr('href', $(this).val());
             });
 
-            $('#catalogue-category-accept, #catalogue-category-save').click(function() {
+            $('#catalogue-item-accept, #catalogue-item-save').click(function() {
                 tinyMCE.triggerSave();
 
                 var self = $(this);
-                var form = $('#catalogue-category-edit-form');
+                var form = $('#catalogue-item-edit-form');
                 var action = form.attr('action');
                 var params = form.sForm().collectFields();
                 params[self.attr('name')] = self.val();

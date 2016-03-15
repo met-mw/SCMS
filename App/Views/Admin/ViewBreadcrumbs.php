@@ -2,7 +2,6 @@
 namespace App\Views\Admin;
 
 
-use SFramework\Classes\Breadcrumb;
 
 class ViewBreadcrumbs extends \SFramework\Views\ViewBreadcrumbs {
 

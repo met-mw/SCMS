@@ -10,4 +10,8 @@ class ControllerSave extends MasterAdminProxyController {
         $this->proxy->execute();
     }
 
+    public function actionItem() {
+        $this->proxy->execute();
+    }
+
 } 

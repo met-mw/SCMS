@@ -4,7 +4,6 @@ namespace App\Modules\Structures\Views\Admin;
 
 use App\Models\Module;
 use App\Modules\Structures\Models\Structure;
-use App\Views\Admin\ViewNotificationsModal;
 use SFramework\Classes\View;
 
 class ViewStructureEdit extends View {
@@ -19,12 +18,8 @@ class ViewStructureEdit extends View {
     public $structuresList;
     /** @var int */
     public $parentId;
-    /** @var ViewNotificationsModal */
-    public $notificationsView;
 
     public function __construct() {
-        $this->notificationsView = new ViewNotificationsModal();
-
         $this->optional[] = 'currentModuleConfigView';
         $this->optional[] = 'structure';
     }
@@ -193,7 +188,6 @@ class ViewStructureEdit extends View {
             </fieldset>
         </form>
         <?
-        $this->notificationsView->render();
     }
 
 }

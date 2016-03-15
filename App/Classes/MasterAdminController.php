@@ -5,6 +5,7 @@ namespace App\Classes;
 use App\Modules\Employees\Classes\Authorizator;
 use App\Views\Admin\MainList\ViewList;
 use App\Views\Admin\ViewConfirmationModal;
+use App\Views\Admin\ViewInformationModal;
 use App\Views\Admin\ViewMenu;
 use App\Views\Admin\ViewNotificationsModal;
 use SFramework\Classes\Breadcrumbs;
@@ -59,6 +60,7 @@ abstract class MasterAdminController extends Controller {
         $this->frame->bindView('menu', $this->buildMenu());
         $this->frame->bindView('modal-notification', new ViewNotificationsModal());
         $this->frame->bindView('modal-confirmation', new ViewConfirmationModal());
+        $this->frame->bindView('modal-information', new ViewInformationModal());
     }
 
     /**

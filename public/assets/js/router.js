@@ -51,12 +51,12 @@ define(
                 {
                     'base-path': '/admin/modules/catalogue',
                     'pattern': '^/admin/modules/catalogue(/?)',
-                    'modules': ['s-datagrid']
+                    'modules': ['s-datagrid', 'module.catalogue']
                 },
                 {
                     'base-path': '/admin/modules/catalogue/edit',
                     'pattern': '^/admin/modules/catalogue/edit(/?)',
-                    'modules': ['module.catalogue.category.edit']
+                    'modules': ['tinymce', 'tinymce-ru', 'tinymce-file-manager', 'module.catalogue.tinymce-config', 'module.catalogue.category.edit', 'module.catalogue.item.edit']
                 }
                 // Пользовательская часть
             ],
