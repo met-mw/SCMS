@@ -33,16 +33,20 @@ class ViewItem extends View {
         }
         ?>
             <div class="row">
-                <div class="col-lg-2 text-center img-responsive">
+                <div class="col-lg-3 text-center img-responsive">
                     <img class="img-thumbnail" style="max-width: 50%;" src="<?= $this->oItem->thumbnail ?>"/>
                 </div>
-                <div class="col-lg-10">
-                    <p>Наименование: <?= $this->oItem->name ?></p>
-                    <p>Цена: <span class="text-success"><? $this->viewMoney->render() ?></span></p>
-                    <p>На складе: <span class="text-primary"><?= $count ?></span></p>
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p>Наименование: <?= $this->oItem->name ?></p>
+                            <p>Цена: <span class="text-success"><? $this->viewMoney->render() ?></span></p>
+                            <p>На складе: <span class="text-primary"><?= $count ?></span></p>
+                        </div>
+                    </div>
                     <? if ($this->oItem->count != 0): ?>
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-5">
                             <form>
                                 <fieldset>
                                     <div class="form-group">
@@ -57,6 +61,7 @@ class ViewItem extends View {
                                 </fieldset>
                             </form>
                         </div>
+                        <div class="col-lg-7"></div>
                     </div>
                     <? endif; ?>
                 </div>
