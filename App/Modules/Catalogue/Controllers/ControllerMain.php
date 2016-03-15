@@ -81,6 +81,9 @@ class ControllerMain extends MasterController {
             $breadcrumbsParentPK = $oParentCategory->category_id;
         }
         $this->breadcrumbsView->breadcrumbs = array_merge($this->breadcrumbsView->breadcrumbs, array_reverse($categoryBreadcrumbs));
+        if (isset($oItem)) {
+            $this->breadcrumbsView->breadcrumbs[] = new Breadcrumb($oItem->name, '');
+        }
 
         $view->backUrl = CoreFunctions::buildUrlByBreadcrumbs($this->breadcrumbsView->breadcrumbs, 1);
 

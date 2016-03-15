@@ -87,11 +87,11 @@ class ViewCatalogue extends View {
                     ?>
                     <div class="col-lg-<?= ceil(12 / $this->itemsPerRow) ?> col-md-<?= ceil(12 / $this->itemsPerRow) ?> col-sm-<?= ceil(12 / ceil($this->itemsPerRow / 2)) ?> col-xs-<?= ceil(12 / ceil($this->itemsPerRow / 4)) ?>">
                         <div class="thumbnail">
-                            <a href="?category_id=<?= $oItem->id ?>">
+                            <a href="?action=show-item&item_id=<?= $oItem->id ?>">
                                 <img src="<?= $oItem->thumbnail ?>" style="max-height: 100px;" alt="Миниатюра"/>
                             </a>
                             <div class="caption text-center" style="overflow: hidden; height: 100px;">
-                                <h4><a href="?category_id=<?= $oItem->id ?>"><?= $oItem->name ?></a></h4>
+                                <h4><a href="?action=show-item&item_id=<?= $oItem->id ?>"><?= $oItem->name ?></a></h4>
                                 <div class="text-left">
                                     <? $this->viewCutString->render() ?>
                                 </div>

@@ -15,6 +15,7 @@ use SORM\Entity;
  * @property int $category_id;
  * @property string thumbnail;
  * @property float $price;
+ * @property int $count;
  * @property int $priority;
  * @property bool $active;
  * @property bool $deleted;
@@ -29,6 +30,7 @@ class Item extends Entity {
         'description' => 'Описание',
         'category_id' => 'Категория',
         'price' => 'Цена',
+        'count' => 'Количество',
         'priority' => 'Приоритет',
         'active' => 'Активность',
         'deleted' => 'Удалён'

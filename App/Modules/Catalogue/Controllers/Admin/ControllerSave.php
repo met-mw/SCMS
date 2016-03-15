@@ -80,6 +80,7 @@ class ControllerSave extends MasterAdminController {
         $description = Param::post('catalogue-item-description')->asString();
         $parentCategoryId = Param::post('catalogue-item-parent_id')->asInteger(true, 'Поле "Родительская категория" заполнено неверно.');
         $price = Param::post('catalogue-item-price', true)->asNumber(true, "Поле \"Цена\" заполнено неверно.");
+        $count = Param::post('catalogue-item-count', true)->asInteger(true, "Поле \"Количество\" заполнено неверно.");
         $thumbnail = Param::post('catalogue-item-thumbnail', false)->asString();
         $priority = Param::post('catalogue-item-priority', false)->asString();
         $active = (int)Param::post('catalogue-item-active', false)->exists();
@@ -97,6 +98,7 @@ class ControllerSave extends MasterAdminController {
         $oItem->description = $description;
         $oItem->category_id = $parentCategoryId;
         $oItem->price = $price;
+        $oItem->count = $count;
         $oItem->thumbnail = $thumbnail;
         $oItem->priority = $priority;
         $oItem->active = $active;

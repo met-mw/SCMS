@@ -58,7 +58,7 @@ class ViewItemEdit extends View {
                                     <span class="help-block">Категория, в которой находится данная категория</span>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="catalogue-item-price">Цена</label>
                                     <div class="input-group">
@@ -66,6 +66,13 @@ class ViewItemEdit extends View {
                                         <input class="form-control input-sm" name="catalogue-item-price" id="catalogue-item-price" type="number" min="0" step="0.01" placeholder="Цена" value="<?= $this->oItem->price ?>" title="Стоимость товара">
                                     </div>
                                     <span class="help-block">Стоимость товара</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="catalogue-item-count">Количество</label>
+                                    <input class="form-control input-sm" name="catalogue-item-count" id="catalogue-item-count" type="number" min="-1" placeholder="Количество" value="<?= $this->oItem->count ?>" title="Количество экземпляров на складе.">
+                                    <span class="help-block">Количество экземпляров на складе.</span>
                                 </div>
                             </div>
                         </div>

@@ -20,10 +20,11 @@ class CatalogueRetriever {
 	        childs.thumbnail,
 	        childs.priority,
 	        childs.active,
-	        childs.price
+	        childs.price,
+	        childs.count
         from
 	        ((select
-		        id, true is_category, name, description, category_id, thumbnail, priority, active, null as price
+		        id, true is_category, name, description, category_id, thumbnail, priority, active, null as price, \'-\' as count
 	        from
 		        module_catalogue_category
 	        where
@@ -33,7 +34,7 @@ class CatalogueRetriever {
 		        priority)
 	        union
 	        (select
-		        id, false is_category, name, description, category_id, thumbnail, priority, active, price
+		        id, false is_category, name, description, category_id, thumbnail, priority, active, price, count
 	        from
 		        module_catalogue_item
 	        where
