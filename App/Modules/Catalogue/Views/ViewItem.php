@@ -23,13 +23,13 @@ class ViewItem extends View {
         $this->viewMoney->setValue($this->oItem->price);
         switch ($this->oItem->count) {
             case -1:
-                $count = 'есть';
+                $count = '<span class="text-success">много</span>';
                 break;
             case 0:
-                $count = 'отсутствует';
+                $count = '<span class="text-danger">отсутствует</span>';
                 break;
             default:
-                $count = $this->oItem->count;
+                $count = '<span class="text-warning">есть</span>';
         }
         ?>
             <div class="row">
@@ -41,18 +41,23 @@ class ViewItem extends View {
                     <p>Цена: <span class="text-success"><? $this->viewMoney->render() ?></span></p>
                     <p>На складе: <span class="text-primary"><?= $count ?></span></p>
                     <? if ($this->oItem->count != 0): ?>
-                    <form>
-                        <fieldset>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <label for="catalogue-add-to-basket-count"></label>
-                                    <input class="input-group-addon" type="number" min="1"<? if ($this->oItem->count != -1): ?> max="<?= $this->oItem->count ?>"<? endif; ?> id="catalogue-add-to-basket-count" name="catalogue-add-to-basket-count" value="1" />
-                                    <button class="btn btn-success input-group-addon">Добавить в корзину</button>
-                                    <button class="btn btn-primary input-group-addon">Оформить заказ</button>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </form>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <form>
+                                <fieldset>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input class="form-control" type="number" min="1"<? if ($this->oItem->count != -1): ?> max="<?= $this->oItem->count ?>"<? endif; ?> id="catalogue-add-to-basket-count" name="catalogue-add-to-basket-count" value="1" />
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-success">В корзину</button>
+                                                <button class="btn btn-primary">Оформить заказ</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
                     <? endif; ?>
                 </div>
             </div>
