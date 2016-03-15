@@ -4,6 +4,9 @@ namespace App\Modules\Employees\Controllers\Admin\Authorization;
 
 use App\Classes\MasterAdminController;
 use App\Modules\Employees\Views\Admin\ViewAuthorization;
+use App\Views\Admin\ViewConfirmationModal;
+use App\Views\Admin\ViewInformationModal;
+use App\Views\Admin\ViewNotificationsModal;
 use SFramework\Classes\Param;
 use SFramework\Classes\Registry;
 
@@ -25,6 +28,9 @@ class ControllerMain extends MasterAdminController {
             }
         }
 
+        $frame->bindView('modal-notification', new ViewNotificationsModal());
+        $frame->bindView('modal-confirmation', new ViewConfirmationModal());
+        $frame->bindView('modal-information', new ViewInformationModal());
         $frame->bindView('content', $view);
         $frame->render();
     }
