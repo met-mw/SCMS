@@ -23,6 +23,7 @@ class StructureRetriever {
         	structure.seo_keywords,
             structure.anchor,
 	        structure.priority,
+	        structure.is_main,
 	        structure.active,
 	        structure.deleted
         from
@@ -38,6 +39,12 @@ class StructureRetriever {
         $driver->query($sql);
 
         return $driver->fetchAssoc();
+    }
+
+    public function clearMainFlag() {
+        $driver = DataSource::getCurrent();
+        $query = 'update structure set is_main=0';
+        $driver->query($query);
     }
 
 } 

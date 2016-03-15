@@ -7,6 +7,7 @@ use App\Models\Module;
 use App\Models\ModuleSetting;
 use App\Models\StructureSetting;
 use App\Modules\Structures\Classes\Helpers\StructureHelper;
+use App\Modules\Structures\Classes\Retrievers\StructureRetriever;
 use App\Modules\Structures\Models\Structure;
 use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
@@ -30,6 +31,7 @@ class ControllerSave extends MasterAdminController{
         $module = Param::post('structure-module')->asInteger(true, 'Поле "Модуль" заполнено неверно.');
         $anchor = (int)Param::post('structure-anchor', false)->exists();
         $priority = Param::post('structure-priority', false)->asString();
+        $isMain = (int)Param::post('structure-is-main', false)->exists();
         $active = (int)Param::post('structure-active', false)->exists();
         $seoTitle = Param::post('structure-seo-title', false)->asString();
         $seoDescription = Param::post('structure-seo-description', false)->asString();
@@ -54,12 +56,18 @@ class ControllerSave extends MasterAdminController{
         $oStructure->module_id = $module;
         $oStructure->anchor = $anchor;
         $oStructure->priority = $priority;
+        $oStructure->is_main = $isMain;
         $oStructure->active = $active;
         $oStructure->seo_title = $seoTitle;
         $oStructure->seo_description = $seoDescription;
         $oStructure->seo_keywords = $seoKeywords;
         if (!$oStructure->getPrimaryKey()) {
             $oStructure->deleted = false;
+        }
+
+        if ($isMain) {
+            $retriever = new StructureRetriever();
+            $retriever->clearMainFlag();
         }
 
         $oStructure->commit();

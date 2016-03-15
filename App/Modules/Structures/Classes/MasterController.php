@@ -70,7 +70,7 @@ class MasterController extends MasterDefaultController {
         $structureSettings = $this->structure->field()->loadRelation(StructureSetting::cls());
 
         /** @var MasterModuleController $controller */
-        $controller = new $controllerName($frame);
+        $controller = new $controllerName($frame, $manifest, $this->structure);
         foreach ($structureSettings as $oStructureSetting) {
             foreach ($moduleSettings as $oModuleSetting) {
                 if ($oModuleSetting->module_id == $oStructureSetting->module_setting_id) {

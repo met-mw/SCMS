@@ -18,6 +18,7 @@ use SORM\Entity;
  * @property string $path
  * @property string $frame
  * @property int $module_id
+ * @property int $is_main
  * @property int $anchor
  * @property int $priority
  * @property string $seo_title

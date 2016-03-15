@@ -8,7 +8,7 @@ class ViewBreadcrumbs extends \SFramework\Views\ViewBreadcrumbs {
     public function currentRender() {
         $count = count($this->breadcrumbs);
         $currentRoot = '';
-        ?>
+        if ($count > 0): ?>
         <ol class="breadcrumb">
             <? for ($i = 0; $i < $count; $i++): $breadcrumb = $this->breadcrumbs[$i]; ?>
                 <li<?= ($count-1 == $i ? ' class="active"' : '') ?>>
@@ -17,7 +17,7 @@ class ViewBreadcrumbs extends \SFramework\Views\ViewBreadcrumbs {
                 <? if (!$breadcrumb->isParam()) { $currentRoot .= $breadcrumb->getPath(); } ?>
             <? endfor; ?>
         </ol>
-        <?
+        <? endif;
     }
 
 }

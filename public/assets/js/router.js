@@ -57,8 +57,13 @@ define(
                     'base-path': '/admin/modules/catalogue/edit',
                     'pattern': '^/admin/modules/catalogue/edit(/?)',
                     'modules': ['tinymce', 'tinymce-ru', 'tinymce-file-manager', 'module.catalogue.tinymce-config', 'module.catalogue.category.edit', 'module.catalogue.item.edit']
-                }
+                },
                 // Пользовательская часть
+                {
+                    'base-path': '/catalogue/',
+                    'pattern': '^/catalogue(/?)',
+                    'modules': ['module.catalogue']
+                }
             ],
             execute: function() {
                 var self = this;

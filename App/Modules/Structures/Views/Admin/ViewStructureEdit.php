@@ -164,14 +164,21 @@ class ViewStructureEdit extends View {
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="structure-is-main">Главная страница</label>
+                                    <input class="checkbox" name="structure-is-main" id="structure-is-main" title="Является ли текущая страница главной страницей сайта." type="checkbox"<?= ($anchor ? ' CHECKED' : '') ?>>
+                                    <span class="help-block">Является ли текущая страница главной страницей сайта.</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="structure-anchor">Фрагмент структуры</label>
                                     <input class="checkbox" name="structure-anchor" id="structure-anchor" title="Является ли данный элемент сруктуры фрагментом родительской структуры." type="checkbox"<?= ($anchor ? ' CHECKED' : '') ?>>
                                     <span class="help-block">Является ли данный элемент сруктуры фрагментом родительской структуры.</span>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="structure-active">Активность</label>
                                     <input class="checkbox" name="structure-active" id="structure-active" title="Доступен ли данный раздел в пользовательской части сайта." type="checkbox"<?= ($active || $isNew ? ' CHECKED' : '') ?>>

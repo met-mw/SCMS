@@ -78,7 +78,7 @@ class ControllerEdit extends MasterAdminController {
             $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb($lastBreadcrumb, '');
         }
 
-        $viewCatalogueEdit->backUrl = CoreFunctions::buildUrlByBreadcrumbs($viewBreadcrumbs->breadcrumbs);
+        $viewCatalogueEdit->backUrl = CoreFunctions::buildUrlByBreadcrumbs($viewBreadcrumbs->breadcrumbs, 1);
 
         $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
         $this->frame->bindView('content', $viewCatalogueEdit);
