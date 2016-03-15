@@ -52,8 +52,10 @@ class MasterController extends Controller {
 
     protected function setMenuItems(ViewMenuItems $itemList, $structureParentId = 0) {
         foreach ($this->getStructuresByParentId($structureParentId) as $structure) {
-            $itemList->addItem($structure->path, $structure->name);
-            $this->setMenuItems($itemList->getItem($structure->path)->itemsList, $structure->id);
+            if ($structure->active && !$structure->deleted) {
+                $itemList->addItem($structure->path, $structure->name);
+                $this->setMenuItems($itemList->getItem($structure->path)->itemsList, $structure->id);
+            }
         }
     }
 
