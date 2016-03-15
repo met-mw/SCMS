@@ -31,7 +31,8 @@ class StructureRetriever {
 	        left join module on module.id = structure.module_id
 	        left join structure parent_structure on parent_structure.id = structure.id
 	    where
-            structure.structure_id = ' . $parentStructureId . '
+	        structure.deleted = 0
+            and structure.structure_id = ' . $parentStructureId . '
 	    ' . (!empty($filterConditions) ? " and {$filterConditions}" : '') . '
 	    ' . (is_null($limit) ? '' : " limit {$limit}") . '
 	    ' . (is_null($offset) ? '' : " offset {$offset}");

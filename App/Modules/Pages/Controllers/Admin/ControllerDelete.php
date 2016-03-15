@@ -13,7 +13,7 @@ class ControllerDelete extends MasterAdminController {
     public function actionIndex() {
         $this->authorizeIfNot();
 
-        $pageId = Param::get('pk')
+        $pageId = Param::get('id')
             ->noEmpty('Не задан обязательный параметр.')
             ->asInteger(true, 'Параметр должен быть числом.');
 

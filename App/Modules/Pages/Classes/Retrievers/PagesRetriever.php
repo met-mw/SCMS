@@ -17,7 +17,9 @@ class PagesRetriever {
             active
         from
 	        module_pages
-	    ' . (!empty($filterConditions) ? " where {$filterConditions}" : '') . '
+	    where
+	        deleted = 0
+	    ' . (!empty($filterConditions) ? " and {$filterConditions}" : '') . '
 	    ' . (is_null($limit) ? '' : " limit {$limit}") . '
 	    ' . (is_null($offset) ? '' : " offset {$offset}");
 

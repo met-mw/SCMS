@@ -19,7 +19,9 @@ class EmployeesRetriever {
             active
         from
 	        module_employees
-	    ' . (!empty($filterConditions) ? " where {$filterConditions}" : '') . '
+	    where
+	        deleted = 0
+	    ' . (!empty($filterConditions) ? " and {$filterConditions}" : '') . '
 	    ' . (is_null($limit) ? '' : " limit {$limit}") . '
 	    ' . (is_null($offset) ? '' : " offset {$offset}");
 
