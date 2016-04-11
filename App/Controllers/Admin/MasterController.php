@@ -2,7 +2,6 @@
 namespace App\Controllers\Admin;
 
 
-use App\Views\Admin\ViewBreadcrumbs;
 use App\Views\Admin\ViewMenu;
 use SFramework\Classes\Controller;
 use SFramework\Classes\Registry;
@@ -18,7 +17,7 @@ abstract class MasterController extends Controller {
         $this->frame = Registry::frame('back');
         $this->router = Registry::router();
 
-        $mainMenu = new ViewMenu();
+        $mainMenu = new ViewMenu('SCMS');
 
         $mainMenu
             ->addItem('structures', 'Структура')

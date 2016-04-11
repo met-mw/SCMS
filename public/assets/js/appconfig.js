@@ -1,5 +1,6 @@
 requirejs.config({
     paths: {
+        'scms.content-to-modal': '/public/assets/js/library/s-content-to-modal',
         'text': 'bower_components/text/text',
         'router': 'router',
         'jquery': 'bower_components/jquery/dist/jquery.min',
@@ -30,7 +31,8 @@ requirejs.config({
         'module.catalogue': '/App/Modules/Catalogue/public/assets/js/admin/catalogue',
         'module.catalogue.category.edit': '/App/Modules/Catalogue/public/assets/js/admin/form/catalogue-category',
         'module.catalogue.item.edit': '/App/Modules/Catalogue/public/assets/js/admin/form/catalogue-item',
-        'module.catalogue.tinymce-config': '/App/Modules/Catalogue/public/assets/js/admin/form/tinymce-config'
+        'module.catalogue.tinymce-config': '/App/Modules/Catalogue/public/assets/js/admin/form/tinymce-config',
+        'module.siteuser.edit': '/App/Modules/Siteusers/public/assets/js/admin/form/siteuser'
     },
     shim: {
         'jquery': {

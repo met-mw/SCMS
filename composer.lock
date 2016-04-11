@@ -5,6 +5,7 @@
         "This file is @generated automatically"
     ],
     "hash": "6e7c05480db60ce4c569be2db696b6f4",
+    "content-hash": "35a1039e53bf626f91f28810fbb384f0",
     "packages": [
         {
             "name": "met_mw/sframework",
@@ -39,7 +40,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/met-mw/SORM.git",
-                "reference": "e0fa2db6b45ae5603d02831517488c520f2c8acc"
+                "reference": "8e45ea209f7eb8dc5d1d5fa1b3fae9a9bbcf97fc"
             },
             "type": "library",
             "autoload": {
@@ -57,7 +58,7 @@
                 }
             ],
             "description": "Simple and lightweight ORM library.",
-            "time": "2016-03-14 13:53:07"
+            "time": "2016-04-11 21:05:34"
         }
     ],
     "packages-dev": [],

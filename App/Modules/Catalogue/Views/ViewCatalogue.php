@@ -27,7 +27,7 @@ class ViewCatalogue extends View {
     public $viewMoney;
 
     public function __construct() {
-        $this->viewCutString = new ViewCutString(30, true, ['class' => 'cut-string-display-to-modal', 'style' => 'cursor: pointer;'], ['class' => 'hidden']);
+        $this->viewCutString = new ViewCutString(30, true, ['class' => 'content-to-modal', 'style' => 'cursor: pointer;'], ['class' => 'hidden']);
         $this->viewMoney = new ViewMoney('<span class="glyphicon glyphicon-ruble"></span>');
     }
 

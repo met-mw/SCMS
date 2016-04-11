@@ -51,12 +51,22 @@ define(
                 {
                     'base-path': '/admin/modules/catalogue',
                     'pattern': '^/admin/modules/catalogue(/?)',
-                    'modules': ['s-datagrid', 'module.catalogue']
+                    'modules': ['s-datagrid', 'module.catalogue', 'scms.content-to-modal']
                 },
                 {
                     'base-path': '/admin/modules/catalogue/edit',
                     'pattern': '^/admin/modules/catalogue/edit(/?)',
                     'modules': ['tinymce', 'tinymce-ru', 'tinymce-file-manager', 'module.catalogue.tinymce-config', 'module.catalogue.category.edit', 'module.catalogue.item.edit']
+                },
+                {
+                    'base-path': '/admin/modules/siteusers',
+                    'pattern': '^/admin/modules/siteusers(/?)',
+                    'modules': ['s-datagrid', 'scms.content-to-modal']
+                },
+                {
+                    'base-path': '/admin/modules/siteusers/edit',
+                    'pattern': '^/admin/modules/siteusers/edit(/?)',
+                    'modules': ['module.siteuser.edit']
                 },
                 // Пользовательская часть
                 {

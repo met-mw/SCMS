@@ -3,8 +3,6 @@ namespace App\Modules\Employees\Classes;
 
 
 use App\Modules\Employees\Models\Admin\Employee;
-use SFramework\Classes\NotificationLog;
-use SFramework\Classes\Registry;
 use SORM\DataSource;
 use SORM\Tools\Builder;
 

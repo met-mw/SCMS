@@ -3,20 +3,16 @@ namespace App\Classes;
 
 
 use App\Modules\Employees\Classes\Authorizator;
-use App\Views\Admin\MainList\ViewList;
 use App\Views\Admin\ViewConfirmationModal;
 use App\Views\Admin\ViewInformationModal;
 use App\Views\Admin\ViewMenu;
 use App\Views\Admin\ViewNotificationsModal;
-use SFramework\Classes\Breadcrumbs;
 use SFramework\Classes\Controller;
 use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Pagination;
-use SFramework\Classes\Param;
 use SFramework\Classes\Registry;
 use SFramework\Classes\Response;
 use SFramework\Classes\Router;
-use SORM\DataSource;
 use SORM\Tools\Builder;
 
 /**
@@ -79,6 +75,7 @@ abstract class MasterAdminController extends Controller {
             ->addItem('pages', 'Статичные страницы')
             ->addItem('catalogue', 'Каталог')
             ->addItem('employees', 'Сотрудники')
+            ->addItem('siteusers', 'Пользователи')
             ->addItem('frames', 'Фреймы')
             ->addItem('modules', 'Модули')
         ;
