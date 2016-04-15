@@ -8,70 +8,98 @@
         <!--label[js]-->
     </head>
     <body>
-        <div class="container hidden-lg hidden-md hidden-sm" style="height: 80px; padding-top: 10px;background: url('/public/assets/images/denas.svg') no-repeat center center; background-size: contain;"></div>
-        <div class="container hidden-xs" style="padding-top: 10px;background: url('/public/assets/images/denas.svg') no-repeat left center; background-size: contain;">
-            <div class="row">
-                <div class="col-lg-9 col-md-8 col-sm-7 hidden-xs"></div>
-                <div class="col-lg-3 col-md-4 col-sm-5 hidden-xs">
-                    <address>
-                        Россия, Архангельская область, город Северодвинск,<br>
-                        улица Пушкина, дом Колотушкина.<br>
-                        <abbr title="Почтовый индекс">Индекс:</abbr> <span class="label label-success">164524</span><br>
-                        <abbr title="Телефон">Телефон:</abbr> <span class="label label-success">8(902)190-39-04</span>
-                    </address>
+        <div class="container" style="font-size: 16px;">
+            <div class="row text-center hidden-xs">
+                <div class="col-lg-3" style="padding: 8px;">
+                    <img src="/public/assets/images/basket.svg" style="height: 20px;" />&nbsp;<a href="#basket">Моя корзина</a> (пусто)
+                </div>
+                <div class="col-lg-3" style="padding: 8px;">
+                    <img src="/public/assets/images/phone.svg" style="height: 20px;" />&nbsp;+7(902)190-39-04
+                </div>
+                <div class="col-lg-3" style="padding: 8px;">
+                    <img src="/public/assets/images/email.svg" style="height: 20px;" />&nbsp;<a href="mailto:denas29@gmail.com">denas29@gmail.com</a>
+                </div>
+                <div class="col-lg-3" style="padding: 8px;">
+                    <img src="/public/assets/images/recall.svg" style="height: 20px;" />&nbsp;<a href="/recall/">Заказать звонок от оператора</a>
                 </div>
             </div>
         </div>
-        <!--label[menu]-->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--label[menu]-->
+                </div>
+            </div>
+        </div>
         <div class="container" id="anchor-general-start">
-            <div id="main-carousel" class="carousel slide" data-ride="carousel" data-interval="15000" data-pause="hover">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#main-carousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#main-carousel" data-slide-to="1"></li>
-                    <li data-target="#main-carousel" data-slide-to="2"></li>
-                </ol>
-
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                        <img src="/public/assets/images/actions/new-year.png"/>
-                        <div class="carousel-caption">
-                            <h3>Новогодние скидки</h3>
-                            <p>На Новый Год мы дарим Вам здоровье!</p>
-                            <p><a href="#" class="btn btn-success" role="button">Подробнее</a></p>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="thumbnail hidden-xs" style="height: 200px;">
+                        <a href="#">
+                            <img src="/public/assets/images/denas.png">
+                        </a>
+                        <div class="caption" style="font-size: 13px;">
+                            <p class="text-justify">Мы являемся официальными дистрибьюторами корпорации "ДЭНАС МС" (Россия, Северодвинск), известного производителя лечебных аппаратов для динамической электронейростимуляции (ДЭНС).</p>
                         </div>
                     </div>
-                    <div class="item">
-                        <img src="/public/assets/images/actions/9-may.png"/>
-                        <div class="carousel-caption">
-                            <h3>Великая Победа</h3>
-                            <p>Предлагаем скидки от 10 до 50 процентов в честь Великой Победы!</p>
-                            <p><a href="#" class="btn btn-success" role="button">Подробнее</a></p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="/public/assets/images/actions/pasha.png"/>
-                        <div class="carousel-caption">
-                            <h3>Скидки на Пасху</h3>
-                            <p>Пасхальные скидки 30% всем!</p>
-                            <p><a href="#" class="btn btn-success" role="button">Подробнее</a></p>
+                    <div class="thumbnail hidden-sm hidden-md hidden-lg">
+                        <a href="#">
+                            <img src="/public/assets/images/denas.png">
+                        </a>
+                        <div class="caption" style="font-size: 13px;">
+                            <p class="text-justify">Мы являемся официальными дистрибьюторами корпорации "ДЭНАС МС" (Россия, Северодвинск), известного производителя лечебных аппаратов для динамической электронейростимуляции (ДЭНС).</p>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-8">
+                    <div id="main-carousel" class="carousel slide" data-ride="carousel" data-interval="15000" data-pause="hover">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#main-carousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#main-carousel" data-slide-to="1"></li>
+                            <li data-target="#main-carousel" data-slide-to="2"></li>
+                        </ol>
 
-                <!-- Controls -->
-                <a class="left carousel-control" href="#main-carousel" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span class="sr-only">Предыдущий</span>
-                </a>
-                <a class="right carousel-control" href="#main-carousel" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    <span class="sr-only">Следующий</span>
-                </a>
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img src="/public/assets/images/actions/new-year.png"/>
+                                <div class="carousel-caption">
+                                    <h3>Новогодние скидки</h3>
+                                    <p>На Новый Год мы дарим Вам здоровье!</p>
+                                    <p><a href="#" class="btn btn-success" role="button">Подробнее</a></p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="/public/assets/images/actions/9-may.png"/>
+                                <div class="carousel-caption">
+                                    <h3>Великая Победа</h3>
+                                    <p>Предлагаем скидки от 10 до 50 процентов в честь Великой Победы!</p>
+                                    <p><a href="#" class="btn btn-success" role="button">Подробнее</a></p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="/public/assets/images/actions/pasha.png"/>
+                                <div class="carousel-caption">
+                                    <h3>Скидки на Пасху</h3>
+                                    <p>Пасхальные скидки 30% всем!</p>
+                                    <p><a href="#" class="btn btn-success" role="button">Подробнее</a></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#main-carousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Предыдущий</span>
+                        </a>
+                        <a class="right carousel-control" href="#main-carousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Следующий</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <hr/>
-
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <!--label[breadcrumbs]-->
@@ -80,11 +108,51 @@
             </div>
         </div>
         <div class="blog-footer">
-            <p>Сайт разработан: <a target="_blank" href="http://sproject.ru">SProject</a></p>
-            <p>Генеральный партнёр проекта: <a target="_blank" href="https://denascorp.ru/">Корпорация "Дэнас"</a>.</p>
-            <p>
-                <a href="#anchor-general-start">Вернуться к началу страницы</a>
-            </p>
+            <div class="container text-left">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h3 class="text-center">Коротко о нас</h3>
+                        <p><img class="img-rounded" src="/public/assets/images/denas-favicon.png" style="height: 20px;" />&nbsp;Мы являемся официальными дистрибьюторами корпорации "ДЭНАС МС" в городе Северодвинске.</p>
+                        <p>На протяжении 10-ти лет мы помогаем нашим клиентам оставать здоровыми и красивыми.</p>
+                        <hr/>
+                        <p>Чем мы занимаемся: Продажа ДЭНАС-аппаратов, обучение, партнерство.</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <h3 class="text-center">Наши контакты</h3>
+                        <p><img src="/public/assets/images/address.svg" style="height: 20px;" />&nbsp;Адрес: Российская Федерация, Архангельская область, город Северодвинск, улица Пушкина, дом Колотушкина.</p>
+                        <p><img src="/public/assets/images/postcode.svg" style="height: 20px;" />&nbsp;Почтовый индекс: 164500</p>
+                        <p><img src="/public/assets/images/phone.svg" style="height: 20px;" />&nbsp;Контактный телефон: +7(902)190-39-04</p>
+                        <p><img src="/public/assets/images/email.svg" style="height: 20px;" />&nbsp;E-mail: <a href="mailto:denas29@gmail.com">denas29@gmail.com</a></p>
+                        <p><img src="/public/assets/images/recall.svg" style="height: 20px;" />&nbsp;Звонок от оператора: <a href="/recall/">заказать</a></p>
+                    </div>
+                    <div class="col-lg-4">
+                        <h3 class="text-center">Наши партнёры</h3>
+                        <p>Генеральный партнёр: Корпорация <a target="_blank" href="https://denascorp.ru/">"ДЭНАС МС"</a></p>
+                        <p>Разработчик сайта: <a target="_blank" href="http://sproject.ru">SProject</a></p>
+                        <hr/>
+                        <h5>Поделитесь в соцсетях:</h5>
+                        <p>
+                            <script type="text/javascript">(function() {
+                                if (window.pluso)if (typeof window.pluso.start == "function") return;
+                                if (window.ifpluso==undefined) { window.ifpluso = 1;
+                                    var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                                    s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
+                                    s.src = ('https:' == window.location.protocol ? 'https' : 'http')  + '://share.pluso.ru/pluso-like.js';
+                                    var h=d[g]('body')[0];
+                                    h.appendChild(s);
+                                }})();</script>
+                            <div class="pluso" data-background="transparent" data-options="big,round,line,horizontal,nocounter,theme=04" data-services="vkontakte,odnoklassniki,facebook,twitter"></div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid" style="background-color: rgb(18, 18, 18); color: rgb(180, 173, 173); font-size: 12px;">
+            <div class="row">
+                <div class="col-lg-12 text-center" style="padding: 5px;">
+                    2016 © ДЭНАС Северодвинск. С использованием материалов корпорации "ДЭНАС МС" <a href="http://www.denascorp.ru" target="_blank">denascorp.ru</a>.
+                </div>
+            </div>
         </div>
         <!--label[modal-notification]-->
         <!--label[modal-confirmation]-->

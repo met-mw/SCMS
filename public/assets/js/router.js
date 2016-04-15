@@ -72,7 +72,7 @@ define(
                 {
                     'base-path': '/catalogue/',
                     'pattern': '^/catalogue(/?)',
-                    'modules': ['module.catalogue']
+                    'modules': ['module.catalogue', 'scms.content-to-modal']
                 }
             ],
             execute: function() {

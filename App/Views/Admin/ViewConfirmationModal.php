@@ -8,7 +8,7 @@ class ViewConfirmationModal extends View {
 
     public function currentRender() {
         ?>
-        <div id="modal-confirmation" class="modal fade" tabindex="-1" role="dialog">
+        <div id="modal-confirmation" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

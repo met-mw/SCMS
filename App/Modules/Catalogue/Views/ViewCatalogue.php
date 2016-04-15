@@ -41,7 +41,6 @@ class ViewCatalogue extends View {
         $itemsCount = 1;
         ?>
             <? if ($categoriesRealCount > 0): ?>
-            <h3>Категории товаров</h3>
             <? while ($categoriesCount <= $categoriesRealCount): ?>
                 <div class="row">
                 <? $currentCategorySteps = $categoriesOffset + $this->categoriesPerRow > $categoriesRealCount ? $categoriesRealCount : $categoriesOffset + $this->categoriesPerRow ?>
@@ -114,7 +113,11 @@ class ViewCatalogue extends View {
 
             <? if ($itemsRealCount + $categoriesRealCount == 0): ?>
                 <div class="block">
-                    <h3 class="text-center">Данная категория пуста. <a href="<?= $this->backUrl ?>" class="btn btn-default btn-sm">Вернуться назад</a></h3>
+                    <h3 class="text-center">Данная категория пуста.</h3>
+                    <div class="block text-center">
+                        <a href="<?= $this->backUrl ?>">Вернуться назад</a>
+                    </div>
+                    <br/>
                 </div>
             <? endif; ?>
         <?
