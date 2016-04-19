@@ -42,10 +42,8 @@ class ControllerSave extends MasterAdminController {
             $redirect = '';
             if (Param::post('page-edit-accept', false)->exists()) {
                 $redirect = '/admin/modules/pages/';
-            } else {
-                if ($pageId == 1) {
-                    $redirect = "/admin/modules/pages/edit/?pk={$oPage->getPrimaryKey()}";
-                }
+            } elseif ($pageId == 1) {
+                $redirect = "/admin/modules/pages/edit/?id={$oPage->getPrimaryKey()}";
             }
             $this->response->send($redirect);
         } else {

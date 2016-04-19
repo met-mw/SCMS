@@ -32,6 +32,7 @@ requirejs.config({
         'module.catalogue.category.edit': '/App/Modules/Catalogue/public/assets/js/admin/form/catalogue-category',
         'module.catalogue.item.edit': '/App/Modules/Catalogue/public/assets/js/admin/form/catalogue-item',
         'module.catalogue.tinymce-config': '/App/Modules/Catalogue/public/assets/js/admin/form/tinymce-config',
+        'module.catalogue.cart': '/App/Modules/Catalogue/public/assets/js/cart',
         'module.siteuser.edit': '/App/Modules/Siteusers/public/assets/js/admin/form/siteuser'
     },
     shim: {

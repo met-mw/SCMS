@@ -70,6 +70,11 @@ define(
                 },
                 // Пользовательская часть
                 {
+                    'base-path': '/',
+                    'pattern': '^(/?)',
+                    'modules': ['module.catalogue.cart', 'scms.content-to-modal']
+                },
+                {
                     'base-path': '/catalogue/',
                     'pattern': '^/catalogue(/?)',
                     'modules': ['module.catalogue', 'scms.content-to-modal']

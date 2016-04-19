@@ -62,7 +62,8 @@ class MasterController extends MasterDefaultController {
             $frame->addMeta(['name' => 'keywords', 'content' => $seoKeywords]);
         }
 
-        $controllerName = "App\\Modules\\" . ucfirst($module->name) . "\\{$manifest['run']['controller']}";
+        $run = $manifest['run'];
+        $controllerName = "App\\Modules\\" . ucfirst($module->name) . "\\" . "{$run['controller']}";
 
         /** @var ModuleSetting[] $moduleSettings */
         $moduleSettings = $module->field()->loadRelation(ModuleSetting::cls());

@@ -25,6 +25,8 @@ require(
 
             height: "600",
 
+            valid_elements: 'script',
+
             style_formats: [{
                 title: 'Bold text',
                 inline: 'b'

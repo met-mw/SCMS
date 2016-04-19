@@ -4,6 +4,7 @@ namespace App\Modules\Catalogue\Controllers;
 
 use App\Modules\Catalogue\Models\Category;
 use App\Modules\Catalogue\Models\Item;
+use App\Modules\Catalogue\Views\ViewCart;
 use App\Modules\Catalogue\Views\ViewCatalogue;
 use App\Modules\Catalogue\Views\ViewItem;
 use App\Modules\Modules\Classes\MasterController;
@@ -34,11 +35,45 @@ class ControllerMain extends MasterController {
                     NotificationLog::instance()->pushError("Товар не найден.");
                 }
                 break;
-            case 'add-to-basket':
-                $view = new ViewItem();
+            case 'add-to-cart':
+                $id = Param::get('id', true)->noEmpty('Товар не найден.')->asInteger(true, 'Неизвестный товар.');
+                $count = Param::get('count', true)->noEmpty('Количество должно быть указано.')->asInteger(true, 'Не указано количество товара.');
+
+                /** @var Item $oItem */
+                $oItem = DataSource::factory(Item::cls(), $id);
+                if (!$oItem) {
+                    NotificationLog::instance()->pushError('Товар, который Вы пытаетесь добавить в корзину не существует.');
+                }
+
+                if (!$count) {
+                    NotificationLog::instance()->pushError('Количество товара должно быть больше нуля.');
+                }
+
+                if (NotificationLog::instance()->hasProblems()) {
+                    $this->response->send();
+                    return;
+                }
+
+                $this->cart->addItem($id, $count);
+                NotificationLog::instance()->pushMessage("Товар \"{$oItem->name}\" в количестве {$count} (шт.) успешно добавлен в корзину. Теперь Вы можете перейти к оформлению заказа или продолжить покупки.");
+                $this->response->send('', ['totalCount' => $this->cart->getTotalCount()]);
+                return;
                 break;
-            case 'show-basket':
-                $view = new ViewItem();
+            case 'show-cart':
+                $view = new ViewCart();
+                $view->cart = $this->cart;
+                $view->render();
+                return;
+                break;
+            case 'set-cart-items';
+                $items = Param::get('items')->asArray();
+                foreach ($items as $itemId => $count) {
+                    $this->cart->setItemCount($itemId, $count);
+                }
+                $this->response->send('', ['totalCount' => $this->cart->getTotalCount()]);
+                return;
+                break;
+            case 'order':
                 break;
             default:
                 $categoryId = Param::get('category_id', false)->asInteger(false);

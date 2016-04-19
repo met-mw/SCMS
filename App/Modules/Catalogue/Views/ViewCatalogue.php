@@ -40,6 +40,23 @@ class ViewCatalogue extends View {
         $categoriesCount = 1;
         $itemsCount = 1;
         ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <form class="form-inline" method="get">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-xs-8 col-sm-10">
+                                    <input class="form-control" style="width: 100%;" type="text" name="catalogue-search" placeholder="Поиск по каталогу" />
+                                </div>
+                                <div class="col-xs-4 col-sm-2">
+                                    <button class="btn btn-default" style="width: 100%;" type="submit">Искать</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <br/>
             <? if ($categoriesRealCount > 0): ?>
             <? while ($categoriesCount <= $categoriesRealCount): ?>
                 <div class="row">
@@ -51,17 +68,18 @@ class ViewCatalogue extends View {
                     ?>
                     <div class="col-lg-<?= ceil(12 / $this->categoriesPerRow) ?> col-md-<?= ceil(12 / $this->categoriesPerRow) ?> col-sm-<?= ceil(12 / ceil($this->categoriesPerRow / 2)) ?> col-xs-<?= ceil(12 / ceil($this->categoriesPerRow / 2)) ?>">
                         <div class="thumbnail">
+                            <div class="caption text-center">
+                                <h4><a href="?category_id=<?= $oCategory->id ?>"><?= $oCategory->name ?></a></h4>
+                            </div>
                             <a href="?category_id=<?= $oCategory->id ?>">
-                                <img src="<?= $oCategory->thumbnail ?>" style="max-height: 100px;" alt="Миниатюра"/>
+                                <img src="<?= $oCategory->thumbnail ?>" style="max-height: 150px;" alt="<?= $oCategory->name ?>"/>
                             </a>
                             <div class="caption text-center" style="overflow: hidden; height: 100px;">
-                                <h4><a href="?category_id=<?= $oCategory->id ?>"><?= $oCategory->name ?></a></h4>
-                                <div class="text-left">
-                                    <? $this->viewCutString->render() ?>
-                                </div>
+                                <div><? $this->viewCutString->render() ?></div>
                             </div>
-                            <hr/>
-                            <p class="text-center"><a href="?category_id=<?= $oCategory->id ?>" class="btn btn-default" role="button">Смотреть товары</a></p>
+                            <div class="caption" style="background-color: #f9f9f9; border-top: 1px solid #e5e5e5;">
+                                <p class="text-center"><a href="?category_id=<?= $oCategory->id ?>" class="btn btn-default" role="button">Смотреть товары</a></p>
+                            </div>
                         </div>
                     </div>
                     <? $categoriesCount++; ?>
@@ -74,7 +92,6 @@ class ViewCatalogue extends View {
                 <? endif; ?>
             <? endif; ?>
             <? if ($itemsRealCount > 0): ?>
-            <h3>Товары</h3>
             <? while ($itemsCount <= $itemsRealCount): ?>
             <div class="row">
                 <? $currentItemSteps = $itemsOffset + $this->itemsPerRow > $itemsRealCount ? $itemsRealCount : $itemsOffset + $this->itemsPerRow ?>
@@ -86,22 +103,35 @@ class ViewCatalogue extends View {
                     ?>
                     <div class="col-lg-<?= ceil(12 / $this->itemsPerRow) ?> col-md-<?= ceil(12 / $this->itemsPerRow) ?> col-sm-<?= ceil(12 / ceil($this->itemsPerRow / 2)) ?> col-xs-<?= ceil(12 / ceil($this->itemsPerRow / 2)) ?>">
                         <div class="thumbnail">
+                            <div class="caption text-center">
+                                <h4><a href="?action=show-item&item_id=<?= $oItem->id ?>"><?= $oItem->name ?></a></h4>
+                            </div>
                             <a href="?action=show-item&item_id=<?= $oItem->id ?>">
-                                <img src="<?= $oItem->thumbnail ?>" style="max-height: 100px;" alt="Миниатюра"/>
+                                <img src="<?= $oItem->thumbnail ?>" style="max-height: 150px;" alt="<?= $oItem->name ?>"/>
                             </a>
                             <div class="caption text-center" style="overflow: hidden; height: 100px;">
-                                <h4><a href="?action=show-item&item_id=<?= $oItem->id ?>"><?= $oItem->name ?></a></h4>
-                                <div class="text-left">
-                                    <? $this->viewCutString->render() ?>
+                                <div><? $this->viewCutString->render() ?></div>
+                            </div>
+                            <div class="caption text-center" style="border-top: 1px solid #e5e5e5;">
+                                <p class="text-success" style="font-size: 20px;"><? $this->viewMoney->render() ?></p>
+                            </div>
+                            <div class="caption" style="background-color: #f9f9f9; border-top: 1px solid #e5e5e5;">
+                                <div class="text-center">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <a href="?action=show-item&item_id=<?= $oItem->id ?>" class="btn btn-default" role="button" title="Просмотреть подробности">
+                                                <span class="glyphicon glyphicon-eye-open" title="Просмотреть подробности"></span>
+                                            </a>
+                                        </span>
+                                        <input type="number" min="1" value="1" class="form-control text-center" placeholder="Количество" />
+                                        <span class="input-group-btn">
+                                            <a href="/catalogue?action=add-to-cart&id=<?= $oItem->id ?>" class="btn btn-success catalogue-add-to-cart" role="button" title="Положить в корзину">
+                                                <span class="glyphicon glyphicon-shopping-cart" title="Положить в корзину"></span>
+                                            </a>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <hr/>
-                            <h3 class="text-success text-center"><? $this->viewMoney->render() ?></h3>
-                            <hr/>
-                            <p class="text-center">
-                                <a href="#" class="btn btn-success" role="button">В корзину</a>
-                                <a href="?action=show-item&item_id=<?= $oItem->id ?>" class="btn btn-default" role="button">Подробнее</a>
-                            </p>
                         </div>
                     </div>
                     <? $itemsCount++; ?>
@@ -113,7 +143,7 @@ class ViewCatalogue extends View {
 
             <? if ($itemsRealCount + $categoriesRealCount == 0): ?>
                 <div class="block">
-                    <h3 class="text-center">Данная категория пуста.</h3>
+                    <h3 class="text-center">Данная категория товаров пуста.</h3>
                     <div class="block text-center">
                         <a href="<?= $this->backUrl ?>">Вернуться назад</a>
                     </div>

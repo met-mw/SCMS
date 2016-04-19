@@ -76,6 +76,7 @@ abstract class MasterAdminController extends Controller {
             ->addItem('catalogue', 'Каталог')
             ->addItem('employees', 'Сотрудники')
             ->addItem('siteusers', 'Пользователи')
+            ->addItem('recall', 'Обратные звонки')
             ->addItem('frames', 'Фреймы')
             ->addItem('modules', 'Модули')
         ;
