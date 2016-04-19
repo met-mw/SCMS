@@ -52,15 +52,13 @@ class ViewItem extends View {
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <a href="/catalogue/?action=show-cart" class="btn btn-primary" role="button" data-toggle="modal" data-target="#modal-catalogue-cart" title="Оформить заказ">
-                                        <span class="glyphicon glyphicon-ok-circle" title="Оформить заказ"></span>
-                                        <span class="hidden-xs">&nbsp;Оформить заказ</span>
+                                        <span class="glyphicon glyphicon-ok-circle" title="Оформить заказ"></span>&nbsp;Оформить заказ
                                     </a>
                                 </span>
                                 <input type="number" min="1" value="1" class="form-control text-center" placeholder="Количество" />
                                 <span class="input-group-btn">
                                     <a href="/catalogue?action=add-to-cart&id=<?= $this->oItem->id ?>" class="btn btn-success catalogue-add-to-cart" role="button" title="Положить в корзину">
-                                        <span class="glyphicon glyphicon-shopping-cart" title="Положить в корзину"></span>
-                                        <span class="hidden-xs">&nbsp;Положить в корзину</span>
+                                        <span class="glyphicon glyphicon-shopping-cart" title="Положить в корзину"></span>&nbsp;Положить в корзину
                                     </a>
                                 </span>
                             </div>
