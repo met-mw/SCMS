@@ -58,7 +58,9 @@ class ViewItem extends View {
                                 <input type="number" min="1" value="1" class="form-control text-center" placeholder="Количество" />
                                 <span class="input-group-btn">
                                     <a href="/catalogue?action=add-to-cart&id=<?= $this->oItem->id ?>" class="btn btn-success catalogue-add-to-cart" role="button" title="Положить в корзину">
-                                        <span class="glyphicon glyphicon-shopping-cart" title="Положить в корзину"></span>&nbsp;Положить в корзину
+                                        <span class="glyphicon glyphicon-shopping-cart" title="Положить в корзину"></span>
+                                        <span class="hidden-xs">&nbsp;Положить в корзину</span>
+                                        <span class="hidden-sm hidden-md hidden-lg">&nbsp;В корзину</span>
                                     </a>
                                 </span>
                             </div>
