@@ -21,19 +21,22 @@ define(
                     items[$('input[name="id"]', element).val()] = $('input.catalogue-item-count', element).val();
                 });
 
-                $.get(
-                    '/catalogue?action=set-cart-items',
-                    {
-                        items: items
-                    },
-                    function(data, status) {
-                        var response = $.parseJSON(data);
-                        $('#catalogue-cart-count').text(response.additional_data.totalCount);
-                        self.removeData('bs.modal');
-                        notification.modalByResponse(response, status);
-                    }
-                );
-
+                if (dataRows.length == 0) {
+                    self.removeData('bs.modal');
+                } else {
+                    $.get(
+                        '/catalogue?action=set-cart-items',
+                        {
+                            items: items
+                        },
+                        function(data, status) {
+                            var response = $.parseJSON(data);
+                            $('#catalogue-cart-count').text(response.additional_data.totalCount);
+                            self.removeData('bs.modal');
+                            notification.modalByResponse(response, status);
+                        }
+                    );
+                }
             });
 
             addToCartLink.click(function() {
