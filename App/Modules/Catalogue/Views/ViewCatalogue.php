@@ -78,7 +78,12 @@ class ViewCatalogue extends View {
                                 <div><? $this->viewCutString->render() ?></div>
                             </div>
                             <div class="caption" style="background-color: #f9f9f9; border-top: 1px solid #e5e5e5;">
-                                <p class="text-center"><a href="?category_id=<?= $oCategory->id ?>" class="btn btn-default" role="button">Смотреть товары</a></p>
+                                <p class="text-center">
+                                    <a href="?category_id=<?= $oCategory->id ?>" class="btn btn-default" role="button">
+                                        <span class="glyphicon glyphicon-eye-open" title="Просмотреть подробности"></span>
+                                        <span class="hidden-xs">&nbsp;Смотреть товары</span>
+                                    </a>
+                                </p>
                             </div>
                         </div>
                     </div>

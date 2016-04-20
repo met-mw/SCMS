@@ -23,6 +23,7 @@ Registry::frame('front')->addCss('/public/assets/css/main-menu.css');
 Registry::frame('front')->addCss('/public/assets/css/carousel-actions.css');
 Registry::frame('front')->addJs('/public/assets/js/bower_components/requirejs/require.js', ['data-main' => '/public/assets/js/appconfig']);
 Registry::frame('front')->addMeta(['http-equiv' => 'content-type', 'content' => 'text/html; charset=utf-8']);
+Registry::frame('front')->addMeta(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1.0']);
 
 // Панель управления
 Registry::set('back', new Frame(SFW_APP_ROOT . 'Frames' . DIRECTORY_SEPARATOR), true);
@@ -30,6 +31,7 @@ Registry::frame('back')->setFrame('back');
 Registry::frame('back')->addCss('/public/assets/js/bower_components/bootstrap/dist/css/bootstrap.css');
 Registry::frame('back')->addJs('/public/assets/js/bower_components/requirejs/require.js', ['data-main' => '/public/assets/js/appconfig']);
 Registry::frame('back')->addMeta(['http-equiv' => 'content-type', 'content' => 'text/html; charset=utf-8']);
+Registry::frame('front')->addMeta(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1.0']);
 
 // "Чистая" панель управления
 Registry::set('back_clear', new Frame(SFW_APP_ROOT . 'Frames' . DIRECTORY_SEPARATOR), true);
@@ -37,6 +39,7 @@ Registry::frame('back_clear')->setFrame('back_clear');
 Registry::frame('back_clear')->addCss('/public/assets/js/bower_components/bootstrap/dist/css/bootstrap.css');
 Registry::frame('back_clear')->addJs('/public/assets/js/bower_components/requirejs/require.js', ['data-main' => '/public/assets/js/appconfig']);
 Registry::frame('back_clear')->addMeta(['http-equiv' => 'content-type', 'content' => 'text/html; charset=utf-8']);
+Registry::frame('front')->addMeta(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1.0']);
 
 Registry::set('config', include('App/Config/project.php'), true);
 
