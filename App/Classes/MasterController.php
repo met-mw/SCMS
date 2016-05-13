@@ -5,7 +5,6 @@ namespace App\Classes;
 use App\Modules\Structures\Models\Structure;
 use App\Views\ViewMainMenu;
 use App\Views\ViewMenuItems;
-use App\Views\ViewMMenu;
 use SFramework\Classes\Controller;
 use SFramework\Classes\Menu;
 use SFramework\Classes\Menu\Item;
@@ -51,10 +50,10 @@ class MasterController extends Controller {
     }
 
     protected function setMenuItems(ViewMenuItems $itemList, $structureParentId = 0) {
-        foreach ($this->getStructuresByParentId($structureParentId) as $structure) {
-            if ($structure->active && !$structure->deleted) {
-                $itemList->addItem($structure->path, $structure->name);
-                $this->setMenuItems($itemList->getItem($structure->path)->itemsList, $structure->id);
+        foreach ($this->getStructuresByParentId($structureParentId) as $oStructure) {
+            if ($oStructure->active && !$oStructure->deleted && !$oStructure->anchor) {
+                $itemList->addItem($oStructure->path, $oStructure->name);
+                $this->setMenuItems($itemList->getItem($oStructure->path)->itemsList, $oStructure->id);
             }
         }
     }

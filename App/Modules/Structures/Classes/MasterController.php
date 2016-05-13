@@ -9,11 +9,9 @@ namespace App\Modules\Structures\Classes;
 
 
 use \App\Classes\MasterController as MasterDefaultController;
-use App\Models\Module;
-use App\Models\ModuleSetting;
-use App\Models\StructureSetting;
 use App\Modules\Modules\Classes\MasterController as MasterModuleController;
 use App\Modules\Structures\Models\Structure;
+use SFramework\Classes\CoreFunctions;
 use SFramework\Classes\Registry;
 use SORM\DataSource;
 use SORM\Tools\Builder;
@@ -29,51 +27,63 @@ class MasterController extends MasterDefaultController {
     }
 
     public function actionIndex() {
-        $this->executeModule();
+        if (CoreFunctions::isAJAX()) {
+            $this->executeModule($this->getStructure());
+        } else {
+            ob_start();
+            $this->executeModule($this->getStructure());
+            $content = ob_get_contents();
+            ob_end_clean();
+
+            $frame = $this->getActiveFrame($this->getStructure());
+            $frame->bindData('content', $content);
+
+            $frame->render();
+        }
     }
 
-    protected function executeModule() {
-        if (!$this->structure->active || $this->structure->module_id == 0) {
+    protected function executeModule(Structure $oStructure) {
+        if (!$oStructure->active || $oStructure->module_id == 0) {
             $controllerName = $this->router->error404();
             $action = 'actionIndex';
             $controller = new $controllerName();
             $controller->{$action}();
-
-            return;
         }
 
-        /** @var Module $module */
-        $module = DataSource::factory(Module::cls(), $this->structure->module_id);
-        $modulePath = SFW_MODULES_ROOT . ucfirst($module->name) . DIRECTORY_SEPARATOR;
+        $oModule = $oStructure->getModule();
+        $modulePath = SFW_MODULES_ROOT . ucfirst($oModule->name) . DIRECTORY_SEPARATOR;
         $indexFilePath = "{$modulePath}manifest.php";
         $manifest = include($indexFilePath);
-        $frame = $this->structure->frame != ''
-            ? Registry::frame($this->structure->frame)
-            : $this->frame;
 
-        $seoTitle = $this->structure->seo_title;
-        $seoDescription = $this->structure->seo_description;
-        $seoKeywords = $this->structure->seo_keywords;
-        $frame->setTitle(empty($seoTitle) ? $this->structure->name : $seoTitle);
-        if (!empty($seoDescription)) {
-            $frame->addMeta(['name' => 'description', 'content' => $seoDescription]);
+        if (!$oStructure->anchor) {
+            $frame = $this->getActiveFrame($oStructure);
+
+            $seoTitle = $oStructure->seo_title;
+            $seoDescription = $oStructure->seo_description;
+            $seoKeywords = $oStructure->seo_keywords;
+            $frame->setTitle(empty($seoTitle) ? $oStructure->name : $seoTitle);
+            if (!empty($seoDescription)) {
+                $frame->addMeta(['name' => 'description', 'content' => $seoDescription]);
+            }
+            if (!empty($seoKeywords)) {
+                $frame->addMeta(['name' => 'keywords', 'content' => $seoKeywords]);
+            }
+        } else {
+            $oClosestStructure = $this->getClosestStructure($oStructure);
+            $frame = $this->getActiveFrame($oClosestStructure);
         }
-        if (!empty($seoKeywords)) {
-            $frame->addMeta(['name' => 'keywords', 'content' => $seoKeywords]);
-        }
+
 
         $run = $manifest['run'];
-        $controllerName = "App\\Modules\\" . ucfirst($module->name) . "\\" . "{$run['controller']}";
+        $controllerName = "App\\Modules\\" . ucfirst($oModule->name) . "\\" . "{$run['controller']}";
 
-        /** @var ModuleSetting[] $moduleSettings */
-        $moduleSettings = $module->field()->loadRelation(ModuleSetting::cls());
-        /** @var StructureSetting[] $structureSettings */
-        $structureSettings = $this->structure->field()->loadRelation(StructureSetting::cls());
+        $aModuleSettings = $oModule->getModuleSettings();
+        $aStructureSettings = $oStructure->getStructureSettings();
 
         /** @var MasterModuleController $controller */
-        $controller = new $controllerName($frame, $manifest, $this->structure);
-        foreach ($structureSettings as $oStructureSetting) {
-            foreach ($moduleSettings as $oModuleSetting) {
+        $controller = new $controllerName($frame, $manifest, $oStructure);
+        foreach ($aStructureSettings as $oStructureSetting) {
+            foreach ($aModuleSettings as $oModuleSetting) {
                 if ($oModuleSetting->module_id == $oStructureSetting->module_setting_id) {
                     $controller->{$oModuleSetting->parameter} = $oStructureSetting->value;
                 }
@@ -81,6 +91,28 @@ class MasterController extends MasterDefaultController {
         }
 
         $controller->{$manifest['run']['action']}();
+        $aStructureFragments = $oStructure->getStructureFragments();
+        foreach ($aStructureFragments as $oStructureFragment) {
+            if ($oStructureFragment->active && !$oStructureFragment->deleted) {
+                $this->executeModule($oStructureFragment);
+            }
+        }
+    }
+
+    protected function getActiveFrame(Structure $oStructure)
+    {
+        return $oStructure->frame != ''
+            ? Registry::frame($oStructure->frame)
+            : $this->frame;
+    }
+
+    protected function getClosestStructure(Structure $oStructure) {
+        $oParentStructure = $oStructure->getParentStructure();
+        while ($oParentStructure && $oParentStructure->anchor) {
+            $oParentStructure = $oParentStructure->getParentStructure();
+        }
+
+        return $oParentStructure;
     }
 
     protected function getStructure() {

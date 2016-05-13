@@ -7,6 +7,7 @@ requirejs.config({
         'jquery-tmpl': 'bower_components/jquery-tmpl/jquery.tmpl.min',
         'jquery-fancybox': '/public/assets/js/fancybox2/source/jquery.fancybox.pack',
         'jquery-textchange': 'bower_components/jquery-textchange/jquery.textchange',
+        'jquery-mosaic-flow': 'bower_components/jquery.mosaicflow/jquery.mosaicflow.min',
         'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap.min',
         'underscore': 'bower_components/underscore/underscore-min',
         'underscore.string': 'bower_components/underscore.string/dist/underscore.string.min',

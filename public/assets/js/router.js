@@ -78,6 +78,11 @@ define(
                     'base-path': '/catalogue/',
                     'pattern': '^/catalogue(/?)',
                     'modules': ['module.catalogue', 'scms.content-to-modal']
+                },
+                {
+                    'base-path': '/documents/',
+                    'pattern': '^/documents(/?)',
+                    'modules': ['jquery-mosaic-flow']
                 }
             ],
             execute: function() {
