@@ -35,9 +35,8 @@ class ControllerEdit extends MasterAdminController {
             $view->structure = $oStructure;
             $view->parentId = $oStructure->structure_id;
             if ($oStructure->module_id != 0) {
-                /** @var Module $module */
-                $module = $oStructure->field('module_id')->loadRelation(Module::cls());
-                $view->currentModuleConfigView = $this->getModuleConfigView($oStructure, $module);
+                $oModule = $oStructure->getModule();
+                $view->currentModuleConfigView = $this->getModuleConfigView($oStructure, $oModule);
             }
         } else {
             $structureParentId = (int)Param::get('parent_pk', false)->asInteger(false);
@@ -115,18 +114,21 @@ class ControllerEdit extends MasterAdminController {
 
         $settings = [];
         if ($oModule->getPrimaryKey()) {
-            /** @var ModuleSetting[] $moduleSettings */
-            $moduleSettings = $oModule->field()->loadRelation(ModuleSetting::cls());
-            foreach ($moduleSettings as $moduleSetting) {
-                /** @var Entity $list */
-                $list = DataSource::factory($moduleSetting->entity)->findAll();
+            $aModulesSettings = $oModule->getModuleSettings();
+            foreach ($aModulesSettings as $oModuleSetting) {
+                $oEntities = DataSource::factory($oModuleSetting->entity);
+                $oEntities->builder()
+                    ->where('deleted=0');
+
+                $aEntities = $oEntities->findAll();
                 $oStructureSetting = null;
                 if ($oStructure->id) {
-                    /** @var StructureSetting $oStructureSettings */
-                    $oStructureSettings = $oStructure->field()->prepareRelation(StructureSetting::cls());
+                    $oStructureSettings = DataSource::factory(StructureSetting::cls());
                     $oStructureSettings->builder()
+                        ->where("structure_id={$oStructure->getPrimaryKey()}")
                         ->whereAnd()
-                        ->where("module_setting_id={$moduleSetting->getPrimaryKey()}");
+                        ->where("module_setting_id={$oModuleSetting->getPrimaryKey()}");
+
                     /** @var StructureSetting[] $aStructureSettings */
                     $aStructureSettings = $oStructureSettings->findAll();
                     if (!empty($aStructureSettings)) {
@@ -135,8 +137,8 @@ class ControllerEdit extends MasterAdminController {
                 }
 
                 $settings[] = [
-                    'setting' => $moduleSetting,
-                    'list' => $list,
+                    'setting' => $oModuleSetting,
+                    'list' => $aEntities,
                     'value' => is_null($oStructureSetting) ? null : $oStructureSetting->value
                 ];
             }

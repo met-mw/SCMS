@@ -19,10 +19,6 @@ class StructureSetting extends Entity {
 
     protected $tableName = 'structure_setting';
 
-    public function prepareRelations() {
-        $this->field('structure_id')->addRelationMTO(DataSource::factory(Structure::cls()));
-    }
-
     public function getStructure()
     {
         /** @var Structure[] $aStructures */

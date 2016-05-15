@@ -38,9 +38,4 @@ class Siteuser extends Entity
 
     protected $tableName = 'siteuser';
 
-    public function prepareRelations()
-    {
-        // TODO: Implement prepareRelations() method.
-    }
-
 }

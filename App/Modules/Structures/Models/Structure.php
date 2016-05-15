@@ -32,18 +32,6 @@ class Structure extends Entity
 
     protected $tableName = 'structure';
 
-    public function prepareRelations() {
-        $this->field('structure_id')
-            ->addRelationMTO(DataSource::factory(Structure::cls()));
-
-        $this->field('module_id')
-            ->addRelationMTO(DataSource::factory(Module::cls()));
-
-        $this->field()
-            ->addRelationOTM(DataSource::factory(Structure::cls()), 'structure_id')
-            ->addRelationOTM(DataSource::factory(StructureSetting::cls()), 'structure_id');
-    }
-
     public function getStructureSettings()
     {
         /** @var StructureSetting[] $aStructureSettings */
@@ -80,6 +68,25 @@ class Structure extends Entity
         }
 
         return isset($aModules[0]) ? $aModules[0] : null;
+    }
+
+    public function getStructures()
+    {
+        /** @var Structure[] $aStructures */
+        $aStructures = $this->findRelationCache($this->getPrimaryKeyName(), Structure::cls());
+        if (empty($aStructures)) {
+            $oStructures = DataSource::factory(Structure::cls());
+            $oStructures->builder()
+                ->where("structure_id={$this->getPrimaryKey()}");
+
+            $aStructures = $oStructures->findAll();
+            foreach ($aStructures as $oStructure) {
+                $this->addRelationCache($this->getPrimaryKeyName(), $oStructure);
+                $oStructure->addRelationCache('structure_id', $this);
+            }
+        }
+
+        return $aStructures;
     }
 
     public function getStructureFragments()

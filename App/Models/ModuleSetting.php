@@ -20,10 +20,6 @@ class ModuleSetting extends Entity {
 
     protected $tableName = 'modules_setting';
 
-    public function prepareRelations() {
-        $this->field('module_id')->addRelationMTO(DataSource::factory(Module::cls()));
-    }
-
     public function getModule()
     {
         /** @var Module[] $aModules */

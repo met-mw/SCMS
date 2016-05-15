@@ -35,7 +35,7 @@ class ControllerDelete extends MasterAdminController {
      */
     private function deepDelete(Structure $oStructure) {
         /** @var Structure[] $aStructures */
-        $aStructures = $oStructure->field()->loadRelation(Structure::cls());
+        $aStructures = $oStructure->getStructures();
         foreach ($aStructures as $oChildStructure) {
             $this->deepDelete($oChildStructure);
         }

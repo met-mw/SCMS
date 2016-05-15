@@ -20,8 +20,4 @@ class Page extends Entity {
 
     protected $tableName = 'module_pages';
 
-    public function prepareRelations() {
-
-    }
-
 }

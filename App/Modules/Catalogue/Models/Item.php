@@ -9,16 +9,16 @@ use SORM\Entity;
  * Class Item
  * @package App\Modules\CatalogueRetriever\Models
  *
- * @property int $id;
- * @property string $name;
- * @property string $description;
- * @property int $category_id;
- * @property string thumbnail;
- * @property float $price;
- * @property int $count;
- * @property int $priority;
- * @property bool $active;
- * @property bool $deleted;
+ * @property int $id
+ * @property string $name
+ * @property string $description
+ * @property int $category_id
+ * @property string thumbnail
+ * @property float $price
+ * @property int $count
+ * @property int $priority
+ * @property bool $active
+ * @property bool $deleted
  */
 class Item extends Entity {
 
@@ -36,8 +36,23 @@ class Item extends Entity {
         'deleted' => 'Удалён'
     ];
 
-    public function prepareRelations() {
-        $this->field('category_id')->addRelationMTO(DataSource::factory(Category::cls()));
+    public function getCategory()
+    {
+        /** @var Category[] $aCategories */
+        $aCategories = $this->findRelationCache('category_id', Category::cls());
+        if (empty($aCategories)) {
+            $oCategories = DataSource::factory(Category::cls());
+            $oCategories->builder()
+                ->where("{$oCategories->getPrimaryKeyName()}={$this->category_id}");
+
+            $aCategories = $oCategories->findAll();
+            foreach ($aCategories as $oCategory) {
+                $this->addRelationCache('category_id', $oCategory);
+                $oCategory->addRelationCache($oCategory->getPrimaryKeyName(), $this);
+            }
+        }
+
+        return isset($aCategories[0]) ? $aCategories[0] : null;
     }
 
 }

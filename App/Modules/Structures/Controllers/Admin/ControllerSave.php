@@ -98,16 +98,16 @@ class ControllerSave extends MasterAdminController{
         }
 
         /** @var Module $oModule */
-        $oModule = $oStructure->field('module_id')->loadRelation(Module::cls());
-        /** @var ModuleSetting[] $moduleSettings */
-        $moduleSettings = $oModule->field()->loadRelation(ModuleSetting::cls());
+        $oModule = $oStructure->getModule();
+        /** @var ModuleSetting[] $aModuleSettings */
+        $aModuleSettings = $oModule->getModuleSettings();
 
-        /** @var StructureSetting[] $structureSettings */
-        $structureSettings = $oStructure->field()->loadRelation(StructureSetting::cls());
+        /** @var StructureSetting[] $aStructureSettings */
+        $aStructureSettings = $oStructure->getStructureSettings();
 
-        foreach ($moduleSettings as $oModuleSetting) {
+        foreach ($aModuleSettings as $oModuleSetting) {
             $changed = false;
-            foreach ($structureSettings as $oStructureSetting) {
+            foreach ($aStructureSettings as $oStructureSetting) {
                 if ($oModuleSetting->module_id == $oStructureSetting->module_setting_id) {
                     $oStructureSetting->value = is_null($oModuleSetting->entity)
                         ? (string)Param::post($oModuleSetting->parameter, false)->asString()

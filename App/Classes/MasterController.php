@@ -58,10 +58,13 @@ class MasterController extends Controller {
         }
     }
 
-    protected function loadMenuItems(Item $menuItem, Structure $structure) {
-        /** @var Structure[] $aStructures */
-        $aStructures = $structure->field()->loadRelation(Structure::cls());
+    protected function loadMenuItems(Item $menuItem, Structure $oCurrentStructure) {
+        $aStructures = $oCurrentStructure->getStructures();
         foreach ($aStructures as $oStructure) {
+            if (!$oStructure->active || $oStructure->deleted || $oStructure->anchor) {
+                continue;
+            }
+
             $menuItem->addChildItem($oStructure->name, $oStructure->path);
             $this->loadMenuItems($menuItem->findChildItemByPath($oStructure->path), $oStructure);
         }

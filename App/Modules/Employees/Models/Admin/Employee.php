@@ -24,8 +24,4 @@ class Employee extends Entity {
 
     protected $tableName = 'module_employees';
 
-    public function prepareRelations() {
-
-    }
-
 }
