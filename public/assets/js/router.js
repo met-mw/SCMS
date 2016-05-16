@@ -68,6 +68,16 @@ define(
                     'pattern': '^/admin/modules/siteusers/edit(/?)',
                     'modules': ['module.siteuser.edit']
                 },
+                {
+                    'base-path': '/admin/modules/frames',
+                    'pattern': '^/admin/modules/frames(/?)',
+                    'modules': ['s-datagrid', 'scms.content-to-modal']
+                },
+                {
+                    'base-path': '/admin/modules/frames/edit',
+                    'pattern': '^/admin/modules/frames/edit(/?)',
+                    'modules': ['markitup.init', 'module.frames.edit']
+                },
                 // Пользовательская часть
                 {
                     'base-path': '/',

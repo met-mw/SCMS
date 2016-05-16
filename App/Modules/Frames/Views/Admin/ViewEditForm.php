@@ -8,11 +8,10 @@ use SFramework\Classes\View;
 class ViewEditForm extends View {
 
     public $frameName;
-    /** @var ViewResponse */
-    public $response;
+    public $backUrl;
 
     public function __construct() {
-        $this->optional = ['frameName', 'response'];
+        $this->optional = ['frameName'];
     }
 
     public function currentRender() {
@@ -25,41 +24,28 @@ class ViewEditForm extends View {
             $content = '';
         }
 
-        if ($this->response) {
-            $this->response->render();
-        }
         ?>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $("#frame-content").markItUp(mySettings);
-            });
-        </script>
 
-        <form action="<?= $action ?>" method="post">
+        <form action="<?= $action ?>" method="post" id="frame-form">
             <fieldset>
-                <legend><?= ($isNew ? 'Добавление' : 'Редактирование') ?> структуры</legend>
-                <? if ($isNew): ?>
-                <input type="hidden" name="frame-name" value="<?= $this->frameName ?>" />
-                <? endif; ?>
+                <legend><?= ($isNew ? 'Добавление' : 'Редактирование') ?> Фрейма</legend>
 
-                <div class="control-group">
-                    <label>Наименование</label>
-                    <div class="controls">
-                        <input class="edit-form-text" name="frame-name" type="text" placeholder="Наименование" value="<?= $this->frameName ?>">
-                    </div>
+                <div class="form-group">
+                    <label for="frame-name">Наименование</label>
+                    <input class="form-control" name="frame-name" type="text" placeholder="Наименование" value="<?= $this->frameName ?>">
                     <span class="help-block">Название файла фрейма</span>
                 </div>
 
-                <div class="control-group">
-                    <label>Содержимое</label>
-                    <div class="controls">
-                        <textarea id="frame-content" class="edit-form-text" name="frame-content" placeholder="Содержимое"><?= $content ?></textarea>
-                    </div>
+                <div class="form-group">
+                    <label for="frame-content">Содержимое</label>
+                    <textarea id="frame-content" class="form-control" style="width: 100%; height: 600px;" name="frame-content" placeholder="Содержимое"><?= $content ?></textarea>
                     <span class="help-block">Сожержимое фрейма</span>
                 </div>
 
-                <button name="frame-save" type="submit" class="btn btn-primary">Сохранить</button>
-                <button name="frame-accept" type="submit" class="btn btn-success">Применить</button>
+                <hr/>
+                <a href="<?= $this->backUrl ?>" class="btn btn-warning">Отмена</a>
+                <button id="frame-save" name="frame-save" type="submit" class="btn btn-primary">Сохранить</button>
+                <button id="frame-accept" name="frame-accept" type="submit" class="btn btn-success">Применить</button>
             </fieldset>
         </form>
         <?

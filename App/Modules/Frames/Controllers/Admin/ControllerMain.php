@@ -3,30 +3,56 @@ namespace App\Modules\Frames\Controllers\Admin;
 
 
 use App\Classes\MasterAdminController;
-use App\Modules\Frames\Classes\Retrievers\FramesList;
-use App\Modules\Frames\Views\Admin\ViewList;
-use App\Views\Admin\ViewResponse;
+use App\Modules\Frames\Classes\Retrievers\FramesRetriever;
+use App\Views\Admin\DataGrid\ViewDataGrid;
+use App\Views\Admin\ViewBreadcrumbs;
+use SFramework\Classes\Breadcrumb;
+use SFramework\Classes\DataGrid;
+use SFramework\Classes\DataGrid\Action;
+use SFramework\Classes\DataGrid\DataSet\ArrayDataSet;
+use SFramework\Classes\DataGrid\Header;
+use SFramework\Classes\DataGrid\Menu\Item;
+use SFramework\Classes\Param;
 
 class ControllerMain extends MasterAdminController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
 
-        $retriever = new FramesList();
+        $pageNumber = Param::get('frames-page', false)->asInteger(false);
+        $itemsPerPage = Param::get('frames-items-per-page', false)->asInteger(false);
 
-        $view = new ViewList();
-        $view->response = new ViewResponse($this->alertClass, $this->alertHeader, $this->alertText);
+        $dataGridView = new ViewDataGrid();
+        $retriever = new FramesRetriever();
 
-        $view->menu->addItem('Добавить', '/admin/modules/frames/edit/');
-        $view->table
-            ->addColumn('frameName', 'Наименование')
-            ->setCaption('Фреймы');
-        $view->table->tableHead->allowActions = true;
-        $view->table->tableBody->data = $retriever->getList();
-        $view->table->tableBody->addAction('Редактировать', '/admin/modules/frames/edit/', 'glyphicon-pencil');
+        $manifest = $this->moduleInstaller->getManifest($this->moduleName);
+        $dataGrid = new DataGrid('frames', '/admin/modules/frames/', 'name', $manifest['meta']['alias'], $pageNumber, $itemsPerPage, $manifest['meta']['description']);
+        $dataGrid->getMenu()
+            ->addElement(new Item('Создать новый фрейм', '/admin/modules/frames/edit/'))
+        ;
 
-        $this->frame->bindView('content', $view);
+        $dataGrid
+            ->addAction(new Action('name', '/admin/modules/frames/edit/', 'edit', '', [], ['class' => 'glyphicon glyphicon-pencil'], 'Редактировать'))
+            ->addAction(new Action('name', '/admin/modules/frames/delete/', 'delete', '', [], ['class' => 'glyphicon glyphicon-trash'], 'Удалить', true))
+        ;
 
+        $dataGrid
+            ->addHeader(new Header('name', 'Название', null, ['class' => 'text-center'], ['class' => 'text-left'], true, Param::get('frames-filter-id', false)->asString(false)));
+
+        $arrayDataSet = new ArrayDataSet($retriever->getFrames());
+        $dataGrid->addDataSet($arrayDataSet);
+        $dataGridView->dataGrid = $dataGrid;
+
+        // Подготовка хлебных крошек
+        $viewBreadcrumbs = new ViewBreadcrumbs();
+        $viewBreadcrumbs->breadcrumbs = [
+            new Breadcrumb('Панель управления', '/admin'),
+            new Breadcrumb('Модули', '/modules'),
+            new Breadcrumb('Фреймы', '/frames')
+        ];
+
+        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
+        $this->frame->bindView('content', $dataGridView);
         $this->frame->render();
     }
 

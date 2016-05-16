@@ -14,6 +14,9 @@ requirejs.config({
         'tinymce': 'bower_components/tinymce/tinymce.min',
         'tinymce-ru': 'tinymce/langs/ru',
         'tinymce-file-manager': 'tinymce/plugins/responsivefilemanager/plugin.min',
+        'markitup.init': '/public/assets/js/library/markitup.init',
+        'jquery.markitup': 'bower_components/markitup/markitup/jquery.markitup',
+        'markitup.sets': 'bower_components/markitup/markitup/sets/default/set',
         'sform': 'forms/jquery.sform',
         'sajaxloader': 'jquery.sajaxloader',
         'modal': 'forms/modal',
@@ -34,7 +37,8 @@ requirejs.config({
         'module.catalogue.item.edit': '/App/Modules/Catalogue/public/assets/js/admin/form/catalogue-item',
         'module.catalogue.tinymce-config': '/App/Modules/Catalogue/public/assets/js/admin/form/tinymce-config',
         'module.catalogue.cart': '/App/Modules/Catalogue/public/assets/js/cart',
-        'module.siteuser.edit': '/App/Modules/Siteusers/public/assets/js/admin/form/siteuser'
+        'module.siteuser.edit': '/App/Modules/Siteusers/public/assets/js/admin/form/siteuser',
+        'module.frames.edit': '/App/Modules/Frames/public/assets/js/admin/form/frame'
     },
     shim: {
         'jquery': {
