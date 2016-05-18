@@ -24,14 +24,16 @@ class ViewMenuItem extends View {
      * @param string $displayName
      * @param string $target
      * @param ViewMenuItems $itemsList
+     * @param bool $active
      */
-    public function __construct($pathRoot, $path, $displayName, $target = null, $itemsList = null) {
-        $this->optional = ['items', 'active', 'target'];
+    public function __construct($pathRoot, $path, $displayName, $target = null, $itemsList = null, $active = false) {
+        $this->optional = ['items', 'active', 'target', 'isCurrent'];
 
         $this->pathRoot = $pathRoot;
         $this->path = $path;
         $this->displayName = $displayName;
         $this->target = $target;
+        $this->active = $active;
 
         $pathRoot = $this->pathRoot == '' ? $this->path : "{$this->pathRoot}/{$this->path}";
         $this->itemsList = is_null($itemsList) ? new ViewMenuItems($pathRoot) : $itemsList;

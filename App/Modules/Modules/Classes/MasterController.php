@@ -35,10 +35,10 @@ class MasterController extends Controller {
         $this->breadcrumbsView = new ViewBreadcrumbs();
         $this->breadcrumbsView->breadcrumbs = [];
         if (!$this->oStructure->is_main) {
-            $this->breadcrumbsView->breadcrumbs = [
-                new Breadcrumb('Главная', '/'),
-                new Breadcrumb($this->oStructure->name, $this->oStructure->path)
-            ];
+            $this->breadcrumbsView->breadcrumbs = [new Breadcrumb('Главная', '/')];
+            if (!$this->oStructure->anchor) {
+                $this->breadcrumbsView->breadcrumbs[] = new Breadcrumb($this->oStructure->name, $this->oStructure->path);
+            }
         }
 
         $this->cart = new Cart();

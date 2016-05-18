@@ -78,6 +78,16 @@ define(
                     'pattern': '^/admin/modules/frames/edit(/?)',
                     'modules': ['markitup.init', 'module.frames.edit']
                 },
+                {
+                    'base-path': '/admin/modules/gallery',
+                    'pattern': '^/admin/modules/gallery(/?)',
+                    'modules': ['s-datagrid', 'scms.content-to-modal']
+                },
+                {
+                    'base-path': '/admin/modules/gallery/edit',
+                    'pattern': '^/admin/modules/gallery/edit(/?)',
+                    'modules': ['module.gallery.edit']
+                },
                 // Пользовательская часть
                 {
                     'base-path': '/',

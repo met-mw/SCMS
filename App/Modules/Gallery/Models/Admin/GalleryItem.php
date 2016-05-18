@@ -18,9 +18,27 @@ use SORM\Entity;
 class GalleryItem extends Entity
 {
 
-    public function prepareRelations()
+    protected $tableName = 'module_gallery_item';
+
+    public function getGallery()
     {
-        $this->field('gallery_id')->addRelationOTM(DataSource::factory(Gallery::cls()), 'id');
+        // $aStructureSettings = $this->findRelationCache($this->getPrimaryKeyName(), StructureSetting::cls());
+        /** @var Gallery[] $aGalleries */
+        $aGalleries = $this->findRelationCache('gallery_id', Gallery::cls());
+        if (empty($aGalleries)) {
+            /** @var Gallery $oGalleries */
+            $oGalleries = DataSource::factory(Gallery::cls());
+            $oGalleries->builder()
+                ->where("{$oGalleries->getPrimaryKeyName()}={$this->gallery_id}");
+
+            $aGalleries = $oGalleries->findAll();
+            foreach ($aGalleries as $oGallery) {
+                $this->addRelationCache('gallery_id', $oGallery);
+                $oGallery->addRelationCache($oGallery->getPrimaryKeyName(), $this);
+            }
+        }
+
+        return isset($aGalleries[0]) ? $aGalleries[0] : null;
     }
 
 }

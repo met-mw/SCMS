@@ -48,6 +48,8 @@ class MasterController extends MasterDefaultController {
             $action = 'actionIndex';
             $controller = new $controllerName();
             $controller->{$action}();
+
+            return;
         }
 
         $oModule = $oStructure->getModule();
@@ -69,8 +71,8 @@ class MasterController extends MasterDefaultController {
                 $frame->addMeta(['name' => 'keywords', 'content' => $seoKeywords]);
             }
         } else {
-            $oClosestStructure = $this->getClosestStructure($oStructure);
-            $frame = $this->getActiveFrame($oClosestStructure);
+            $oClosestIndStructure = $oStructure->getClosetsIndStructure();
+            $frame = $this->getActiveFrame($oClosestIndStructure);
         }
 
 
@@ -104,15 +106,6 @@ class MasterController extends MasterDefaultController {
         return $oStructure->frame != ''
             ? Registry::frame($oStructure->frame)
             : $this->frame;
-    }
-
-    protected function getClosestStructure(Structure $oStructure) {
-        $oParentStructure = $oStructure->getParentStructure();
-        while ($oParentStructure && $oParentStructure->anchor) {
-            $oParentStructure = $oParentStructure->getParentStructure();
-        }
-
-        return $oParentStructure;
     }
 
     protected function getStructure() {

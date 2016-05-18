@@ -52,7 +52,7 @@ class MasterController extends Controller {
     protected function setMenuItems(ViewMenuItems $itemList, $structureParentId = 0) {
         foreach ($this->getStructuresByParentId($structureParentId) as $oStructure) {
             if ($oStructure->active && !$oStructure->deleted && !$oStructure->anchor) {
-                $itemList->addItem($oStructure->path, $oStructure->name);
+                $itemList->addItem($oStructure->path, $oStructure->name, null, null, $this->currentPath == $oStructure->path);
                 $this->setMenuItems($itemList->getItem($oStructure->path)->itemsList, $oStructure->id);
             }
         }

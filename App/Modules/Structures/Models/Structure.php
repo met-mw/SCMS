@@ -129,4 +129,13 @@ class Structure extends Entity
         return isset($aStructures[0]) ? $aStructures[0] : null;
     }
 
+    public function getClosetsIndStructure() {
+        $oParentStructure = $this->getParentStructure();
+        while ($oParentStructure && $oParentStructure->anchor) {
+            $oParentStructure = $oParentStructure->getParentStructure();
+        }
+
+        return $oParentStructure;
+    }
+
 }

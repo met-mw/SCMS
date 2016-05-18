@@ -122,6 +122,7 @@ class ControllerMain extends MasterController {
 
         $view->backUrl = CoreFunctions::buildUrlByBreadcrumbs($this->breadcrumbsView->breadcrumbs, 1);
         $this->frame->bindView('breadcrumbs', $this->breadcrumbsView);
+
         $view->render();
     }
 

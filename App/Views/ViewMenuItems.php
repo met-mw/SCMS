@@ -27,11 +27,12 @@ class ViewMenuItems extends View {
      * @param string $displayName
      * @param string $target
      * @param ViewMenuItems $itemsList
+     * @param bool $active
      *
      * @return $this
      */
-    public function addItem($path, $displayName, $target = null, $itemsList = null) {
-        $this->items[$path] = new ViewMenuItem($this->pathRoot, $path, $displayName, $target, $itemsList);
+    public function addItem($path, $displayName, $target = null, $itemsList = null, $active = false) {
+        $this->items[$path] = new ViewMenuItem($this->pathRoot, $path, $displayName, $target, $itemsList, $active);
         return $this;
     }
 

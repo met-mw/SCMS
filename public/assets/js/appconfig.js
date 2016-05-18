@@ -38,7 +38,8 @@ requirejs.config({
         'module.catalogue.tinymce-config': '/App/Modules/Catalogue/public/assets/js/admin/form/tinymce-config',
         'module.catalogue.cart': '/App/Modules/Catalogue/public/assets/js/cart',
         'module.siteuser.edit': '/App/Modules/Siteusers/public/assets/js/admin/form/siteuser',
-        'module.frames.edit': '/App/Modules/Frames/public/assets/js/admin/form/frame'
+        'module.frames.edit': '/App/Modules/Frames/public/assets/js/admin/form/frame',
+        'module.gallery.edit': '/App/Modules/Gallery/public/assets/js/admin/form/gallery'
     },
     shim: {
         'jquery': {
