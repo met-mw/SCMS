@@ -4,19 +4,17 @@ namespace App\Modules\Gallery\Controllers\Admin;
 
 use App\Classes\MasterAdminController;
 use App\Modules\Gallery\Classes\Retrievers\GalleryRetriever;
-use App\Modules\Gallery\Models\Admin\Gallery;
 use App\Views\Admin\DataGrid\ViewDataGrid;
 use App\Views\Admin\ViewBreadcrumbs;
 use SFramework\Classes\Breadcrumb;
 use SFramework\Classes\DataGrid;
 use SFramework\Classes\DataGrid\Action;
 use SFramework\Classes\DataGrid\DataSet\ArrayDataSet;
-use SFramework\Classes\DataGrid\DataSet\SORMDataSet;
 use SFramework\Classes\DataGrid\Header;
 use SFramework\Classes\DataGrid\Menu\Item;
 use SFramework\Classes\Param;
 use SFramework\Views\DataGrid\ViewCutString;
-use SORM\DataSource;
+use SFramework\Views\DataGrid\ViewLink;
 
 class ControllerMain extends MasterAdminController
 {
@@ -25,8 +23,8 @@ class ControllerMain extends MasterAdminController
     {
         $this->authorizeIfNot();
 
-        $pageNumber = Param::get('employee-page', false)->asInteger(false);
-        $itemsPerPage = Param::get('employee-items-per-page', false)->asInteger(false);
+        $pageNumber = Param::get('gallery-page', false)->asInteger(false);
+        $itemsPerPage = Param::get('gallery-items-per-page', false)->asInteger(false);
 
         $manifest = $this->moduleInstaller->getManifest($this->moduleName);
 
@@ -45,7 +43,7 @@ class ControllerMain extends MasterAdminController
 
         $dataGrid
             ->addHeader(new Header('id', '№', null, ['class' => 'text-center', 'style' => 'width: 50px;'], ['class' => 'text-center'], true, Param::get('gallery-filter-id', false)->asString(false)))
-            ->addHeader(new Header('name', 'Название', null, ['class' => 'text-center', 'style' => 'width: 250px;'], [], true, Param::get('gallery-filter-name', false)->asString(false)))
+            ->addHeader(new Header('name', 'Название', new ViewLink('/admin/modules/gallery/item/?gallery_id={label}', false, 'id'), ['class' => 'text-center', 'style' => 'width: 250px;'], [], true, Param::get('gallery-filter-name', false)->asString(false)))
             ->addHeader(new Header('description', 'Описание', new ViewCutString(20, true, ['class' => 'content-to-modal', 'style' => 'cursor: pointer;'], ['style' => 'display: none;']), ['class' => 'text-center'], ['class' => 'modal-display-field'], true, Param::get('gallery-filter-description', false)->asString(false)))
         ;
 

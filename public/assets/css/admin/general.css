@@ -11,3 +11,8 @@ body.modal-open {
 .modal {
     overflow: auto;
 }
+
+.galleria {
+    height: 400px;
+    width: 100%;
+}

@@ -24,6 +24,7 @@
     "jquery-tmpl": "*",
     "jquery.fancybox": "~1.3.4",
     "jquery-textchange": "~0.2.3",
-    "jquery.mosaicflow": "~0.2.5"
+    "jquery.mosaicflow": "~0.2.5",
+    "jquery-galleria": "~1.4.2"
   }
 }

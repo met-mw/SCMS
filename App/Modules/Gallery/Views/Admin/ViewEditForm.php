@@ -12,6 +12,7 @@ class ViewEditForm extends View
 
     /** @var Gallery */
     public $gallery;
+    public $backUrl;
 
     public function currentRender() {
         $isNew = is_null($this->gallery->id);
@@ -25,35 +26,56 @@ class ViewEditForm extends View
         }
 
         ?>
+        <style>
+            .galleria {
+                height: 400px;
+            }
+        </style>
         <form id="gallery-edit-form" action="/admin/modules/gallery/save/" method="post">
             <fieldset>
                 <legend><?= ($isNew ? 'Добавление' : 'Редактирование') ?> галлереи</legend>
                 <input type="hidden" name="gallery-edit-id" value="<?= $id ?>" />
 
                 <div class="row">
-                    <div class="col-lg-1">
-                        <div class="form-group">
-                            <label for="gallery-edit-number">№</label>
-                            <input class="form-control input-sm" id="gallery-edit-number" name="gallery-edit-number" disabled="disabled" type="number" placeholder="№" value="<?= $id ?>">
-                            <span class="help-block">Номер</span>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <div class="form-group">
+                                    <label for="gallery-edit-number">№</label>
+                                    <input class="form-control input-sm" id="gallery-edit-number" name="gallery-edit-number" disabled="disabled" type="number" placeholder="№" value="<?= $id ?>">
+                                    <span class="help-block">Номер</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-11">
+                                <div class="form-group">
+                                    <label for="gallery-edit-name">Наименование</label>
+                                    <input class="form-control input-sm" id="gallery-edit-name" name="gallery-edit-name" type="text" placeholder="Наименование" value="<?= $name ?>">
+                                    <span class="help-block">Название галлереи</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-11">
-                        <div class="form-group">
-                            <label for="gallery-edit-name">Наименование</label>
-                            <input class="form-control input-sm" id="gallery-edit-name" name="gallery-edit-name" type="text" placeholder="Наименование" value="<?= $name ?>">
-                            <span class="help-block">Название галлереи</span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="gallery-edit-description">Описание</label>
-                    <textarea class="form-control input-sm" id="gallery-edit-description" name="gallery-edit-description" placeholder="Описание" style="width: 100%; height: 100px;"><?= $description ?></textarea>
-                    <span class="help-block">Служебная информация, к заполнению не обязательна.</span>
+                        <div class="form-group">
+                            <label for="gallery-edit-description">Описание</label>
+                            <textarea class="form-control input-sm" id="gallery-edit-description" name="gallery-edit-description" placeholder="Описание" style="width: 100%; height: 100px;"><?= $description ?></textarea>
+                            <span class="help-block">Служебная информация, к заполнению не обязательна.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="galleria">
+                            <? $aGalleryItems = $this->gallery->getGalleryItems(); ?>
+                            <? foreach ($aGalleryItems as $oGalleryItem): ?>
+                                <a href="<?= $oGalleryItem->path ?>">
+                                    <img src="<?= $oGalleryItem->path ?>" data-title="<?= $oGalleryItem->name ?>" data-description="<?= $oGalleryItem->description ?>" />
+                                </a>
+                            <? endforeach; ?>
+                        </div>
+                    </div>
                 </div>
 
                 <hr/>
+                <a href="<?= $this->backUrl ?>" class="btn btn-warning">Отмена</a>
                 <button id="gallery-edit-save" name="gallery-edit-save" type="submit" class="btn btn-primary">Сохранить</button>
                 <button id="gallery-edit-accept" name="gallery-edit-accept" type="submit" class="btn btn-success">Применить</button>
             </fieldset>

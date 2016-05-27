@@ -7,6 +7,7 @@ use App\Modules\Gallery\Models\Admin\Gallery;
 use App\Modules\Gallery\Views\Admin\ViewEditForm;
 use App\Views\Admin\ViewBreadcrumbs;
 use SFramework\Classes\Breadcrumb;
+use SFramework\Classes\CoreFunctions;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
@@ -37,6 +38,8 @@ class ControllerEdit extends MasterAdminController
         } else {
             $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb('Добавление новой галлереи', '');
         }
+
+        $view->backUrl = CoreFunctions::buildUrlByBreadcrumbs($viewBreadcrumbs->breadcrumbs, 1);
 
         $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
         $this->frame->bindView('content', $view);

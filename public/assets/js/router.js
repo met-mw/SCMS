@@ -80,13 +80,23 @@ define(
                 },
                 {
                     'base-path': '/admin/modules/gallery',
-                    'pattern': '^/admin/modules/gallery(/?)',
+                    'pattern': '^/admin/modules/gallery(/?)$',
                     'modules': ['s-datagrid', 'scms.content-to-modal']
                 },
                 {
                     'base-path': '/admin/modules/gallery/edit',
                     'pattern': '^/admin/modules/gallery/edit(/?)',
-                    'modules': ['module.gallery.edit']
+                    'modules': ['module.gallery.edit', 'jquery-galleria']
+                },
+                {
+                    'base-path': '/admin/modules/gallery/item',
+                    'pattern': '^/admin/modules/gallery/item(/?)',
+                    'modules': ['s-datagrid', 'scms.content-to-modal', 'module.gallery']
+                },
+                {
+                    'base-path': '/admin/modules/gallery/item/edit',
+                    'pattern': '^/admin/modules/gallery/item/edit(/?)',
+                    'modules': ['tinymce-file-manager', 'module.gallery.item.edit']
                 },
                 // Пользовательская часть
                 {

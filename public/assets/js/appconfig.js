@@ -8,6 +8,8 @@ requirejs.config({
         'jquery-fancybox': '/public/assets/js/fancybox2/source/jquery.fancybox.pack',
         'jquery-textchange': 'bower_components/jquery-textchange/jquery.textchange',
         'jquery-mosaic-flow': 'bower_components/jquery.mosaicflow/jquery.mosaicflow.min',
+        'jquery-galleria': 'bower_components/jquery-galleria/src/galleria',
+        'jquery-galleria-classic-theme': 'bower_components/jquery-galleria/src/themes/classic/galleria.classic',
         'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap.min',
         'underscore': 'bower_components/underscore/underscore-min',
         'underscore.string': 'bower_components/underscore.string/dist/underscore.string.min',
@@ -39,7 +41,9 @@ requirejs.config({
         'module.catalogue.cart': '/App/Modules/Catalogue/public/assets/js/cart',
         'module.siteuser.edit': '/App/Modules/Siteusers/public/assets/js/admin/form/siteuser',
         'module.frames.edit': '/App/Modules/Frames/public/assets/js/admin/form/frame',
-        'module.gallery.edit': '/App/Modules/Gallery/public/assets/js/admin/form/gallery'
+        'module.gallery': '/App/Modules/Gallery/public/assets/js/admin/gallery',
+        'module.gallery.edit': '/App/Modules/Gallery/public/assets/js/admin/form/gallery',
+        'module.gallery.item.edit': '/App/Modules/Gallery/public/assets/js/admin/form/gallery-item'
     },
     shim: {
         'jquery': {
