@@ -86,7 +86,7 @@ define(
                 {
                     'base-path': '/admin/modules/gallery/edit',
                     'pattern': '^/admin/modules/gallery/edit(/?)',
-                    'modules': ['module.gallery.edit', 'jquery-galleria']
+                    'modules': ['module.gallery.edit', 'module.gallery.init']
                 },
                 {
                     'base-path': '/admin/modules/gallery/item',
@@ -102,7 +102,7 @@ define(
                 {
                     'base-path': '/',
                     'pattern': '^(/?)',
-                    'modules': ['module.catalogue.cart', 'scms.content-to-modal']
+                    'modules': ['module.catalogue.cart', 'scms.content-to-modal', 'module.gallery.init']
                 },
                 {
                     'base-path': '/catalogue/',

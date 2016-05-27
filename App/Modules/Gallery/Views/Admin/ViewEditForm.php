@@ -25,15 +25,33 @@ class ViewEditForm extends View
             $id = $name = $description = '';
         }
 
+        $aGalleryItems = $this->gallery->getGalleryItems();
+
         ?>
         <style>
             .galleria {
-                height: 400px;
+                height: 300px;
+            }
+
+            .thumb img {
+                filter: none; /* IE6-9 */
+                -webkit-filter: grayscale(0);
+                border-radius:5px;
+                background-color: #fff;
+                border: 1px solid #ddd;
+                padding:5px;
+            }
+            .thumb img:hover {
+                filter: gray; /* IE6-9 */
+                -webkit-filter: grayscale(1);
+            }
+            .thumb {
+                padding:5px;
             }
         </style>
         <form id="gallery-edit-form" action="/admin/modules/gallery/save/" method="post">
             <fieldset>
-                <legend><?= ($isNew ? 'Добавление' : 'Редактирование') ?> галлереи</legend>
+                <legend><?= ($isNew ? 'Добавление новой галлереи' : "Редактирование галлереи (<a target=\"_blank\" href=\"/admin/modules/gallery/item/?gallery_id={$id}\">перейти к редактированию элементов</a>)") ?></legend>
                 <input type="hidden" name="gallery-edit-id" value="<?= $id ?>" />
 
                 <div class="row">
@@ -63,13 +81,31 @@ class ViewEditForm extends View
                     </div>
 
                     <div class="col-sm-6">
+                        <h4>Режим галлереи с прокруткой</h4>
                         <div class="galleria">
-                            <? $aGalleryItems = $this->gallery->getGalleryItems(); ?>
                             <? foreach ($aGalleryItems as $oGalleryItem): ?>
                                 <a href="<?= $oGalleryItem->path ?>">
-                                    <img src="<?= $oGalleryItem->path ?>" data-title="<?= $oGalleryItem->name ?>" data-description="<?= $oGalleryItem->description ?>" />
+                                    <img src="<?= $oGalleryItem->path ?>" data-big="<?= $oGalleryItem->path ?>" data-title="<?= $oGalleryItem->name ?>" data-description="<?= $oGalleryItem->description ?>" />
                                 </a>
                             <? endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <h4 class="text-center">Режим галлереи с плитками</h4>
+
+                    <div class="col-xs-12">
+                        <div class="container">
+                            <div class="row">
+                                <? foreach ($aGalleryItems as $oGalleryItem): ?>
+                                    <div class="col-md-3 col-sm-4 col-xs-6 thumb">
+                                        <a class="fancyimage" rel="group" href="<?= $oGalleryItem->path ?>">
+                                            <img class="img-responsive" src="<?= $oGalleryItem->path ?>" />
+                                        </a>
+                                    </div>
+                                <? endforeach; ?>
+                            </div>
                         </div>
                     </div>
                 </div>

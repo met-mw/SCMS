@@ -14,5 +14,9 @@ return [
     'dependencies' => [
         'Modules',
         'Structure'
+    ],
+    'run' => [
+        'controller' => 'Controllers\\ControllerMain',
+        'action' => 'actionIndex'
     ]
 ];

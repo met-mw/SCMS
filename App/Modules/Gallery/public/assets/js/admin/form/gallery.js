@@ -3,23 +3,14 @@ define(
     [
         'jquery',
         's-notification',
-        'jquery-galleria',
         'sform',
-        'sajaxloader'
+        'sajaxloader',
+        'jquery-fancybox'
     ],
     function($, notification) {
         "use strict";
-        //var jQueryGalleria = jQuery.noConflict(true);
-        //
-        //(function($) {
-        //    Galleria.loadTheme('/public/assets/js/bower_components/jquery-galleria/src/themes/classic/galleria.classic.js');
-        //    Galleria.run('.galleria');
-        //})( jQueryGalleria );
 
         $(document).ready(function() {
-            Galleria.loadTheme('/public/assets/js/bower_components/jquery-galleria/src/themes/classic/galleria.classic.js');
-            Galleria.run('.galleria');
-
             $('#gallery-edit-save, #gallery-edit-accept').click(function() {
                 var self = $(this);
                 var form = $('#gallery-edit-form');

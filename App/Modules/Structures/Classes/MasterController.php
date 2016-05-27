@@ -86,7 +86,7 @@ class MasterController extends MasterDefaultController {
         $controller = new $controllerName($frame, $manifest, $oStructure);
         foreach ($aStructureSettings as $oStructureSetting) {
             foreach ($aModuleSettings as $oModuleSetting) {
-                if ($oModuleSetting->module_id == $oStructureSetting->module_setting_id) {
+                if ($oModuleSetting->id == $oStructureSetting->module_setting_id) {
                     $controller->{$oModuleSetting->parameter} = $oStructureSetting->value;
                 }
             }
