@@ -2,16 +2,16 @@
 namespace App\Controllers\Admin\Modules\Catalogue;
 
 
-use App\Classes\MasterAdminProxyController;
+use App\Classes\AdministratorAreaProxyController;
 
-class ControllerSave extends MasterAdminProxyController {
+class ControllerSave extends AdministratorAreaProxyController {
 
     public function actionCategory() {
-        $this->proxy->execute();
+        $this->Proxy->execute();
     }
 
     public function actionItem() {
-        $this->proxy->execute();
+        $this->Proxy->execute();
     }
 
 } 

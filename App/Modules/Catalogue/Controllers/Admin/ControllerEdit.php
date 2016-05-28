@@ -2,7 +2,7 @@
 namespace App\Modules\Catalogue\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Catalogue\Models\Category;
 use App\Modules\Catalogue\Models\Item;
 use App\Modules\Catalogue\Views\Admin\ViewCategoryEdit;
@@ -13,7 +13,7 @@ use SFramework\Classes\CoreFunctions;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
-class ControllerEdit extends MasterAdminController {
+class ControllerEdit extends AdministratorAreaController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
@@ -46,7 +46,7 @@ class ControllerEdit extends MasterAdminController {
 
         // Подготовка хлебных крошек
         $viewBreadcrumbs = new ViewBreadcrumbs();
-        $viewBreadcrumbs->breadcrumbs = [
+        $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
             new Breadcrumb('Модули', '/modules'),
             new Breadcrumb('Каталог', '/catalogue')
@@ -68,21 +68,21 @@ class ControllerEdit extends MasterAdminController {
             $catalogueEditBreadcrumbs[] = new Breadcrumb($oParentCategory->name, "?parent_pk={$oParentCategory->getPrimaryKey()}", true);
             $breadcrumbsParentPK = $oParentCategory->category_id;
         }
-        $viewBreadcrumbs->breadcrumbs = array_merge($viewBreadcrumbs->breadcrumbs, array_reverse($catalogueEditBreadcrumbs));
+        $viewBreadcrumbs->Breadcrumbs = array_merge($viewBreadcrumbs->Breadcrumbs, array_reverse($catalogueEditBreadcrumbs));
         if ($id && isset($oCategory)) {
-            $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb("Редактирование \"$oCategory->name\"", '');
+            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb("Редактирование \"$oCategory->name\"", '');
         } elseif ($id && isset($oItem)) {
-            $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb("Редактирование \"$oItem->name\"", '');
+            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb("Редактирование \"$oItem->name\"", '');
         } else {
             $lastBreadcrumb = 'Добавление новой ' . ($isCategory == 1 ? 'категории' : 'позиции');
-            $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb($lastBreadcrumb, '');
+            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb($lastBreadcrumb, '');
         }
 
-        $viewCatalogueEdit->backUrl = CoreFunctions::buildUrlByBreadcrumbs($viewBreadcrumbs->breadcrumbs, 1);
+        $viewCatalogueEdit->backUrl = CoreFunctions::buildUrlByBreadcrumbs($viewBreadcrumbs->Breadcrumbs, 1);
 
-        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
-        $this->frame->bindView('content', $viewCatalogueEdit);
-        $this->frame->render();
+        $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs);
+        $this->Frame->bindView('content', $viewCatalogueEdit);
+        $this->Frame->render();
     }
 
 } 

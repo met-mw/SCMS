@@ -2,9 +2,9 @@
 namespace App\Modules\Structures\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Structures\Classes\Retrievers\StructureRetriever;
-use App\Modules\Structures\Models\Structure;
+use App\Models\Structure;
 use App\Views\Admin\DataGrid\ViewDataGrid;
 use App\Views\Admin\ViewBreadcrumbs;
 use SFramework\Classes\Breadcrumb;
@@ -20,7 +20,7 @@ use SFramework\Views\DataGrid\ViewSwitch;
 use SORM\DataSource;
 use SORM\Tools\Builder;
 
-class ControllerMain extends MasterAdminController {
+class ControllerMain extends AdministratorAreaController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
@@ -33,7 +33,7 @@ class ControllerMain extends MasterAdminController {
         if ($parentPK != 0) {
             $addItemUrl .= "?parent_pk={$parentPK}";
         }
-        $manifest = $this->moduleInstaller->getManifest($this->moduleName);
+        $manifest = $this->ModuleInstaller->getManifest($this->moduleName);
 
         $dataGridView = new ViewDataGrid();
         $retriever = new StructureRetriever();
@@ -68,8 +68,8 @@ class ControllerMain extends MasterAdminController {
         $structures = $retriever->getStructures(
             $parentPK,
             $dataGrid->getFilterConditions('structure'),
-            $dataGrid->pagination->getLimit(),
-            $dataGrid->pagination->getOffset()
+            $dataGrid->Pagination->getLimit(),
+            $dataGrid->Pagination->getOffset()
         );
 
         $dataSet = new ArrayDataSet($structures);
@@ -78,7 +78,7 @@ class ControllerMain extends MasterAdminController {
 
         // Подготовка хлебных крошек
         $viewBreadcrumbs = new ViewBreadcrumbs();
-        $viewBreadcrumbs->breadcrumbs = [
+        $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
             new Breadcrumb('Модули', '/modules'),
             new Breadcrumb('Структура сайта', '/structures')
@@ -91,11 +91,11 @@ class ControllerMain extends MasterAdminController {
             $structureBreadcrumbs[] = new Breadcrumb($oParentStructure->name, "?parent_pk={$oParentStructure->getPrimaryKey()}", true);
             $breadcrumbsParentPK = $oParentStructure->structure_id;
         }
-        $viewBreadcrumbs->breadcrumbs = array_merge($viewBreadcrumbs->breadcrumbs, array_reverse($structureBreadcrumbs));
+        $viewBreadcrumbs->Breadcrumbs = array_merge($viewBreadcrumbs->Breadcrumbs, array_reverse($structureBreadcrumbs));
 
-        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
-        $this->frame->bindView('content', $dataGridView);
-        $this->frame->render();
+        $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs);
+        $this->Frame->bindView('content', $dataGridView);
+        $this->Frame->render();
     }
 
 } 

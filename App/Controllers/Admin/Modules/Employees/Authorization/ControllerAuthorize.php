@@ -2,12 +2,12 @@
 namespace App\Controllers\Admin\Modules\Employees\Authorization;
 
 
-use App\Classes\MasterAdminProxyController;
+use App\Classes\AdministratorAreaProxyController;
 
-class ControllerAuthorize extends MasterAdminProxyController {
+class ControllerAuthorize extends AdministratorAreaProxyController {
 
     public function actionIndex() {
-        $this->proxy->execute();
+        $this->Proxy->execute();
     }
 
 } 

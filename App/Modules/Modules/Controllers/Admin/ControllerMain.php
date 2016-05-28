@@ -2,14 +2,14 @@
 namespace App\Modules\Modules\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Models\Module;
 use App\Views\Admin\Entities\Decorations\ViewActive;
 use App\Views\Admin\Entities\ViewList;
 use App\Views\Admin\ViewResponse;
 use SORM\DataSource;
 
-class ControllerMain extends MasterAdminController {
+class ControllerMain extends AdministratorAreaController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
@@ -33,14 +33,14 @@ class ControllerMain extends MasterAdminController {
             ->addColumn('description', 'Описание')
             ->addColumn('active', 'Активен')
         ;
-        $this->pager->prepare();
+        $this->Pagination->prepare();
         $this->fillPager($view);
 
         $view->table->tableBody->addDecoration('active', new ViewActive('active'));
 
-        $this->frame->bindView('content', $view);
+        $this->Frame->bindView('content', $view);
 
-        $this->frame->render();
+        $this->Frame->render();
     }
 
 } 

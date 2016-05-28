@@ -2,9 +2,9 @@
 namespace App\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 
-class ControllerConfiguration extends MasterAdminController {
+class ControllerConfiguration extends AdministratorAreaController {
 
     public function actionIndex() {
         $configRoot = SFW_APP_ROOT . 'Config' . DIRECTORY_SEPARATOR;

@@ -2,6 +2,6 @@
 namespace App\Controllers\Education;
 
 
-use App\Modules\Structures\Classes\MasterController;
+use App\Modules\Structures\Classes\StructureModuleController;
 
-class ControllerAsdasdasdasd extends MasterController {}
+class ModuleControllerAsdasdasdasd extends StructureModuleController {}

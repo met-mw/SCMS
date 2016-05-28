@@ -2,17 +2,17 @@
 namespace App\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Views\Admin\ViewMain;
 
-class ControllerMain extends MasterAdminController {
+class ControllerMain extends AdministratorAreaController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
 
         $view = new ViewMain();
-        $this->frame->bindView('content', $view);
-        $this->frame->render();
+        $this->Frame->bindView('content', $view);
+        $this->Frame->render();
     }
 
 } 

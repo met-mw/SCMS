@@ -1,22 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: metr
- * Date: 21.11.15
- */
-
-namespace App\Modules\Structures\Classes;
+namespace App\Classes;
 
 
-use \App\Classes\MasterController as MasterDefaultController;
-use App\Modules\Modules\Classes\MasterController as MasterModuleController;
-use App\Modules\Structures\Models\Structure;
+use App\Models\Structure;
 use SFramework\Classes\CoreFunctions;
 use SFramework\Classes\Registry;
 use SORM\DataSource;
 use SORM\Tools\Builder;
 
-class MasterController extends MasterDefaultController {
+class StructureModuleController extends StructureController {
 
     /** @var Structure */
     protected $structure;
@@ -44,7 +36,7 @@ class MasterController extends MasterDefaultController {
 
     protected function executeModule(Structure $oStructure) {
         if (!$oStructure->active || $oStructure->module_id == 0) {
-            $controllerName = $this->router->error404();
+            $controllerName = $this->Router->error404();
             $action = 'actionIndex';
             $controller = new $controllerName();
             $controller->{$action}();
@@ -82,7 +74,7 @@ class MasterController extends MasterDefaultController {
         $aModuleSettings = $oModule->getModuleSettings();
         $aStructureSettings = $oStructure->getStructureSettings();
 
-        /** @var MasterModuleController $controller */
+        /** @var PublicAreaController $controller */
         $controller = new $controllerName($frame, $manifest, $oStructure);
         foreach ($aStructureSettings as $oStructureSetting) {
             foreach ($aModuleSettings as $oModuleSetting) {
@@ -105,7 +97,7 @@ class MasterController extends MasterDefaultController {
     {
         return $oStructure->frame != ''
             ? Registry::frame($oStructure->frame)
-            : $this->frame;
+            : $this->Frame;
     }
 
     protected function getStructure() {

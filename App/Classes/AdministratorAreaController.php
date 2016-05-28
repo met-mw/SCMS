@@ -24,46 +24,49 @@ use SORM\Tools\Builder;
  * не авторизован.
  * Подводны камни: Система должна работать стабильно и без модуля Employees, который предоставляет механизм авторизации.
  */
-abstract class MasterAdminController extends Controller {
+abstract class AdministratorAreaController extends Controller
+{
 
     /** @var Router */
-    protected $router;
+    protected $Router;
     /** @var string */
     protected $moduleName;
     /** @var array */
     protected $config;
     /** @var Authorizator */
-    protected $employeeAuthorizator;
+    protected $EmployeeAuthorizator;
     /** @var Pagination */
-    protected $pager;
+    protected $Pagination;
     /** @var Response */
-    protected $response;
+    protected $Response;
     /** @var ModuleInstaller */
-    protected $moduleInstaller;
+    protected $ModuleInstaller;
 
-    public function __construct($moduleName = '') {
+    public function __construct($moduleName = '')
+    {
         $this->moduleName = $moduleName;
 
-        $this->moduleInstaller = new ModuleInstaller($this->moduleName);
-        $this->response = new Response(NotificationLog::instance());
+        $this->ModuleInstaller = new ModuleInstaller($this->moduleName);
+        $this->Response = new Response(NotificationLog::instance());
 
         $this->config = Registry::get('config');
-        $this->frame = Registry::frame('back');
-        $this->router = Registry::router();
-        $this->employeeAuthorizator = new Authorizator();
+        $this->Frame = Registry::frame('back');
+        $this->Router = Registry::router();
+        $this->EmployeeAuthorizator = new Authorizator();
 
-        $this->frame->addCss('/public/assets/js/fancybox2/source/jquery.fancybox.css');
-        $this->frame->bindView('menu', $this->buildMenu());
-        $this->frame->bindView('modal-notification', new ViewNotificationsModal());
-        $this->frame->bindView('modal-confirmation', new ViewConfirmationModal());
-        $this->frame->bindView('modal-information', new ViewInformationModal());
+        $this->Frame->addCss('/public/assets/js/fancybox2/source/jquery.fancybox.css');
+        $this->Frame->bindView('menu', $this->buildMenu());
+        $this->Frame->bindView('modal-notification', new ViewNotificationsModal());
+        $this->Frame->bindView('modal-confirmation', new ViewConfirmationModal());
+        $this->Frame->bindView('modal-information', new ViewInformationModal());
     }
 
     /**
      * @return ViewMenu
      */
-    private function buildMenu() {
-        $mainMenu = new ViewMenu($this->config['name'], $this->employeeAuthorizator->getCurrentUser());
+    private function buildMenu()
+    {
+        $mainMenu = new ViewMenu($this->config['name'], $this->EmployeeAuthorizator->getCurrentUser());
         $mainMenu->itemsList
             ->addItem('', 'Панель управления')
             ->addItem('configuration', 'Конфигурация')
@@ -83,14 +86,15 @@ abstract class MasterAdminController extends Controller {
             ->addItem('modules', 'Модули')
         ;
 
-        $currentPath = explode('?', $this->router->getRoute());
+        $currentPath = explode('?', $this->Router->getRoute());
         $mainMenu->currentPath = reset($currentPath);
 
         return $mainMenu;
     }
 
-    public function authorizeIfNot() {
-        if (!$this->employeeAuthorizator->authorized()) {
+    public function authorizeIfNot()
+    {
+        if (!$this->EmployeeAuthorizator->authorized()) {
             header('Location: /admin/modules/employees/authorization');
             exit;
         }

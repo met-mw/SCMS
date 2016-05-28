@@ -14,7 +14,7 @@ abstract class MasterController extends Controller {
 
     public function __construct() {
         $config = Registry::get('config');
-        $this->frame = Registry::frame('back');
+        $this->Frame = Registry::frame('back');
         $this->router = Registry::router();
 
         $mainMenu = new ViewMenu('SCMS');
@@ -39,10 +39,10 @@ abstract class MasterController extends Controller {
         ];
 
 //        $breadcrumbs = new ViewBreadcrumbs();
-//        $breadcrumbs->breadcrumbs = $this->breadcrumbs(Registry::router()->getRoute(), $routes);
+//        $breadcrumbs->Breadcrumbs = $this->Breadcrumbs(Registry::router()->getRoute(), $routes);
 
-        $this->frame->bindView('menu', $mainMenu);
-//        $this->frame->bindView('breadcrumbs', $breadcrumbs);
+        $this->Frame->bindView('menu', $mainMenu);
+//        $this->Frame->bindView('breadcrumbs', $breadcrumbs);
     }
 
     protected function getCurrentRoute() {

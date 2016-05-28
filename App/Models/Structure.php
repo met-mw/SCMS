@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\Structures\Models;
+namespace App\Models;
 
 
 use App\Models\Module;
@@ -9,7 +9,7 @@ use SORM\Entity;
 
 /**
  * Class Structure
- * @package App\Modules\Structures\Models
+ * @package App\Models
  *
  * @property int $id
  * @property string $name

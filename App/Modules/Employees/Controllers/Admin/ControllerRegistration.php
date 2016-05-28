@@ -2,7 +2,7 @@
 namespace App\Modules\Employees\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Employees\Models\Admin\Employee;
 use App\Modules\Employees\Views\Admin\Forms\ViewRegistration;
 use App\Views\Admin\ViewBreadcrumbs;
@@ -11,7 +11,7 @@ use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
-class ControllerRegistration extends MasterAdminController {
+class ControllerRegistration extends AdministratorAreaController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
@@ -19,14 +19,14 @@ class ControllerRegistration extends MasterAdminController {
 
         // Подготовка хлебных крошек
         $viewBreadcrumbs = new ViewBreadcrumbs();
-        $viewBreadcrumbs->breadcrumbs = [
+        $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
             new Breadcrumb('Модули', '/modules'),
             new Breadcrumb('Сотрудники', '/employees'),
             new Breadcrumb('Добавление нового сотрудника', '')
         ];
 
-        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs)
+        $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs)
             ->bindView('content', $view)
             ->render();
     }
@@ -53,7 +53,7 @@ class ControllerRegistration extends MasterAdminController {
             }
 
             if (NotificationLog::instance()->hasProblems()) {
-                $this->response->send();
+                $this->Response->send();
                 exit;
             }
 
@@ -61,19 +61,19 @@ class ControllerRegistration extends MasterAdminController {
             $oEmployee = DataSource::factory(Employee::cls());
             $oEmployee->name = $name;
             $oEmployee->email = $email;
-            $oEmployee->password = $this->employeeAuthorizator->preparePassword($password);
+            $oEmployee->password = $this->EmployeeAuthorizator->preparePassword($password);
             $oEmployee->active = true;
             $oEmployee->deleted = false;
             $oEmployee->commit();
 
             NotificationLog::instance()->pushMessage("Успешно зарегистрирован!");
-            $this->response->send('/admin/modules/employees');
+            $this->Response->send('/admin/modules/employees');
             exit;
         } else {
             NotificationLog::instance()->pushError("Форма регистрации сотрудника заполнена неверно!");
         }
 
-        $this->response->send();
+        $this->Response->send();
     }
 
 } 

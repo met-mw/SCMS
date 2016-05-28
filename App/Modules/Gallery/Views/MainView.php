@@ -3,7 +3,7 @@ namespace App\Modules\Gallery\Views;
 
 
 use App\Modules\Gallery\Models\Admin\Gallery;
-use App\Modules\Structures\Models\Structure;
+use App\Models\Structure;
 use SFramework\Classes\View;
 
 class MainView extends View

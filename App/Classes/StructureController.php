@@ -2,7 +2,7 @@
 namespace App\Classes;
 
 
-use App\Modules\Structures\Models\Structure;
+use App\Models\Structure;
 use App\Views\ViewMainMenu;
 use App\Views\ViewMenuItems;
 use SFramework\Classes\Controller;
@@ -13,22 +13,24 @@ use SFramework\Classes\Router;
 use SORM\DataSource;
 use SORM\Tools\Builder;
 
-class MasterController extends Controller {
+class StructureController extends Controller
+{
 
     /** @var array */
     protected $config;
     /** @var Router */
-    protected $router;
+    protected $Router;
     /** @var string */
     protected $currentPath;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->config = Registry::get('config');
-        $this->frame = Registry::frame('front');
-        $this->router = Registry::router();
-        $this->currentPath = implode('/', $this->router->explodeRoute());
+        $this->Frame = Registry::frame('front');
+        $this->Router = Registry::router();
+        $this->currentPath = implode('/', $this->Router->explodeRoute());
 
-        $this->frame->bindView('menu', $this->buildMenu());
+        $this->Frame->bindView('menu', $this->buildMenu());
     }
 
     /**
@@ -36,37 +38,41 @@ class MasterController extends Controller {
      *
      * @return Structure[]
      */
-    protected function getStructuresByParentId($parentStructureId = 0) {
-        $structure = DataSource::factory(Structure::cls());
-        $structure->builder()
+    protected function getStructuresByParentId($parentStructureId = 0)
+    {
+        $oStructures = DataSource::factory(Structure::cls());
+        $oStructures->builder()
             ->where("structure_id={$parentStructureId}")
             ->whereAnd()
             ->where("active=1")
             ->order('priority');
-        /** @var Structure[] $structures */
-        $structures = $structure->findAll();
+        /** @var Structure[] $aStructures */
+        $aStructures = $oStructures->findAll();
 
-        return $structures;
+        return $aStructures;
     }
 
-    protected function setMenuItems(ViewMenuItems $itemList, $structureParentId = 0) {
-        foreach ($this->getStructuresByParentId($structureParentId) as $oStructure) {
+    protected function setMenuItems(ViewMenuItems $ViewMenuItems, $structureParentId = 0)
+    {
+        $aStructures = $this->getStructuresByParentId($structureParentId);
+        foreach ($aStructures as $oStructure) {
             if ($oStructure->active && !$oStructure->deleted && !$oStructure->anchor) {
-                $itemList->addItem($oStructure->path, $oStructure->name, null, null, $this->currentPath == $oStructure->path);
-                $this->setMenuItems($itemList->getItem($oStructure->path)->itemsList, $oStructure->id);
+                $ViewMenuItems->addItem($oStructure->path, $oStructure->name, null, null, $this->currentPath == $oStructure->path);
+                $this->setMenuItems($ViewMenuItems->getItem($oStructure->path)->itemsList, $oStructure->id);
             }
         }
     }
 
-    protected function loadMenuItems(Item $menuItem, Structure $oCurrentStructure) {
+    protected function loadMenuItems(Item $MenuItem, Structure $oCurrentStructure)
+    {
         $aStructures = $oCurrentStructure->getStructures();
         foreach ($aStructures as $oStructure) {
             if (!$oStructure->active || $oStructure->deleted || $oStructure->anchor) {
                 continue;
             }
 
-            $menuItem->addChildItem($oStructure->name, $oStructure->path);
-            $this->loadMenuItems($menuItem->findChildItemByPath($oStructure->path), $oStructure);
+            $MenuItem->addChildItem($oStructure->name, $oStructure->path);
+            $this->loadMenuItems($MenuItem->findChildItemByPath($oStructure->path), $oStructure);
         }
     }
 
@@ -87,14 +93,12 @@ class MasterController extends Controller {
 //        $view->menu = $menu;
 //        return $view;
 
+        $ViewMainMenu = new ViewMainMenu($this->config['name']);
+        $this->setMenuItems($ViewMainMenu->itemsList);
+        $currentPath = explode('?', $this->Router->getRoute());
+        $ViewMainMenu->currentPath = reset($currentPath);
 
-
-        $mainMenu = new ViewMainMenu($this->config['name']);
-        $this->setMenuItems($mainMenu->itemsList);
-        $currentPath = explode('?', $this->router->getRoute());
-        $mainMenu->currentPath = reset($currentPath);
-
-        return $mainMenu;
+        return $ViewMainMenu;
     }
 
 } 

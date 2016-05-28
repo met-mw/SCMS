@@ -4,13 +4,13 @@
 namespace App\Modules\Employees\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Employees\Models\Admin\Employee;
 use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
-class ControllerSave extends MasterAdminController {
+class ControllerSave extends AdministratorAreaController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
@@ -31,7 +31,7 @@ class ControllerSave extends MasterAdminController {
             ->asString();
 
         if (!empty($newPassword)) {
-            if (!$this->employeeAuthorizator->verifyPassword($this->employeeAuthorizator->getCurrentUser(), $currentEmployeePassword)) {
+            if (!$this->EmployeeAuthorizator->verifyPassword($this->EmployeeAuthorizator->getCurrentUser(), $currentEmployeePassword)) {
                 NotificationLog::instance()->pushError('Вы указали неверный пароль.');
             }
 
@@ -65,7 +65,7 @@ class ControllerSave extends MasterAdminController {
         if (!NotificationLog::instance()->hasProblems()) {
             $oEmployee->name = $name;
             $oEmployee->email = $email;
-            $oEmployee->password = $this->employeeAuthorizator->preparePassword($newPassword);
+            $oEmployee->password = $this->EmployeeAuthorizator->preparePassword($newPassword);
 
             $oEmployee->commit();
 
@@ -78,9 +78,9 @@ class ControllerSave extends MasterAdminController {
                     $redirect = "/admin/modules/employees/edit/?pk={$oEmployee->getPrimaryKey()}";
                 }
             }
-            $this->response->send($redirect);
+            $this->Response->send($redirect);
         } else {
-            $this->response->send();
+            $this->Response->send();
         }
     }
 

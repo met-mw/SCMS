@@ -2,7 +2,7 @@
 namespace App\Modules\Siteusers\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Siteusers\Models\Siteuser;
 use App\Modules\Siteusers\Views\Admin\ViewSiteuserEditForm;
 use App\Views\Admin\ViewBreadcrumbs;
@@ -11,7 +11,7 @@ use SFramework\Classes\CoreFunctions;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
-class ControllerEdit extends MasterAdminController
+class ControllerEdit extends AdministratorAreaController
 {
 
     public function actionIndex()
@@ -28,21 +28,21 @@ class ControllerEdit extends MasterAdminController
 
         // Подготовка хлебных крошек
         $viewBreadcrumbs = new ViewBreadcrumbs();
-        $viewBreadcrumbs->breadcrumbs = [
+        $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
             new Breadcrumb('Модули', '/modules'),
             new Breadcrumb('Пользователи', '/siteusers')
         ];
         if ($oSiteuser !== null) {
-            $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb("Редактирование \"{$oSiteuser->name}\"", '');
+            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb("Редактирование \"{$oSiteuser->name}\"", '');
         } else {
-            $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb('Добавление нового пользователя', '');
+            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb('Добавление нового пользователя', '');
         }
-        $view->backUrl = CoreFunctions::buildUrlByBreadcrumbs($viewBreadcrumbs->breadcrumbs, 1);
+        $view->backUrl = CoreFunctions::buildUrlByBreadcrumbs($viewBreadcrumbs->Breadcrumbs, 1);
 
-        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
-        $this->frame->bindView('content', $view);
-        $this->frame->render();
+        $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs);
+        $this->Frame->bindView('content', $view);
+        $this->Frame->render();
     }
 
 }

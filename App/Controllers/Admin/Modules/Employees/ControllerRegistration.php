@@ -4,16 +4,16 @@
 namespace App\Controllers\Admin\Modules\Employees;
 
 
-use App\Classes\MasterAdminProxyController;
+use App\Classes\AdministratorAreaProxyController;
 
-class ControllerRegistration extends MasterAdminProxyController {
+class ControllerRegistration extends AdministratorAreaProxyController {
 
     public function actionIndex() {
-        $this->proxy->execute();
+        $this->Proxy->execute();
     }
 
     public function actionSignup() {
-        $this->proxy->execute();
+        $this->Proxy->execute();
     }
 
 } 

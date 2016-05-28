@@ -2,13 +2,13 @@
 namespace App\Modules\Gallery\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Gallery\Models\Admin\Gallery;
 use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
-class ControllerSave extends MasterAdminController
+class ControllerSave extends AdministratorAreaController
 {
 
     public function actionIndex()
@@ -38,9 +38,9 @@ class ControllerSave extends MasterAdminController
             } elseif ($galleryId == 0) {
                 $redirect = "/admin/modules/gallery/edit/?id={$oGallery->getPrimaryKey()}";
             }
-            $this->response->send($redirect);
+            $this->Response->send($redirect);
         } else {
-            $this->response->send();
+            $this->Response->send();
         }
     }
 

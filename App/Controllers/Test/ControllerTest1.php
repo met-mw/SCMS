@@ -2,6 +2,6 @@
 namespace App\Controllers\Test;
 
 
-use App\Modules\Structures\Classes\MasterController;
+use App\Modules\Structures\Classes\StructureModuleController;
 
-class ControllerTest1 extends MasterController {}
+class ModuleControllerTest1 extends StructureModuleController {}

@@ -2,12 +2,12 @@
 namespace App\Controllers\Admin\Modules\Pages;
 
 
-use App\Classes\MasterAdminProxyController;
+use App\Classes\AdministratorAreaProxyController;
 
-class ControllerSave extends MasterAdminProxyController {
+class ControllerSave extends AdministratorAreaProxyController {
 
     public function actionIndex() {
-        $this->proxy->execute();
+        $this->Proxy->execute();
     }
 
 } 

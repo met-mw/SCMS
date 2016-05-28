@@ -2,7 +2,7 @@
 namespace App\Modules\Gallery\Controllers\Admin\Item;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Gallery\Classes\Retrievers\GalleryRetriever;
 use App\Modules\Gallery\Models\Admin\Gallery;
 use App\Views\Admin\DataGrid\ViewDataGrid;
@@ -21,7 +21,7 @@ use SFramework\Views\DataGrid\ViewImageLink;
 use SFramework\Views\DataGrid\ViewStub;
 use SORM\DataSource;
 
-class ControllerMain extends MasterAdminController
+class ControllerMain extends AdministratorAreaController
 {
 
     public function actionIndex()
@@ -34,7 +34,7 @@ class ControllerMain extends MasterAdminController
         $oGallery = DataSource::factory(Gallery::cls(), $galleryId);
         if (!$oGallery) {
             NotificationLog::instance()->pushError("Запрошенная галлерея с номером \"{$galleryId}\" не существует.");
-            $this->frame->render();
+            $this->Frame->render();
 
             return;
         }
@@ -42,7 +42,7 @@ class ControllerMain extends MasterAdminController
         $pageNumber = Param::get('gallery-item-page', false)->asInteger(false);
         $itemsPerPage = Param::get('gallery-item-items-per-page', false)->asInteger(false);
 
-        $manifest = $this->moduleInstaller->getManifest($this->moduleName);
+        $manifest = $this->ModuleInstaller->getManifest($this->moduleName);
 
         $dataGridView = new ViewDataGrid();
         $retriever = new GalleryRetriever();
@@ -53,7 +53,7 @@ class ControllerMain extends MasterAdminController
         ;
 
         $dataGrid
-            ->addAction(new Action('id', '/admin/modules/gallery/item/edit/', 'edit', '', [], ['class' => 'glyphicon glyphicon-pencil'], 'Редактировать'))
+            ->addAction(new Action('id', "/admin/modules/gallery/item/edit/?gallery_id={$oGallery->id}", 'edit', '', [], ['class' => 'glyphicon glyphicon-pencil'], 'Редактировать'))
             ->addAction(new Action('id', '/admin/modules/gallery/item/delete/', 'delete', '', [], ['class' => 'glyphicon glyphicon-trash'], 'Удалить', true))
         ;
 
@@ -67,8 +67,8 @@ class ControllerMain extends MasterAdminController
         $galleries = $retriever->getGalleryItems(
             $oGallery,
             $dataGrid->getFilterConditions(),
-            $dataGrid->pagination->getLimit(),
-            $dataGrid->pagination->getOffset()
+            $dataGrid->Pagination->getLimit(),
+            $dataGrid->Pagination->getOffset()
         );
 
         $dataSet = new ArrayDataSet($galleries);
@@ -77,16 +77,16 @@ class ControllerMain extends MasterAdminController
 
         // Подготовка хлебных крошек
         $viewBreadcrumbs = new ViewBreadcrumbs();
-        $viewBreadcrumbs->breadcrumbs = [
+        $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
             new Breadcrumb('Модули', '/modules'),
             new Breadcrumb('Галлереи', '/gallery'),
             new Breadcrumb("Элементы галлереи \"{$oGallery->name}\"", ''),
         ];
 
-        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
-        $this->frame->bindView('content', $dataGridView);
-        $this->frame->render();
+        $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs);
+        $this->Frame->bindView('content', $dataGridView);
+        $this->Frame->render();
     }
 
 }

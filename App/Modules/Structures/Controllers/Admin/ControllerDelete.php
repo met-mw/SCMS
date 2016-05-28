@@ -2,14 +2,14 @@
 namespace App\Modules\Structures\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
-use App\Modules\Structures\Models\Structure;
+use App\Classes\AdministratorAreaController;
+use App\Models\Structure;
 use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 use SORM\Tools\Builder;
 
-class ControllerDelete extends MasterAdminController {
+class ControllerDelete extends AdministratorAreaController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
@@ -20,7 +20,7 @@ class ControllerDelete extends MasterAdminController {
         $this->deepDelete($oStructure);
         NotificationLog::instance()->pushMessage("Структура \"{$name}\" успешно удалена.");
 
-        $this->response->send();
+        $this->Response->send();
     }
 
     public function actionGroup() {

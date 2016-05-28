@@ -4,18 +4,20 @@ namespace App\Classes;
 
 use SFramework\Classes\Router;
 
-class Proxy {
+class Proxy
+{
 
     /** @var Router */
-    protected $router;
+    protected $Router;
 
-    public function __construct(Router $router) {
-        $this->router = $router;
+    public function __construct(Router $Router) {
+        $this->Router = $Router;
     }
 
-    public function execute() {
+    public function execute()
+    {
         $foundedRoutes = [];
-        preg_match('/^App\\\\Controllers\\\\(?:Admin\\\\)?Modules\\\\([a-zA-Z0-9_-]+)/', $this->router->currentControllerName, $foundedRoutes);
+        preg_match('/^App\\\\Controllers\\\\(?:Admin\\\\)?Modules\\\\([a-zA-Z0-9_-]+)/', $this->Router->currentControllerName, $foundedRoutes);
         $moduleName = end($foundedRoutes);
 
         $moduleClassName = str_replace(
@@ -31,12 +33,12 @@ class Proxy {
                 "App\\Modules\\{$moduleName}\\Controllers\\",
                 "App\\Modules\\{$moduleName}\\Controllers\\Admin\\"
             ],
-            $this->router->currentControllerName
+            $this->Router->currentControllerName
         );
 
-        /** @var MasterAdminController $moduleController */
+        /** @var AdministratorAreaController $moduleController */
         $moduleController = new $moduleClassName($moduleName);
-        $moduleController->{$this->router->currentActionName}();
+        $moduleController->{$this->Router->currentActionName}();
     }
 
 } 

@@ -2,6 +2,6 @@
 namespace App\Controllers;
 
 
-use App\Modules\Structures\Classes\MasterController;
+use App\Classes\StructureModuleController;
 
-class ControllerHow_to_order extends MasterController {}
+class ControllerHow_to_order extends StructureModuleController {}

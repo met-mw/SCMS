@@ -2,13 +2,13 @@
 namespace App\Modules\Pages\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Pages\Models\Page;
 use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
-class ControllerDelete extends MasterAdminController {
+class ControllerDelete extends AdministratorAreaController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
@@ -27,7 +27,7 @@ class ControllerDelete extends MasterAdminController {
             $oPage->commit();
         }
 
-        $this->response->send();
+        $this->Response->send();
     }
 
 } 

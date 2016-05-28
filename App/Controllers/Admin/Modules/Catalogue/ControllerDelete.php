@@ -2,16 +2,16 @@
 namespace App\Controllers\Admin\Modules\Catalogue;
 
 
-use App\Classes\MasterAdminProxyController;
+use App\Classes\AdministratorAreaProxyController;
 
-class ControllerDelete extends MasterAdminProxyController {
+class ControllerDelete extends AdministratorAreaProxyController {
 
     public function actionIndex() {
-        $this->proxy->execute();
+        $this->Proxy->execute();
     }
 
     public function actionGroup() {
-        $this->proxy->execute();
+        $this->Proxy->execute();
     }
 
 } 

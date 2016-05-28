@@ -2,6 +2,6 @@
 namespace App\Controllers\Documents;
 
 
-use App\Modules\Structures\Classes\MasterController;
+use App\Modules\Structures\Classes\StructureModuleController;
 
-class ControllerResolution extends MasterController {}
+class ModuleControllerResolution extends StructureModuleController {}

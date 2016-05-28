@@ -2,11 +2,11 @@
 namespace App\Modules\Structures\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Models\Module;
 use App\Models\ModuleSetting;
 use App\Models\StructureSetting;
-use App\Modules\Structures\Models\Structure;
+use App\Models\Structure;
 use App\Modules\Structures\Views\Admin\ViewStructureEdit;
 use App\Views\Admin\ViewBreadcrumbs;
 use App\Views\Admin\ViewModuleConfiguration;
@@ -17,13 +17,13 @@ use SORM\DataSource;
 use SORM\Entity;
 use SORM\Tools\Builder;
 
-class ControllerEdit extends MasterAdminController {
+class ControllerEdit extends AdministratorAreaController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
 
-        $this->frame->addCss('/public/assets/css/edit-form.css');
-        $this->frame->addCss('/public/assets/css/main-menu.css');
+        $this->Frame->addCss('/public/assets/css/edit-form.css');
+        $this->Frame->addCss('/public/assets/css/main-menu.css');
 
         $structureId = (int)Param::get('id', false)->asInteger(false);
         $view = new ViewStructureEdit();
@@ -48,7 +48,7 @@ class ControllerEdit extends MasterAdminController {
 
         // Подготовка хлебных крошек
         $viewBreadcrumbs = new ViewBreadcrumbs();
-        $viewBreadcrumbs->breadcrumbs = [
+        $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
             new Breadcrumb('Модули', '/modules'),
             new Breadcrumb('Структура сайта', '/structures')
@@ -68,16 +68,16 @@ class ControllerEdit extends MasterAdminController {
             $structureBreadcrumbs[] = new Breadcrumb($oParentStructure->name, "?parent_pk={$oParentStructure->getPrimaryKey()}", true);
             $breadcrumbsParentPK = $oParentStructure->structure_id;
         }
-        $viewBreadcrumbs->breadcrumbs = array_merge($viewBreadcrumbs->breadcrumbs, array_reverse($structureBreadcrumbs));
+        $viewBreadcrumbs->Breadcrumbs = array_merge($viewBreadcrumbs->Breadcrumbs, array_reverse($structureBreadcrumbs));
         if ($structureId && isset($oStructure)) {
-            $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb("Редактирование \"$oStructure->name\"", "?pk={$structureId}");
+            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb("Редактирование \"$oStructure->name\"", "?pk={$structureId}");
         } else {
-            $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb('Добавление новой структуры', '');
+            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb('Добавление новой структуры', '');
         }
 
-        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
-        $this->frame->bindView('content', $view);
-        $this->frame->render();
+        $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs);
+        $this->Frame->bindView('content', $view);
+        $this->Frame->render();
     }
 
     public function actionAjaxModuleConfig() {
@@ -88,7 +88,7 @@ class ControllerEdit extends MasterAdminController {
             ->asInteger(true, '"structure_id" должен быть числом.');
         if ($structureId == 0) {
             NotificationLog::instance()->pushError("Не указана целевая структура.");
-            $this->response->send();
+            $this->Response->send();
             exit;
         }
 
@@ -106,7 +106,7 @@ class ControllerEdit extends MasterAdminController {
         $view->render();
         $form = ob_get_clean();
 
-        $this->response->send('', ['form' => $form]);
+        $this->Response->send('', ['form' => $form]);
     }
 
     protected function getModuleConfigView(Structure $oStructure, Module $oModule) {

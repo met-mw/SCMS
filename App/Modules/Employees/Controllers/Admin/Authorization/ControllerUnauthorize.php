@@ -2,12 +2,12 @@
 namespace App\Modules\Employees\Controllers\Admin\Authorization;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 
-class ControllerUnauthorize extends MasterAdminController {
+class ControllerUnauthorize extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->employeeAuthorizator->unauthorize();
+        $this->EmployeeAuthorizator->unauthorize();
         header('Location: /admin');
     }
 

@@ -2,6 +2,6 @@
 namespace App\Controllers\What_is_denas\Denas_is;
 
 
-use App\Modules\Structures\Classes\MasterController;
+use App\Modules\Structures\Classes\StructureModuleController;
 
-class ControllerThird extends MasterController {}
+class ModuleControllerThird extends StructureModuleController {}

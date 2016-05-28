@@ -2,24 +2,26 @@
 namespace App\Modules\Structures\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
+use App\Classes\Helpers\StructureHelper;
 use App\Models\Module;
 use App\Models\ModuleSetting;
 use App\Models\StructureSetting;
-use App\Modules\Structures\Classes\Helpers\StructureHelper;
 use App\Modules\Structures\Classes\Retrievers\StructureRetriever;
-use App\Modules\Structures\Models\Structure;
+use App\Models\Structure;
 use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 use SORM\Tools\Builder;
 
-class ControllerSave extends MasterAdminController{
+class ControllerSave extends AdministratorAreaController
+{
 
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $this->authorizeIfNot();
 
-        $helper = new StructureHelper(SFW_APP_ROOT . 'Controllers' . DIRECTORY_SEPARATOR);
+        $StructureHelper = new StructureHelper(SFW_APP_ROOT . 'Controllers' . DIRECTORY_SEPARATOR);
 
         $structureId = Param::post('structure-id', false)->asInteger(false);
 
@@ -40,13 +42,13 @@ class ControllerSave extends MasterAdminController{
         $accept = Param::post('structure-accept', false);
 
         if (NotificationLog::instance()->hasProblems()) {
-            $this->response->send();
+            $this->Response->send();
             return;
         }
 
         /** @var Structure $oStructure */
         $oStructure = DataSource::factory(Structure::cls(), $structureId == 0 ? null : $structureId);
-        $oldPath = $helper->getPath($oStructure);
+        $oldPath = $StructureHelper->getPath($oStructure);
 
         $oStructure->name = $name;
         $oStructure->description = $description;
@@ -74,9 +76,9 @@ class ControllerSave extends MasterAdminController{
         $this->applyStructureSettings($oStructure);
 
         if ($structureId != 0) {
-            $helper->removeProxyController($oldPath);
+            $StructureHelper->removeProxyController($oldPath);
         }
-        $helper->createProxyController($helper->getPath($oStructure));
+        $StructureHelper->createProxyController($StructureHelper->getPath($oStructure));
 
         if (!NotificationLog::instance()->hasProblems()) {
             NotificationLog::instance()->pushMessage("Структура \"{$oStructure->name}\" успешно " . ($structureId == 0 ? 'добавлена' : 'отредактирована') . ".");
@@ -89,10 +91,11 @@ class ControllerSave extends MasterAdminController{
             $redirect = '';
         }
 
-        $this->response->send($redirect);
+        $this->Response->send($redirect);
     }
 
-    protected function applyStructureSettings(Structure $oStructure) {
+    protected function applyStructureSettings(Structure $oStructure)
+    {
         if (!$oStructure->module_id) {
             return;
         }

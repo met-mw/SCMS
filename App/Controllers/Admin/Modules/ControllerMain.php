@@ -2,15 +2,15 @@
 namespace App\Controllers\Admin\Modules;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 
-class ControllerMain extends MasterAdminController {
+class ControllerMain extends AdministratorAreaController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
 
-        $this->frame->bindData('content', 'Общая страница модулей.');
-        $this->frame->render();
+        $this->Frame->bindData('content', 'Общая страница модулей.');
+        $this->Frame->render();
     }
 
 } 

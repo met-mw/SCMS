@@ -2,16 +2,16 @@
 namespace App\Controllers\Admin\Modules\Structures;
 
 
-use App\Classes\MasterAdminProxyController;
+use App\Classes\AdministratorAreaProxyController;
 
-class ControllerEdit extends MasterAdminProxyController {
+class ControllerEdit extends AdministratorAreaProxyController {
 
     public function actionIndex() {
-        $this->proxy->execute();
+        $this->Proxy->execute();
     }
 
     public function actionAjaxModuleConfig() {
-        $this->proxy->execute();
+        $this->Proxy->execute();
     }
 
 } 

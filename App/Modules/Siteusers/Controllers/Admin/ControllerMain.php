@@ -2,7 +2,7 @@
 namespace App\Modules\Siteusers\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Siteusers\Classes\Retrievers\SiteusersRetriever;
 use App\Views\Admin\DataGrid\ViewDataGrid;
 use App\Views\Admin\ViewBreadcrumbs;
@@ -17,7 +17,7 @@ use SFramework\Views\DataGrid\ViewCutString;
 use SFramework\Views\DataGrid\ViewDateTime;
 use SFramework\Views\DataGrid\ViewEmail;
 
-class ControllerMain extends MasterAdminController
+class ControllerMain extends AdministratorAreaController
 {
 
     public function actionIndex() {
@@ -28,7 +28,7 @@ class ControllerMain extends MasterAdminController
         $pageNumber = Param::get('employee-page', false)->asInteger(false);
         $itemsPerPage = Param::get('employee-items-per-page', false)->asInteger(false);
 
-        $manifest = $this->moduleInstaller->getManifest($this->moduleName);
+        $manifest = $this->ModuleInstaller->getManifest($this->moduleName);
 
         $siteusersRetriever = new SiteusersRetriever();
         $dataGridView = new ViewDataGrid();
@@ -58,8 +58,8 @@ class ControllerMain extends MasterAdminController
 
         $structures = $siteusersRetriever->getSiteusers(
             $dataGrid->getFilterConditions(),
-            $dataGrid->pagination->getLimit(),
-            $dataGrid->pagination->getOffset()
+            $dataGrid->Pagination->getLimit(),
+            $dataGrid->Pagination->getOffset()
         );
 
         $dataSet = new ArrayDataSet($structures);
@@ -68,15 +68,15 @@ class ControllerMain extends MasterAdminController
 
         // Подготовка хлебных крошек
         $viewBreadcrumbs = new ViewBreadcrumbs();
-        $viewBreadcrumbs->breadcrumbs = [
+        $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
             new Breadcrumb('Модули', '/modules'),
             new Breadcrumb('Пользователи', '/siteusers')
         ];
 
-        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
-        $this->frame->bindView('content', $dataGridView);
-        $this->frame->render();
+        $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs);
+        $this->Frame->bindView('content', $dataGridView);
+        $this->Frame->render();
     }
 
 }

@@ -26,12 +26,12 @@ class ViewList extends View {
             $this->response->render();
         }
         $this->menu->render();
-        if ($this->pagination->pagesCount) {
-            $this->pagination->render();
+        if ($this->Pagination->pagesCount) {
+            $this->Pagination->render();
         }
         $this->table->render();
-        if ($this->pagination->pagesCount) {
-            $this->pagination->render();
+        if ($this->Pagination->pagesCount) {
+            $this->Pagination->render();
         }
     }
 

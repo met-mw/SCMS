@@ -2,13 +2,13 @@
 namespace App\Modules\Pages\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Pages\Models\Page;
 use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
-class ControllerSave extends MasterAdminController {
+class ControllerSave extends AdministratorAreaController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
@@ -45,9 +45,9 @@ class ControllerSave extends MasterAdminController {
             } elseif ($pageId == 1) {
                 $redirect = "/admin/modules/pages/edit/?id={$oPage->getPrimaryKey()}";
             }
-            $this->response->send($redirect);
+            $this->Response->send($redirect);
         } else {
-            $this->response->send();
+            $this->Response->send();
         }
     }
 

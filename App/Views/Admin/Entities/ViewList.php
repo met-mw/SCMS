@@ -16,7 +16,7 @@ class ViewList extends ViewMasterList {
         $this->table = new ViewTable();
         $this->table->tableHead = new ViewTableHead();
         $this->table->tableBody = new ViewTableBody();
-        $this->pagination = new ViewPagination();
+        $this->Pagination = new ViewPagination();
     }
 
 }

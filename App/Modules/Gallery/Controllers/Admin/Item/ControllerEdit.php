@@ -2,7 +2,7 @@
 namespace App\Modules\Gallery\Controllers\Admin\Item;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Gallery\Models\Admin\Gallery;
 use App\Modules\Gallery\Models\Admin\GalleryItem;
 use App\Modules\Gallery\Views\Admin\Item\ViewEditForm;
@@ -13,7 +13,7 @@ use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
-class ControllerEdit extends MasterAdminController
+class ControllerEdit extends AdministratorAreaController
 {
 
     public function actionIndex()
@@ -29,7 +29,7 @@ class ControllerEdit extends MasterAdminController
         $oGallery = DataSource::factory(Gallery::cls(), $galleryId);
         if ($oGalleryItem->isNew() && $oGallery->isNew()) {
             NotificationLog::instance()->pushError('Недопустимое значение параметра!');
-            $this->frame->render();
+            $this->Frame->render();
 
             return;
         }
@@ -40,23 +40,23 @@ class ControllerEdit extends MasterAdminController
 
         // Подготовка хлебных крошек
         $viewBreadcrumbs = new ViewBreadcrumbs();
-        $viewBreadcrumbs->breadcrumbs = [
+        $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
             new Breadcrumb('Модули', '/modules'),
             new Breadcrumb('Галлереи', '/gallery'),
             new Breadcrumb("Галлерея \"{$oGallery->name}\"", "/item/?gallery_id={$oGallery->id}")
         ];
         if ($oGalleryItem->id !== null) {
-            $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb("Редактирование \"{$oGalleryItem->name}\"", '');
+            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb("Редактирование \"{$oGalleryItem->name}\"", '');
         } else {
-            $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb('Добавление нового элемента галлереи', '');
+            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb('Добавление нового элемента галлереи', '');
         }
 
-        $view->backUrl = CoreFunctions::buildUrlByBreadcrumbs($viewBreadcrumbs->breadcrumbs, 1);
+        $view->backUrl = CoreFunctions::buildUrlByBreadcrumbs($viewBreadcrumbs->Breadcrumbs, 1);
 
-        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
-        $this->frame->bindView('content', $view);
-        $this->frame->render();
+        $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs);
+        $this->Frame->bindView('content', $view);
+        $this->Frame->render();
     }
 
 }

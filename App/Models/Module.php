@@ -2,7 +2,7 @@
 namespace App\Models;
 
 
-use App\Modules\Structures\Models\Structure;
+use App\Models\Structure;
 use SORM\DataSource;
 use SORM\Entity;
 

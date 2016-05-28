@@ -2,22 +2,22 @@
 namespace App\Modules\Frames\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
-use App\Modules\Structures\Models\Structure;
+use App\Classes\AdministratorAreaController;
+use App\Models\Structure;
 use Exception;
 use SFramework\Classes\CoreFunctions;
 use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
-class ControllerDelete extends MasterAdminController
+class ControllerDelete extends AdministratorAreaController
 {
 
     public function actionIndex()
     {
-        if (CoreFunctions::isAJAX() && !$this->employeeAuthorizator->authorized()) {
+        if (CoreFunctions::isAJAX() && !$this->EmployeeAuthorizator->authorized()) {
             NotificationLog::instance()->pushError('Нет доступа!');
-            $this->response->send();
+            $this->Response->send();
             return;
         }
         $this->authorizeIfNot();
@@ -30,7 +30,7 @@ class ControllerDelete extends MasterAdminController
         }
 
         if (NotificationLog::instance()->hasProblems()) {
-            $this->response->send();
+            $this->Response->send();
             return;
         }
 
@@ -50,7 +50,7 @@ class ControllerDelete extends MasterAdminController
         }
 
         if (NotificationLog::instance()->hasProblems()) {
-            $this->response->send();
+            $this->Response->send();
             return;
         }
 
@@ -64,7 +64,7 @@ class ControllerDelete extends MasterAdminController
             NotificationLog::instance()->pushMessage("Фрейм \"{$frameName}\" успешно удалён.");
         }
 
-        $this->response->send();
+        $this->Response->send();
     }
 
 }

@@ -5,13 +5,14 @@ namespace App\Classes;
 use SFramework\Classes\Controller;
 use SFramework\Classes\Registry;
 
-class MasterAdminProxyController extends Controller {
+class AdministratorAreaProxyController extends Controller
+{
 
     /** @var Proxy */
-    protected $proxy;
+    protected $Proxy;
 
     public function __construct() {
-        $this->proxy = new Proxy(Registry::router());
+        $this->Proxy = new Proxy(Registry::router());
     }
 
 } 

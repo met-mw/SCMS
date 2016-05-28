@@ -2,12 +2,12 @@
 namespace App\Modules\Gallery\Controllers;
 
 
+use App\Classes\PublicAreaController;
 use App\Modules\Gallery\Models\Admin\Gallery;
 use App\Modules\Gallery\Views\MainView;
-use App\Modules\Modules\Classes\MasterController;
 use SORM\DataSource;
 
-class ControllerMain extends MasterController
+class ControllerMain extends PublicAreaController
 {
 
     public $gallery_id;

@@ -2,7 +2,7 @@
 namespace App\Modules\Gallery\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Gallery\Models\Admin\Gallery;
 use App\Modules\Gallery\Views\Admin\ViewEditForm;
 use App\Views\Admin\ViewBreadcrumbs;
@@ -11,7 +11,7 @@ use SFramework\Classes\CoreFunctions;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
-class ControllerEdit extends MasterAdminController
+class ControllerEdit extends AdministratorAreaController
 {
 
     public function actionIndex()
@@ -28,22 +28,22 @@ class ControllerEdit extends MasterAdminController
 
         // Подготовка хлебных крошек
         $viewBreadcrumbs = new ViewBreadcrumbs();
-        $viewBreadcrumbs->breadcrumbs = [
+        $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
             new Breadcrumb('Модули', '/modules'),
             new Breadcrumb('Галлерея', '/gallery')
         ];
         if ($oGallery->id !== null) {
-            $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb("Редактирование \"{$oGallery->name}\"", '');
+            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb("Редактирование \"{$oGallery->name}\"", '');
         } else {
-            $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb('Добавление новой галлереи', '');
+            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb('Добавление новой галлереи', '');
         }
 
-        $view->backUrl = CoreFunctions::buildUrlByBreadcrumbs($viewBreadcrumbs->breadcrumbs, 1);
+        $view->backUrl = CoreFunctions::buildUrlByBreadcrumbs($viewBreadcrumbs->Breadcrumbs, 1);
 
-        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
-        $this->frame->bindView('content', $view);
-        $this->frame->render();
+        $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs);
+        $this->Frame->bindView('content', $view);
+        $this->Frame->render();
     }
 
 }

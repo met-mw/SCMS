@@ -2,7 +2,7 @@
 namespace App\Modules\Catalogue\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Catalogue\Models\Category;
 use App\Modules\Catalogue\Models\Item;
 use SFramework\Classes\CoreFunctions;
@@ -10,12 +10,12 @@ use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
-class ControllerSave extends MasterAdminController {
+class ControllerSave extends AdministratorAreaController {
 
     public function actionCategory() {
-        if (CoreFunctions::isAJAX() && !$this->employeeAuthorizator->authorized()) {
+        if (CoreFunctions::isAJAX() && !$this->EmployeeAuthorizator->authorized()) {
             NotificationLog::instance()->pushError('Нет доступа!');
-            $this->response->send();
+            $this->Response->send();
             return;
         }
 
@@ -33,7 +33,7 @@ class ControllerSave extends MasterAdminController {
         $accept = Param::post('catalogue-category-accept', false);
 
         if (CoreFunctions::isAJAX() && NotificationLog::instance()->hasProblems()) {
-            $this->response->send();
+            $this->Response->send();
             return;
         }
 
@@ -62,13 +62,13 @@ class ControllerSave extends MasterAdminController {
             $redirect = '';
         }
 
-        $this->response->send($redirect);
+        $this->Response->send($redirect);
     }
 
     public function actionItem() {
-        if (CoreFunctions::isAJAX() && !$this->employeeAuthorizator->authorized()) {
+        if (CoreFunctions::isAJAX() && !$this->EmployeeAuthorizator->authorized()) {
             NotificationLog::instance()->pushError('Нет доступа!');
-            $this->response->send();
+            $this->Response->send();
             return;
         }
 
@@ -88,7 +88,7 @@ class ControllerSave extends MasterAdminController {
         $accept = Param::post('catalogue-item-accept', false);
 
         if (CoreFunctions::isAJAX() && NotificationLog::instance()->hasProblems()) {
-            $this->response->send();
+            $this->Response->send();
             return;
         }
 
@@ -119,7 +119,7 @@ class ControllerSave extends MasterAdminController {
             $redirect = '';
         }
 
-        $this->response->send($redirect);
+        $this->Response->send($redirect);
     }
 
 } 

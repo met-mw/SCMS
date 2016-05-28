@@ -2,12 +2,12 @@
 namespace App\Modules\Pages\Controllers;
 
 
-use App\Modules\Modules\Classes\MasterController;
+use App\Classes\PublicAreaController;
 use App\Modules\Pages\Models\Page;
 use App\Modules\Pages\Views\ViewPage;
 use SORM\DataSource;
 
-class ControllerMain extends MasterController {
+class ControllerMain extends PublicAreaController {
 
     public $page_id;
 

@@ -2,7 +2,7 @@
 namespace App\Modules\Pages\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Pages\Models\Page;
 use App\Modules\Pages\Views\Admin\ViewEditForm;
 use App\Views\Admin\ViewBreadcrumbs;
@@ -10,7 +10,7 @@ use SFramework\Classes\Breadcrumb;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
-class ControllerEdit extends MasterAdminController {
+class ControllerEdit extends AdministratorAreaController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
@@ -25,20 +25,20 @@ class ControllerEdit extends MasterAdminController {
 
         // Подготовка хлебных крошек
         $viewBreadcrumbs = new ViewBreadcrumbs();
-        $viewBreadcrumbs->breadcrumbs = [
+        $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
             new Breadcrumb('Модули', '/modules'),
             new Breadcrumb('Статичные страницы', '/pages')
         ];
         if ($oPage !== null) {
-            $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb("Редактирование \"{$oPage->name}\"", '');
+            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb("Редактирование \"{$oPage->name}\"", '');
         } else {
-            $viewBreadcrumbs->breadcrumbs[] = new Breadcrumb('Добавление новой статичной страницы', '');
+            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb('Добавление новой статичной страницы', '');
         }
 
-        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
-        $this->frame->bindView('content', $view);
-        $this->frame->render();
+        $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs);
+        $this->Frame->bindView('content', $view);
+        $this->Frame->render();
     }
 
 } 

@@ -1,32 +1,36 @@
 <?php
-namespace App\Modules\Structures\Classes\Helpers;
+namespace App\Classes\Helpers;
 
 
-use App\Modules\Structures\Models\Structure;
+use App\Models\Structure;
 use SORM\DataSource;
 
-class StructureHelper {
+class StructureHelper
+{
 
     protected $controllersRoot;
 
-    public function __construct($controllersRoot) {
+    public function __construct($controllersRoot)
+    {
         $this->controllersRoot = $controllersRoot;
     }
 
-    public function getPath(Structure $structure) {
+    public function getPath(Structure $oStructure)
+    {
         $path = [];
-        /** @var Structure $currentStructure */
-        $currentStructure = $structure;
-        $path[] = ucfirst($currentStructure->path);
-        while ($currentStructure->structure_id != 0) {
-            $currentStructure = DataSource::factory(Structure::cls(), $currentStructure->structure_id);
-            $path[] = ucfirst($currentStructure->path);
+        /** @var Structure $oCurrentStructure */
+        $oCurrentStructure = $oStructure;
+        $path[] = ucfirst($oCurrentStructure->path);
+        while ($oCurrentStructure->structure_id != 0) {
+            $oCurrentStructure = DataSource::factory(Structure::cls(), $oCurrentStructure->structure_id);
+            $path[] = ucfirst($oCurrentStructure->path);
         }
 
         return implode('\\', array_reverse($path));
     }
 
-    public function preparePath($path) {
+    public function preparePath($path)
+    {
         $pathElements = explode('\\', $path);
         array_pop($pathElements);
         $currentDirPath = "{$this->controllersRoot}";
@@ -40,7 +44,8 @@ class StructureHelper {
         return $currentDirPath;
     }
 
-    public function removeProxyController($path) {
+    public function removeProxyController($path)
+    {
         $currentDirPath = $this->preparePath($path);
         $lastPath = basename($path);
 
@@ -51,7 +56,8 @@ class StructureHelper {
         }
     }
 
-    public function createProxyController($path) {
+    public function createProxyController($path)
+    {
         $currentDirPath = $this->preparePath($path);
         $lastPath = basename($path);
         $name = $path == '' ? 'Main' : ucfirst($lastPath);
@@ -66,9 +72,9 @@ class StructureHelper {
 namespace App\Controllers' . $namespace . ';
 
 
-use App\Modules\Structures\Classes\MasterController;
+use App\Classes\StructureModuleController;
 
-class Controller' . $name . ' extends MasterController {}';
+class Controller' . $name . ' extends StructureModuleController {}';
 
         file_put_contents("{$currentDirPath}Controller{$name}.php", $content);
     }

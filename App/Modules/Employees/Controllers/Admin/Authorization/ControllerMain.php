@@ -2,7 +2,7 @@
 namespace App\Modules\Employees\Controllers\Admin\Authorization;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Employees\Views\Admin\ViewAuthorization;
 use App\Views\Admin\ViewConfirmationModal;
 use App\Views\Admin\ViewInformationModal;
@@ -10,7 +10,7 @@ use App\Views\Admin\ViewNotificationsModal;
 use SFramework\Classes\Param;
 use SFramework\Classes\Registry;
 
-class ControllerMain extends MasterAdminController {
+class ControllerMain extends AdministratorAreaController {
 
     public function actionIndex() {
         $error = Param::get('error', false)->asInteger(false);

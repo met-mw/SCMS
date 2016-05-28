@@ -3,7 +3,7 @@ namespace App\Modules\Structures\Views\Admin;
 
 
 use App\Models\Module;
-use App\Modules\Structures\Models\Structure;
+use App\Models\Structure;
 use SFramework\Classes\View;
 
 class ViewStructureEdit extends View {

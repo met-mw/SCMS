@@ -2,18 +2,18 @@
 namespace App\Modules\Frames\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use Exception;
 use SFramework\Classes\CoreFunctions;
 use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 
-class ControllerSave extends MasterAdminController {
+class ControllerSave extends AdministratorAreaController {
 
     public function actionIndex() {
-        if (CoreFunctions::isAJAX() && !$this->employeeAuthorizator->authorized()) {
+        if (CoreFunctions::isAJAX() && !$this->EmployeeAuthorizator->authorized()) {
             NotificationLog::instance()->pushError('Нет доступа!');
-            $this->response->send();
+            $this->Response->send();
             return;
         }
 
@@ -33,7 +33,7 @@ class ControllerSave extends MasterAdminController {
         }
 
         NotificationLog::instance()->pushMessage("Фрейм \"{$frameName}\" успешно " . ($isNew ? 'создан' : 'отредактирован') . '!');
-        $this->response->send($redirect);
+        $this->Response->send($redirect);
     }
 
 } 

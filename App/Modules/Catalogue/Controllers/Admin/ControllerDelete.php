@@ -2,7 +2,7 @@
 namespace App\Modules\Catalogue\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Catalogue\Models\Category;
 use App\Modules\Catalogue\Models\Item;
 use SFramework\Classes\CoreFunctions;
@@ -10,12 +10,12 @@ use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
-class ControllerDelete extends MasterAdminController {
+class ControllerDelete extends AdministratorAreaController {
 
     public function actionIndex() {
-        if (CoreFunctions::isAJAX() && !$this->employeeAuthorizator->authorized()) {
+        if (CoreFunctions::isAJAX() && !$this->EmployeeAuthorizator->authorized()) {
             NotificationLog::instance()->pushError('Нет доступа!');
-            $this->response->send();
+            $this->Response->send();
             return;
         }
 
@@ -38,13 +38,13 @@ class ControllerDelete extends MasterAdminController {
             NotificationLog::instance()->pushMessage("Позиция \"{$oItem->name}\" успешно удалена.");
         }
 
-        $this->response->send();
+        $this->Response->send();
     }
 
     public function actionGroup() {
         // TODO: Реализовать групповое удаление
         NotificationLog::instance()->pushMessage('Данная функция отключена в связи с техническими работами.');
-        $this->response->send();
+        $this->Response->send();
     }
 
     public function categoryDeepDelete(Category $oCategory) {

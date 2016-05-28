@@ -2,19 +2,19 @@
 namespace App\Modules\Catalogue\Controllers;
 
 
+use App\Classes\PublicAreaController;
 use App\Modules\Catalogue\Models\Category;
 use App\Modules\Catalogue\Models\Item;
 use App\Modules\Catalogue\Views\ViewCart;
 use App\Modules\Catalogue\Views\ViewCatalogue;
 use App\Modules\Catalogue\Views\ViewItem;
-use App\Modules\Modules\Classes\MasterController;
 use SFramework\Classes\Breadcrumb;
 use SFramework\Classes\CoreFunctions;
 use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
-class ControllerMain extends MasterController {
+class ControllerMain extends PublicAreaController {
 
     public function actionIndex() {
         $action = Param::request('action', false)->asString(false);
@@ -50,13 +50,13 @@ class ControllerMain extends MasterController {
                 }
 
                 if (NotificationLog::instance()->hasProblems()) {
-                    $this->response->send();
+                    $this->Response->send();
                     return;
                 }
 
                 $this->cart->addItem($id, $count);
                 NotificationLog::instance()->pushMessage("Товар \"{$oItem->name}\" в количестве {$count} (шт.) успешно добавлен в корзину. Теперь Вы можете перейти к оформлению заказа или продолжить покупки.");
-                $this->response->send('', ['totalCount' => $this->cart->getTotalCount()]);
+                $this->Response->send('', ['totalCount' => $this->cart->getTotalCount()]);
                 return;
                 break;
             case 'show-cart':
@@ -70,7 +70,7 @@ class ControllerMain extends MasterController {
                 foreach ($items as $itemId => $count) {
                     $this->cart->setItemCount($itemId, $count);
                 }
-                $this->response->send('', ['totalCount' => $this->cart->getTotalCount()]);
+                $this->Response->send('', ['totalCount' => $this->cart->getTotalCount()]);
                 return;
                 break;
             case 'order':
@@ -115,13 +115,13 @@ class ControllerMain extends MasterController {
             $categoryBreadcrumbs[] = new Breadcrumb($oParentCategory->name, "?category_id={$oParentCategory->getPrimaryKey()}", true);
             $breadcrumbsParentPK = $oParentCategory->category_id;
         }
-        $this->breadcrumbsView->breadcrumbs = array_merge($this->breadcrumbsView->breadcrumbs, array_reverse($categoryBreadcrumbs));
+        $this->BreadcrumbsView->Breadcrumbs = array_merge($this->BreadcrumbsView->Breadcrumbs, array_reverse($categoryBreadcrumbs));
         if (isset($oItem)) {
-            $this->breadcrumbsView->breadcrumbs[] = new Breadcrumb($oItem->name, '');
+            $this->BreadcrumbsView->Breadcrumbs[] = new Breadcrumb($oItem->name, '');
         }
 
-        $view->backUrl = CoreFunctions::buildUrlByBreadcrumbs($this->breadcrumbsView->breadcrumbs, 1);
-        $this->frame->bindView('breadcrumbs', $this->breadcrumbsView);
+        $view->backUrl = CoreFunctions::buildUrlByBreadcrumbs($this->BreadcrumbsView->Breadcrumbs, 1);
+        $this->Frame->bindView('breadcrumbs', $this->BreadcrumbsView);
 
         $view->render();
     }

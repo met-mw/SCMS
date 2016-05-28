@@ -2,7 +2,7 @@
 namespace App\Modules\Frames\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Frames\Classes\Retrievers\FramesRetriever;
 use App\Views\Admin\DataGrid\ViewDataGrid;
 use App\Views\Admin\ViewBreadcrumbs;
@@ -14,7 +14,7 @@ use SFramework\Classes\DataGrid\Header;
 use SFramework\Classes\DataGrid\Menu\Item;
 use SFramework\Classes\Param;
 
-class ControllerMain extends MasterAdminController {
+class ControllerMain extends AdministratorAreaController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
@@ -25,7 +25,7 @@ class ControllerMain extends MasterAdminController {
         $dataGridView = new ViewDataGrid();
         $retriever = new FramesRetriever();
 
-        $manifest = $this->moduleInstaller->getManifest($this->moduleName);
+        $manifest = $this->ModuleInstaller->getManifest($this->moduleName);
         $dataGrid = new DataGrid('frames', '/admin/modules/frames/', 'name', $manifest['meta']['alias'], $pageNumber, $itemsPerPage, $manifest['meta']['description']);
         $dataGrid->getMenu()
             ->addElement(new Item('Создать новый фрейм', '/admin/modules/frames/edit/'))
@@ -45,15 +45,15 @@ class ControllerMain extends MasterAdminController {
 
         // Подготовка хлебных крошек
         $viewBreadcrumbs = new ViewBreadcrumbs();
-        $viewBreadcrumbs->breadcrumbs = [
+        $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
             new Breadcrumb('Модули', '/modules'),
             new Breadcrumb('Фреймы', '/frames')
         ];
 
-        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
-        $this->frame->bindView('content', $dataGridView);
-        $this->frame->render();
+        $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs);
+        $this->Frame->bindView('content', $dataGridView);
+        $this->Frame->render();
     }
 
 } 

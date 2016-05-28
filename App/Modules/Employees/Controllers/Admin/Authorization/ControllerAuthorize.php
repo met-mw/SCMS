@@ -2,17 +2,17 @@
 namespace App\Modules\Employees\Controllers\Admin\Authorization;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Employees\Models\Admin\Employee;
 use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 
-class ControllerAuthorize extends MasterAdminController {
+class ControllerAuthorize extends AdministratorAreaController {
 
     public function actionIndex() {
         if (!Param::post('employee-authorization-form-sign-in', false)->exists()) {
             NotificationLog::instance()->pushError('Форма авторизации заполнена неверно');
-            $this->response->send();
+            $this->Response->send();
             exit;
         }
 
@@ -24,13 +24,13 @@ class ControllerAuthorize extends MasterAdminController {
             ->asString(true, 'Недопустимый пароль.');
 
         $redirect = '';
-        if ($this->employeeAuthorizator->authorize($email, $password)) {
+        if ($this->EmployeeAuthorizator->authorize($email, $password)) {
             $redirect = '/admin';
         } else {
             NotificationLog::instance()->pushError('Неверно указан email или пароль.');
         }
 
-        $this->response->send($redirect);
+        $this->Response->send($redirect);
     }
 
 } 

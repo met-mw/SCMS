@@ -2,6 +2,6 @@
 namespace App\Controllers\Shares;
 
 
-use App\Modules\Structures\Classes\MasterController;
+use App\Modules\Structures\Classes\StructureModuleController;
 
-class ControllerAction1 extends MasterController {}
+class ModuleControllerAction1 extends StructureModuleController {}

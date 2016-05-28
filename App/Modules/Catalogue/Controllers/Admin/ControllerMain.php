@@ -2,7 +2,7 @@
 namespace App\Modules\Catalogue\Controllers\Admin;
 
 
-use App\Classes\MasterAdminController;
+use App\Classes\AdministratorAreaController;
 use App\Modules\Catalogue\Classes\Retrievers\CatalogueRetriever;
 use App\Modules\Catalogue\Models\Category;
 use App\Views\Admin\DataGrid\ViewDataGrid;
@@ -26,7 +26,7 @@ use SFramework\Views\DataGrid\ViewSwitch;
 use SORM\DataSource;
 use SORM\Tools\Builder;
 
-class ControllerMain extends MasterAdminController {
+class ControllerMain extends AdministratorAreaController {
 
     public function actionIndex() {
         $this->authorizeIfNot();
@@ -38,7 +38,7 @@ class ControllerMain extends MasterAdminController {
             $oParentCategoryFact = DataSource::factory(Category::cls(), $parentCategoryId);
             if ($oParentCategoryFact->isNew()) {
                 NotificationLog::instance()->pushError('Недопустимое значение параметра!');
-                $this->frame->render();
+                $this->Frame->render();
                 return;
             }
         } else {
@@ -47,7 +47,7 @@ class ControllerMain extends MasterAdminController {
         $pageNumber = Param::get('catalogue-page', false)->asInteger(false);
         $itemsPerPage = Param::get('catalogue-items-per-page', false)->asInteger(false);
 
-        $manifest = $this->moduleInstaller->getManifest($this->moduleName);
+        $manifest = $this->ModuleInstaller->getManifest($this->moduleName);
 
         $dataGridView = new ViewDataGrid();
         $retriever = new CatalogueRetriever();
@@ -79,8 +79,8 @@ class ControllerMain extends MasterAdminController {
         $categoriesAndItems = $retriever->getCategoriesAndItems(
             $parentCategoryId,
             $dataGrid->getFilterConditions('childs'),
-            $dataGrid->pagination->getLimit(),
-            $dataGrid->pagination->getOffset()
+            $dataGrid->Pagination->getLimit(),
+            $dataGrid->Pagination->getOffset()
         );
 
         $dataSet = new ArrayDataSet($categoriesAndItems);
@@ -89,7 +89,7 @@ class ControllerMain extends MasterAdminController {
 
         // Подготовка хлебных крошек
         $viewBreadcrumbs = new ViewBreadcrumbs();
-        $viewBreadcrumbs->breadcrumbs = [
+        $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
             new Breadcrumb('Модули', '/modules'),
             new Breadcrumb('Каталог', '/catalogue')
@@ -102,11 +102,11 @@ class ControllerMain extends MasterAdminController {
             $categoryBreadcrumbs[] = new Breadcrumb($oParentCategory->name, "?parent_pk={$oParentCategory->getPrimaryKey()}", true);
             $breadcrumbsParentPK = $oParentCategory->category_id;
         }
-        $viewBreadcrumbs->breadcrumbs = array_merge($viewBreadcrumbs->breadcrumbs, array_reverse($categoryBreadcrumbs));
+        $viewBreadcrumbs->Breadcrumbs = array_merge($viewBreadcrumbs->Breadcrumbs, array_reverse($categoryBreadcrumbs));
 
-        $this->frame->bindView('breadcrumbs', $viewBreadcrumbs);
-        $this->frame->bindView('content', $dataGridView);
-        $this->frame->render();
+        $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs);
+        $this->Frame->bindView('content', $dataGridView);
+        $this->Frame->render();
     }
 
 } 
