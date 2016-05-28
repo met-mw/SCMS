@@ -80,6 +80,7 @@ class ViewEditForm extends View
                         </div>
                     </div>
 
+                    <? if (!empty($aGalleryItems)): ?>
                     <div class="col-sm-6">
                         <h4>Режим галлереи с прокруткой</h4>
                         <div class="galleria">
@@ -90,7 +91,9 @@ class ViewEditForm extends View
                             <? endforeach; ?>
                         </div>
                     </div>
+                    <? endif; ?>
                 </div>
+                <? if (!empty($aGalleryItems)): ?>
                 <hr/>
                 <div class="row">
                     <h4 class="text-center">Режим галлереи с плитками</h4>
@@ -109,6 +112,7 @@ class ViewEditForm extends View
                         </div>
                     </div>
                 </div>
+                <? endif; ?>
 
                 <hr/>
                 <a href="<?= $this->backUrl ?>" class="btn btn-warning">Отмена</a>

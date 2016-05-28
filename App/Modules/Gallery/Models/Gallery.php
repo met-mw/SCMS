@@ -12,6 +12,7 @@ use SORM\Entity;
  * @property int $id
  * @property string $name
  * @property string $description
+ * @property bool $deleted
  */
 class Gallery extends Entity
 {

@@ -18,7 +18,7 @@ class ControllerSave extends AdministratorAreaController
         $galleryId = Param::post('gallery-edit-id', false)->asInteger(false);
 
         $name = Param::post('gallery-edit-name')
-            ->noEmpty('Поле "Наименование" должно быть заполнено.')
+            ->noEmpty('Поле "Название" должно быть заполнено.')
             ->asString();
         $description = Param::post('gallery-edit-description')
             ->asString();
@@ -28,6 +28,7 @@ class ControllerSave extends AdministratorAreaController
             $oGallery = DataSource::factory(Gallery::cls(), $galleryId == 0 ? null : $galleryId);
             $oGallery->name = $name;
             $oGallery->description = $description;
+            $oGallery->deleted = false;
 
             $oGallery->commit();
 
