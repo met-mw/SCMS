@@ -21,11 +21,11 @@ class ViewEditForm extends View
             $id = $this->gallery->id;
             $name = $this->gallery->name;
             $description = $this->gallery->description;
+            $aGalleryItems = $this->gallery->getGalleryItems('position');
         } else {
             $id = $name = $description = '';
+            $aGalleryItems = [];
         }
-
-        $aGalleryItems = $this->gallery->getGalleryItems('position');
 
         ?>
         <style>

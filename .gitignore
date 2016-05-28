@@ -1,4 +1,6 @@
 /.idea/
 /vendor/
-/public/bower_components/
+/App/Config/
 /public/assets/js/bower_components/
+/public/assets/thumbs/
+/public/assets/uploads/
