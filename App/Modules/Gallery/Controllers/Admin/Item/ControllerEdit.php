@@ -3,8 +3,8 @@ namespace App\Modules\Gallery\Controllers\Admin\Item;
 
 
 use App\Classes\AdministratorAreaController;
-use App\Modules\Gallery\Models\Admin\Gallery;
-use App\Modules\Gallery\Models\Admin\GalleryItem;
+use App\Modules\Gallery\Models\Gallery;
+use App\Modules\Gallery\Models\GalleryItem;
 use App\Modules\Gallery\Views\Admin\Item\ViewEditForm;
 use App\Views\Admin\ViewBreadcrumbs;
 use SFramework\Classes\Breadcrumb;
@@ -35,8 +35,8 @@ class ControllerEdit extends AdministratorAreaController
         }
 
         $view = new ViewEditForm();
-        $view->galleryItem = $oGalleryItem;
-        $view->gallery = $oGallery;
+        $view->GalleryItem = $oGalleryItem;
+        $view->Gallery = $oGallery;
 
         // Подготовка хлебных крошек
         $viewBreadcrumbs = new ViewBreadcrumbs();

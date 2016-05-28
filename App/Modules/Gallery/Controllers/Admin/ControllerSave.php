@@ -3,7 +3,7 @@ namespace App\Modules\Gallery\Controllers\Admin;
 
 
 use App\Classes\AdministratorAreaController;
-use App\Modules\Gallery\Models\Admin\Gallery;
+use App\Modules\Gallery\Models\Gallery;
 use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;

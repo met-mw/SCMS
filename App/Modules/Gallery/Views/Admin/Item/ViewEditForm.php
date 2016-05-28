@@ -2,17 +2,17 @@
 namespace App\Modules\Gallery\Views\Admin\Item;
 
 
-use App\Modules\Gallery\Models\Admin\Gallery;
-use App\Modules\Gallery\Models\Admin\GalleryItem;
+use App\Modules\Gallery\Models\Gallery;
+use App\Modules\Gallery\Models\GalleryItem;
 use SFramework\Classes\View;
 
 class ViewEditForm extends View
 {
 
     /** @var Gallery */
-    public $gallery;
+    public $Gallery;
     /** @var GalleryItem */
-    public $galleryItem;
+    public $GalleryItem;
     /** @var string */
     public $backUrl;
 
@@ -23,18 +23,19 @@ class ViewEditForm extends View
 
     public function currentRender()
     {
-        $isNew = is_null($this->galleryItem->id);
+        $isNew = is_null($this->GalleryItem->id);
 
         if (!$isNew) {
-            $id = $this->galleryItem->id;
-            $name = $this->galleryItem->name;
-            $description = $this->galleryItem->description;
-            $path = $this->galleryItem->path;
+            $id = $this->GalleryItem->id;
+            $name = $this->GalleryItem->name;
+            $description = $this->GalleryItem->description;
+            $path = $this->GalleryItem->path;
+            $position = $this->GalleryItem->position;
         } else {
-            $id = $name = $description = $path = '';
+            $id = $name = $description = $path = $position ='';
         }
 
-        $galleryId = $this->gallery->id;
+        $galleryId = $this->Gallery->id;
 
         ?>
         <form id="gallery-item-edit-form" action="/admin/modules/gallery/item/save/" method="post">
@@ -46,18 +47,25 @@ class ViewEditForm extends View
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="row">
-                            <div class="col-lg-1">
+                            <div class="col-lg-2">
                                 <div class="form-group">
                                     <label for="gallery-item-edit-number">№</label>
                                     <input class="form-control input-sm" id="gallery-item-edit-number" name="gallery-item-edit-number" disabled="disabled" type="number" placeholder="№" value="<?= $id ?>">
                                     <span class="help-block">Номер</span>
                                 </div>
                             </div>
-                            <div class="col-lg-11">
+                            <div class="col-lg-8">
                                 <div class="form-group">
                                     <label for="gallery-item-edit-name">Наименование</label>
                                     <input class="form-control input-sm" id="gallery-item-edit-name" name="gallery-item-edit-name" type="text" placeholder="Название" value="<?= $name ?>">
                                     <span class="help-block">Название элемента галлереи</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label for="gallery-item-edit-position">Позиция</label>
+                                    <input class="form-control input-sm" id="gallery-item-edit-position" name="gallery-item-edit-position" min="0" type="number" placeholder="Позиция" value="<?= $position ?>">
+                                    <span class="help-block">Позиция</span>
                                 </div>
                             </div>
                         </div>

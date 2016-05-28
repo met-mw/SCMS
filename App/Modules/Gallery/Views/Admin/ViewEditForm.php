@@ -2,7 +2,7 @@
 namespace App\Modules\Gallery\Views\Admin;
 
 
-use App\Modules\Gallery\Models\Admin\Gallery;
+use App\Modules\Gallery\Models\Gallery;
 use SFramework\Classes\View;
 
 class ViewEditForm extends View
@@ -25,7 +25,7 @@ class ViewEditForm extends View
             $id = $name = $description = '';
         }
 
-        $aGalleryItems = $this->gallery->getGalleryItems();
+        $aGalleryItems = $this->gallery->getGalleryItems('position');
 
         ?>
         <style>

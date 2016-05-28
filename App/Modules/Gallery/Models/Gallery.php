@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\Gallery\Models\Admin;
+namespace App\Modules\Gallery\Models;
 
 
 use SORM\DataSource;
@@ -18,7 +18,7 @@ class Gallery extends Entity
 
     protected $tableName = 'module_gallery';
 
-    public function getGalleryItems()
+    public function getGalleryItems($orderFieldName = 'id', $order = 'asc')
     {
         /** @var GalleryItem[] $aGalleryItems */
         $aGalleryItems = $this->findRelationCache($this->getPrimaryKeyName(), GalleryItem::cls());
@@ -26,7 +26,8 @@ class Gallery extends Entity
             /** @var GalleryItem $oGalleryItems */
             $oGalleryItems = DataSource::factory(GalleryItem::cls());
             $oGalleryItems->builder()
-                ->where("gallery_id={$this->getPrimaryKey()}");
+                ->where("gallery_id={$this->getPrimaryKey()}")
+                ->order($orderFieldName, $order);
 
             $aGalleryItems = $oGalleryItems->findAll();
             foreach ($aGalleryItems as $oGalleryItem) {

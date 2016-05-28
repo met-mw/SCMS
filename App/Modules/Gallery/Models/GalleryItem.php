@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\Gallery\Models\Admin;
+namespace App\Modules\Gallery\Models;
 
 
 use SORM\DataSource;
@@ -14,6 +14,7 @@ use SORM\Entity;
  * @property string $description
  * @property int $gallery_id
  * @property string $path
+ * @property int $position
  */
 class GalleryItem extends Entity
 {

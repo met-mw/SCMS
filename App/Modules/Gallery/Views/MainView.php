@@ -2,7 +2,7 @@
 namespace App\Modules\Gallery\Views;
 
 
-use App\Modules\Gallery\Models\Admin\Gallery;
+use App\Modules\Gallery\Models\Gallery;
 use App\Models\Structure;
 use SFramework\Classes\View;
 
@@ -16,7 +16,7 @@ class MainView extends View
 
     public function currentRender()
     {
-        $aGalleryItems = $this->oGallery->getGalleryItems();
+        $aGalleryItems = $this->oGallery->getGalleryItems('position');
 
         ?>
         <div class="container">

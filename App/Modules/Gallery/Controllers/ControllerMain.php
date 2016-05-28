@@ -3,7 +3,7 @@ namespace App\Modules\Gallery\Controllers;
 
 
 use App\Classes\PublicAreaController;
-use App\Modules\Gallery\Models\Admin\Gallery;
+use App\Modules\Gallery\Models\Gallery;
 use App\Modules\Gallery\Views\MainView;
 use SORM\DataSource;
 

@@ -4,7 +4,7 @@ namespace App\Modules\Gallery\Controllers\Admin\Item;
 
 use App\Classes\AdministratorAreaController;
 use App\Modules\Gallery\Classes\Retrievers\GalleryRetriever;
-use App\Modules\Gallery\Models\Admin\Gallery;
+use App\Modules\Gallery\Models\Gallery;
 use App\Views\Admin\DataGrid\ViewDataGrid;
 use App\Views\Admin\ViewBreadcrumbs;
 use SFramework\Classes\Breadcrumb;
@@ -62,6 +62,7 @@ class ControllerMain extends AdministratorAreaController
             ->addHeader(new Header('name', 'Название', null, ['class' => 'text-center', 'style' => 'width: 250px;'], [], true, Param::get('item-filter-name', false)->asString(false)))
             ->addHeader(new Header('description', 'Описание', new ViewCutString(20, true, ['class' => 'content-to-modal', 'style' => 'cursor: pointer;'], ['style' => 'display: none;']), ['class' => 'text-center'], ['class' => 'modal-display-field'], true, Param::get('item-filter-description', false)->asString(false)))
             ->addHeader(new Header('path', 'Миниатюра', new ViewCondition(new ViewImageLink(true, ['class' => 'fancybox'], ['class' => 'img-rounded', 'style' => 'height: 20px;']), [['field' => 'path', 'value' => '/public/assets/images/system/no-image.svg', 'view' => new ViewStub('<span class="glyphicon glyphicon-picture"></span>')]]), ['class' => 'text-center', 'style' => 'width: 50px;'], ['class' => 'text-center']))
+            ->addHeader(new Header('position', 'Позиция', null, ['class' => 'text-center', 'style' => 'width: 50px;'], ['class' => 'text-center'], true, Param::get('item-filter-position', false)->asString(false)))
         ;
 
         $galleries = $retriever->getGalleryItems(

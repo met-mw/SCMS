@@ -3,7 +3,7 @@ namespace App\Modules\Gallery\Controllers\Admin;
 
 
 use App\Classes\AdministratorAreaController;
-use App\Modules\Gallery\Models\Admin\Gallery;
+use App\Modules\Gallery\Models\Gallery;
 use App\Modules\Gallery\Views\Admin\ViewEditForm;
 use App\Views\Admin\ViewBreadcrumbs;
 use SFramework\Classes\Breadcrumb;

@@ -3,8 +3,8 @@ namespace App\Modules\Gallery\Controllers\Admin\Item;
 
 
 use App\Classes\AdministratorAreaController;
-use App\Modules\Gallery\Models\Admin\Gallery;
-use App\Modules\Gallery\Models\Admin\GalleryItem;
+use App\Modules\Gallery\Models\Gallery;
+use App\Modules\Gallery\Models\GalleryItem;
 use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
@@ -27,6 +27,9 @@ class ControllerSave extends AdministratorAreaController
         $path = Param::post('gallery-item-edit-path')
             ->noEmpty('Недопустимое значение пути к изображению.')
             ->asString();
+        $position = Param::post('gallery-item-edit-position')
+            ->noEmpty('Недопустимое значение позиции элемента.')
+            ->asInteger();
 
         /** @var Gallery $oGallery */
         $oGallery = DataSource::factory(Gallery::cls(), $galleryId);
@@ -41,6 +44,7 @@ class ControllerSave extends AdministratorAreaController
             $oGalleryItem->description = $description;
             $oGalleryItem->path = $path;
             $oGalleryItem->gallery_id = $oGallery->id;
+            $oGalleryItem->position = $position;
 
             $oGalleryItem->commit();
 

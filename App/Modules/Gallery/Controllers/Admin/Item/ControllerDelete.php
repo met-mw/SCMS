@@ -5,7 +5,7 @@ namespace App\Modules\Gallery\Controllers\Admin\Item;
 
 
 use App\Classes\AdministratorAreaController;
-use App\Modules\Gallery\Models\Admin\GalleryItem;
+use App\Modules\Gallery\Models\GalleryItem;
 use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;

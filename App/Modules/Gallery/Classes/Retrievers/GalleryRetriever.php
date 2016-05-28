@@ -2,7 +2,7 @@
 namespace App\Modules\Gallery\Classes\Retrievers;
 
 
-use App\Modules\Gallery\Models\Admin\Gallery;
+use App\Modules\Gallery\Models\Gallery;
 use SORM\DataSource;
 
 class GalleryRetriever
@@ -36,7 +36,8 @@ class GalleryRetriever
             id,
             name,
             description,
-            path
+            path,
+            position
         from
 	        module_gallery_item
 	    where
