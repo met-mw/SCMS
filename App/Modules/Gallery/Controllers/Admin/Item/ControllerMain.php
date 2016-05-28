@@ -28,12 +28,12 @@ class ControllerMain extends AdministratorAreaController
     {
         $this->authorizeIfNot();
 
-        $galleryId = Param::get('gallery_id')->asInteger(true, 'Недопустимое значение номера галлереи.');
+        $galleryId = Param::get('gallery_id')->asInteger(true, 'Недопустимое значение номера галереи.');
 
         /** @var Gallery $oGallery */
         $oGallery = DataSource::factory(Gallery::cls(), $galleryId);
         if (!$oGallery) {
-            NotificationLog::instance()->pushError("Запрошенная галлерея с номером \"{$galleryId}\" не существует.");
+            NotificationLog::instance()->pushError("Запрошенная галерея с номером \"{$galleryId}\" не существует.");
             $this->Frame->render();
 
             return;
@@ -82,7 +82,7 @@ class ControllerMain extends AdministratorAreaController
             new Breadcrumb('Панель управления', '/admin'),
             new Breadcrumb('Модули', '/modules'),
             new Breadcrumb('Галереи', '/gallery'),
-            new Breadcrumb("Элементы галлереи \"{$oGallery->name}\"", ''),
+            new Breadcrumb("Элементы галереи \"{$oGallery->name}\"", ''),
         ];
 
         $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs);

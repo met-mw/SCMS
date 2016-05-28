@@ -51,7 +51,7 @@ class ViewEditForm extends View
         </style>
         <form id="gallery-edit-form" action="/admin/modules/gallery/save/" method="post">
             <fieldset>
-                <legend><?= ($isNew ? 'Добавление новой галлереи' : "Редактирование галлереи (<a target=\"_blank\" href=\"/admin/modules/gallery/item/?gallery_id={$id}\">перейти к редактированию элементов</a>)") ?></legend>
+                <legend><?= ($isNew ? 'Добавление новой галереи' : "Редактирование галереи (<a target=\"_blank\" href=\"/admin/modules/gallery/item/?gallery_id={$id}\">перейти к редактированию элементов</a>)") ?></legend>
                 <input type="hidden" name="gallery-edit-id" value="<?= $id ?>" />
 
                 <div class="row">
@@ -68,7 +68,7 @@ class ViewEditForm extends View
                                 <div class="form-group">
                                     <label for="gallery-edit-name">Наименование</label>
                                     <input class="form-control input-sm" id="gallery-edit-name" name="gallery-edit-name" type="text" placeholder="Наименование" value="<?= $name ?>">
-                                    <span class="help-block">Название галлереи</span>
+                                    <span class="help-block">Название галереи</span>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +82,7 @@ class ViewEditForm extends View
 
                     <? if (!empty($aGalleryItems)): ?>
                     <div class="col-sm-6">
-                        <h4>Режим галлереи с прокруткой</h4>
+                        <h4>Режим галереи с прокруткой</h4>
                         <div class="galleria">
                             <? foreach ($aGalleryItems as $oGalleryItem): ?>
                                 <a href="<?= $oGalleryItem->path ?>">
@@ -96,7 +96,7 @@ class ViewEditForm extends View
                 <? if (!empty($aGalleryItems)): ?>
                 <hr/>
                 <div class="row">
-                    <h4 class="text-center">Режим галлереи с плитками</h4>
+                    <h4 class="text-center">Режим галереи с плитками</h4>
 
                     <div class="col-xs-12">
                         <div class="container">

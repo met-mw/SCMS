@@ -24,9 +24,9 @@ class ControllerDelete extends AdministratorAreaController
         /** @var GalleryItem $oGalleryItem */
         $oGalleryItem = DataSource::factory(GalleryItem::cls(), $galleryItemId);
         if (is_null($oGalleryItem) || !$oGalleryItem->getPrimaryKey()) {
-            NotificationLog::instance()->pushError('Элемент галлереи не найден.');
+            NotificationLog::instance()->pushError('Элемент галереи не найден.');
         } else {
-            NotificationLog::instance()->pushMessage("Элемент \"{$oGalleryItem->name}\" галлереи {$oGalleryItem->getGallery()->name} успешно удален.");
+            NotificationLog::instance()->pushMessage("Элемент \"{$oGalleryItem->name}\" галереи {$oGalleryItem->getGallery()->name} успешно удален.");
             $oGalleryItem->delete();
         }
 

@@ -4,7 +4,7 @@ return [
     'meta' => [
         'name' => 'Gallery',
         'alias' => 'Галерея',
-        'description' => 'Модуль управления галлереями изображений.',
+        'description' => 'Модуль управления галереями изображений.',
     ],
     'author' => [
         'nick' => 'met-mw',

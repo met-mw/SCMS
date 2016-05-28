@@ -40,7 +40,7 @@ class ViewEditForm extends View
         ?>
         <form id="gallery-item-edit-form" action="/admin/modules/gallery/item/save/" method="post">
             <fieldset>
-                <legend><?= ($isNew ? 'Добавление' : 'Редактирование') ?> элемента галлереи</legend>
+                <legend><?= ($isNew ? 'Добавление' : 'Редактирование') ?> элемента галереи</legend>
                 <input type="hidden" name="gallery-item-edit-id" value="<?= $id ?>" />
                 <input type="hidden" name="gallery-id" value="<?= $galleryId ?>" />
 
@@ -58,7 +58,7 @@ class ViewEditForm extends View
                                 <div class="form-group">
                                     <label for="gallery-item-edit-name">Наименование</label>
                                     <input class="form-control input-sm" id="gallery-item-edit-name" name="gallery-item-edit-name" type="text" placeholder="Название" value="<?= $name ?>">
-                                    <span class="help-block">Название элемента галлереи</span>
+                                    <span class="help-block">Название элемента галереи</span>
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -73,7 +73,7 @@ class ViewEditForm extends View
                         <div class="form-group">
                             <label for="gallery-item-edit-description">Описание</label>
                             <textarea class="form-control input-sm" id="gallery-item-edit-description" name="gallery-item-edit-description" placeholder="Описание" style="width: 100%; height: 100px;"><?= $description ?></textarea>
-                            <span class="help-block">Описание элемента галлереи</span>
+                            <span class="help-block">Описание элемента галереи</span>
                         </div>
                     </div>
 
@@ -89,7 +89,7 @@ class ViewEditForm extends View
                                         <button id="gallery-item-edit-path-remove-btn" type="button" class="btn btn-danger btn-sm" title="Убрать изображение"><span class="glyphicon glyphicon-remove"></span></button>
                                     </div>
                                     <hr/>
-                                    <span class="help-block">Выбор изображения элемента галлереи. Данное изображение будет отображаться в пользовательской части сайта в качестве элемента галлереи.</span>
+                                    <span class="help-block">Выбор изображения элемента галереи. Данное изображение будет отображаться в пользовательской части сайта в качестве элемента галереи.</span>
                                 </div>
                             </div>
                             <div class="col-lg-7 text-center">

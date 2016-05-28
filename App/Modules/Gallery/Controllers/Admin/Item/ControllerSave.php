@@ -16,7 +16,7 @@ class ControllerSave extends AdministratorAreaController
     {
         $this->authorizeIfNot();
 
-        $galleryId = Param::post('gallery-id')->asInteger(true, 'Недопустимое значние номера галлереи.');
+        $galleryId = Param::post('gallery-id')->asInteger(true, 'Недопустимое значние номера галереи.');
         $galleryItemId = Param::post('gallery-item-edit-id', false)->asInteger(false);
 
         $name = Param::post('gallery-item-edit-name')
@@ -34,7 +34,7 @@ class ControllerSave extends AdministratorAreaController
         /** @var Gallery $oGallery */
         $oGallery = DataSource::factory(Gallery::cls(), $galleryId);
         if ($oGallery->isNew()) {
-            NotificationLog::instance()->pushError("Попытка добавить элемент в несуществующую галлерею.");
+            NotificationLog::instance()->pushError("Попытка добавить элемент в несуществующую галерею.");
         }
 
         if (!NotificationLog::instance()->hasProblems()) {
@@ -48,7 +48,7 @@ class ControllerSave extends AdministratorAreaController
 
             $oGalleryItem->commit();
 
-            NotificationLog::instance()->pushMessage("Элемент \"{$oGalleryItem->name}\" успешно " . ($galleryItemId == 0 ? "добавлен в галлерею \"{$oGalleryItem->getGallery()->name}\"" : 'отредактирован') . '.');
+            NotificationLog::instance()->pushMessage("Элемент \"{$oGalleryItem->name}\" успешно " . ($galleryItemId == 0 ? "добавлен в галерею \"{$oGalleryItem->getGallery()->name}\"" : 'отредактирован') . '.');
             $redirect = '';
             if (Param::post('gallery-item-edit-accept', false)->exists()) {
                 $redirect = "/admin/modules/gallery/item/?gallery_id={$oGalleryItem->gallery_id}";

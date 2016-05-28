@@ -25,9 +25,9 @@ class MainView extends View
 
             <div class="row">
                 <? foreach ($aGalleryItems as $oGalleryItem): ?>
-                    <div class="col-md-3 col-sm-4 col-xs-6 thumb">
+                    <div class="col-md-3 col-sm-4 col-xs-6">
                         <a class="fancyimage" rel="group" href="<?= $oGalleryItem->path ?>">
-                            <img class="img-responsive" src="<?= $oGalleryItem->path ?>" />
+                            <img class="img-responsive img-thumbnail" src="<?= $oGalleryItem->path ?>" />
                         </a>
                     </div>
                 <? endforeach; ?>

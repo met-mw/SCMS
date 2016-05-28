@@ -21,7 +21,7 @@ class ControllerEdit extends AdministratorAreaController
         $this->authorizeIfNot();
 
         $galleryItemId = Param::get('id', false)->asInteger(false);
-        $galleryId = Param::get('gallery_id')->asInteger(true, 'Недопустимое значение номера галлереи.');
+        $galleryId = Param::get('gallery_id')->asInteger(true, 'Недопустимое значение номера галереи.');
 
         /** @var GalleryItem $oGalleryItem */
         $oGalleryItem = DataSource::factory(GalleryItem::cls(), $galleryItemId);
@@ -49,7 +49,7 @@ class ControllerEdit extends AdministratorAreaController
         if ($oGalleryItem->id !== null) {
             $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb("Редактирование \"{$oGalleryItem->name}\"", '');
         } else {
-            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb('Добавление нового элемента галлереи', '');
+            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb('Добавление нового элемента галереи', '');
         }
 
         $view->backUrl = CoreFunctions::buildUrlByBreadcrumbs($viewBreadcrumbs->Breadcrumbs, 1);

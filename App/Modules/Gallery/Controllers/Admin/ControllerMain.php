@@ -33,7 +33,7 @@ class ControllerMain extends AdministratorAreaController
         $dataGrid = new DataGrid('gallery', '', 'id', $manifest['meta']['alias'], $pageNumber, $itemsPerPage, $manifest['meta']['description']);
 
         $dataGrid->getMenu()
-            ->addElement(new Item('Создать новую галлерею', '/admin/modules/gallery/edit/'))
+            ->addElement(new Item('Создать новую галерею', '/admin/modules/gallery/edit/'))
         ;
 
         $dataGrid

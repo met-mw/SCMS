@@ -36,7 +36,7 @@ class ControllerEdit extends AdministratorAreaController
         if ($oGallery->id !== null) {
             $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb("Редактирование \"{$oGallery->name}\"", '');
         } else {
-            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb('Добавление новой галлереи', '');
+            $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb('Добавление новой галереи', '');
         }
 
         $view->backUrl = CoreFunctions::buildUrlByBreadcrumbs($viewBreadcrumbs->Breadcrumbs, 1);
