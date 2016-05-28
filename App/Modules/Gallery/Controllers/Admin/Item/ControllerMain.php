@@ -81,7 +81,7 @@ class ControllerMain extends AdministratorAreaController
         $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
             new Breadcrumb('Модули', '/modules'),
-            new Breadcrumb('Галлереи', '/gallery'),
+            new Breadcrumb('Галереи', '/gallery'),
             new Breadcrumb("Элементы галлереи \"{$oGallery->name}\"", ''),
         ];
 

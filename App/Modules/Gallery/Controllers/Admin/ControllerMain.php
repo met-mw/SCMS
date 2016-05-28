@@ -62,7 +62,7 @@ class ControllerMain extends AdministratorAreaController
         $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
             new Breadcrumb('Модули', '/modules'),
-            new Breadcrumb('Галлерея', '/gallery')
+            new Breadcrumb('Галерея', '/gallery')
         ];
 
         $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs);

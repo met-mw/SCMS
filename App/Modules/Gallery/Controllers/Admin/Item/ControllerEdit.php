@@ -43,8 +43,8 @@ class ControllerEdit extends AdministratorAreaController
         $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
             new Breadcrumb('Модули', '/modules'),
-            new Breadcrumb('Галлереи', '/gallery'),
-            new Breadcrumb("Галлерея \"{$oGallery->name}\"", "/item/?gallery_id={$oGallery->id}")
+            new Breadcrumb('Галереи', '/gallery'),
+            new Breadcrumb("Галерея \"{$oGallery->name}\"", "/item/?gallery_id={$oGallery->id}")
         ];
         if ($oGalleryItem->id !== null) {
             $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb("Редактирование \"{$oGalleryItem->name}\"", '');

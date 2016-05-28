@@ -3,7 +3,7 @@ return [
     'version' => '1.0.0',
     'meta' => [
         'name' => 'Gallery',
-        'alias' => 'Галлерея',
+        'alias' => 'Галерея',
         'description' => 'Модуль управления галлереями изображений.',
     ],
     'author' => [

@@ -31,7 +31,7 @@ class ControllerSave extends AdministratorAreaController
 
             $oGallery->commit();
 
-            NotificationLog::instance()->pushMessage("Галлерея \"{$oGallery->name}\" успешно " . ($galleryId == 0 ? 'добавлена' : 'отредактирована') . '.');
+            NotificationLog::instance()->pushMessage("Галерея \"{$oGallery->name}\" успешно " . ($galleryId == 0 ? 'добавлена' : 'отредактирована') . '.');
             $redirect = '';
             if (Param::post('gallery-edit-accept', false)->exists()) {
                 $redirect = '/admin/modules/gallery/';

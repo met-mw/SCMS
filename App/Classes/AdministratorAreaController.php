@@ -80,7 +80,7 @@ abstract class AdministratorAreaController extends Controller
             ->addItem('employees', 'Сотрудники')
             ->addItem('siteusers', 'Пользователи')
             ->addItem('recall', 'Обратные звонки')
-            ->addItem('gallery', 'Галлерея')
+            ->addItem('gallery', 'Галерея')
             ->addItem('news', 'Новости')
             ->addItem('frames', 'Фреймы')
             ->addItem('modules', 'Модули')
