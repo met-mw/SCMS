@@ -29,6 +29,11 @@ body.modal-open {
     text-align: center !important;
 }
 
+.galleria {
+    height: 600px;
+    width: 100%;
+}
+
 .thumb img {
     filter: none; /* IE6-9 */
     -webkit-filter: grayscale(0);
@@ -43,4 +48,16 @@ body.modal-open {
 }
 .thumb {
     padding:5px;
+}
+
+.row.eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+    flex-wrap: wrap;
+}
+.row.eq-height > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
 }

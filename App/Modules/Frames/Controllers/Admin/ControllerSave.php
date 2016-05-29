@@ -5,14 +5,14 @@ namespace App\Modules\Frames\Controllers\Admin;
 use App\Classes\AdministratorAreaController;
 use Exception;
 use SFramework\Classes\CoreFunctions;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 
 class ControllerSave extends AdministratorAreaController {
 
     public function actionIndex() {
         if (CoreFunctions::isAJAX() && !$this->EmployeeAuthorizator->authorized()) {
-            NotificationLog::instance()->pushError('Нет доступа!');
+            SCMSNotificationLog::instance()->pushError('Нет доступа!');
             $this->Response->send();
             return;
         }
@@ -32,7 +32,7 @@ class ControllerSave extends AdministratorAreaController {
             $redirect = $isNew ? "/admin/modules/frames/edit/?name={$frameName}" : '';
         }
 
-        NotificationLog::instance()->pushMessage("Фрейм \"{$frameName}\" успешно " . ($isNew ? 'создан' : 'отредактирован') . '!');
+        SCMSNotificationLog::instance()->pushMessage("Фрейм \"{$frameName}\" успешно " . ($isNew ? 'создан' : 'отредактирован') . '!');
         $this->Response->send($redirect);
     }
 

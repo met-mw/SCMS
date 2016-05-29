@@ -4,14 +4,14 @@ namespace App\Modules\Employees\Controllers\Admin\Authorization;
 
 use App\Classes\AdministratorAreaController;
 use App\Modules\Employees\Models\Admin\Employee;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 
 class ControllerAuthorize extends AdministratorAreaController {
 
     public function actionIndex() {
         if (!Param::post('employee-authorization-form-sign-in', false)->exists()) {
-            NotificationLog::instance()->pushError('Форма авторизации заполнена неверно');
+            SCMSNotificationLog::instance()->pushError('Форма авторизации заполнена неверно');
             $this->Response->send();
             exit;
         }
@@ -27,7 +27,7 @@ class ControllerAuthorize extends AdministratorAreaController {
         if ($this->EmployeeAuthorizator->authorize($email, $password)) {
             $redirect = '/admin';
         } else {
-            NotificationLog::instance()->pushError('Неверно указан email или пароль.');
+            SCMSNotificationLog::instance()->pushError('Неверно указан email или пароль.');
         }
 
         $this->Response->send($redirect);

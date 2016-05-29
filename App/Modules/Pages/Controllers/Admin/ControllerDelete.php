@@ -4,7 +4,7 @@ namespace App\Modules\Pages\Controllers\Admin;
 
 use App\Classes\AdministratorAreaController;
 use App\Modules\Pages\Models\Page;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
@@ -20,9 +20,9 @@ class ControllerDelete extends AdministratorAreaController {
         /** @var Page $oPage */
         $oPage = DataSource::factory(Page::cls(), $pageId);
         if (is_null($oPage) || !$oPage->getPrimaryKey()) {
-            NotificationLog::instance()->pushError('Статическая страница не найдена.');
+            SCMSNotificationLog::instance()->pushError('Статическая страница не найдена.');
         } else {
-            NotificationLog::instance()->pushMessage("Страница \"$oPage->name\" успешно удалена.");
+            SCMSNotificationLog::instance()->pushMessage("Страница \"$oPage->name\" успешно удалена.");
             $oPage->deleted = true;
             $oPage->commit();
         }

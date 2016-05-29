@@ -8,11 +8,11 @@ use SFramework\Classes\Registry;
 class AdministratorAreaProxyController extends Controller
 {
 
-    /** @var Proxy */
+    /** @var RouterProxy */
     protected $Proxy;
 
     public function __construct() {
-        $this->Proxy = new Proxy(Registry::router());
+        $this->Proxy = new RouterProxy(Registry::router());
     }
 
 } 

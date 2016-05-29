@@ -21,6 +21,10 @@ use SORM\Entity;
 class Module extends Entity
 {
 
+    const TYPE_ENTITY = 0;
+    const TYPE_LIST = 1;
+    const TYPE_VALUE = 2;
+
     protected $tableName = 'module';
 
     public function getStructures()

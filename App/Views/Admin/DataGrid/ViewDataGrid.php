@@ -25,12 +25,6 @@ class ViewDataGrid extends View {
         $menuView->render();
         ?>
         <hr/>
-        <div class="panel panel-info">
-            <div class="panel-heading"><?= $this->dataGrid->getCaption() ?></div>
-            <div class="panel-body">
-                <p><?= $this->dataGrid->getDescription() ?></p>
-            </div>
-        </div>
         <div class="table-responsive">
             <form action="<?= $this->dataGrid->getAction() ?>" class="form-inline s-datagrid" name="<?= $this->dataGrid->getName() ?>" id="<?= $this->dataGrid->getName() ?>">
                 <fieldset>

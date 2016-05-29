@@ -1,5 +1,5 @@
 <?php
-namespace App\Controllers\Admin\Modules;
+namespace App\Controllers\Admin\Service;
 
 
 use App\Classes\AdministratorAreaController;
@@ -12,4 +12,4 @@ class ControllerMain extends AdministratorAreaController
         header('Location:/admin');
     }
 
-} 
+}

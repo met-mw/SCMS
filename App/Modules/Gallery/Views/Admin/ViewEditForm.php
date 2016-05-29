@@ -28,27 +28,6 @@ class ViewEditForm extends View
         }
 
         ?>
-        <style>
-            .galleria {
-                height: 300px;
-            }
-
-            .thumb img {
-                filter: none; /* IE6-9 */
-                -webkit-filter: grayscale(0);
-                border-radius:5px;
-                background-color: #fff;
-                border: 1px solid #ddd;
-                padding:5px;
-            }
-            .thumb img:hover {
-                filter: gray; /* IE6-9 */
-                -webkit-filter: grayscale(1);
-            }
-            .thumb {
-                padding:5px;
-            }
-        </style>
         <form id="gallery-edit-form" action="/admin/modules/gallery/save/" method="post">
             <fieldset>
                 <legend><?= ($isNew ? 'Добавление новой галереи' : "Редактирование галереи (<a target=\"_blank\" href=\"/admin/modules/gallery/item/?gallery_id={$id}\">перейти к редактированию элементов</a>)") ?></legend>

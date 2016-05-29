@@ -6,7 +6,7 @@ use App\Classes\AdministratorAreaController;
 use App\Modules\Siteusers\Models\Siteuser;
 use Exception;
 use SFramework\Classes\CoreFunctions;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
@@ -17,7 +17,7 @@ class ControllerDelete extends AdministratorAreaController
     {
         if (CoreFunctions::isAJAX()) {
             if (!$this->EmployeeAuthorizator->authorized()) {
-                NotificationLog::instance()->pushError('Нет доступа.');
+                SCMSNotificationLog::instance()->pushError('Нет доступа.');
                 $this->Response->send();
                 return;
             }
@@ -34,12 +34,12 @@ class ControllerDelete extends AdministratorAreaController
             $oSiteuser->deleted = true;
             try {
                 $oSiteuser->commit();
-                NotificationLog::instance()->pushMessage("Пользователь \"$oSiteuser->name\" успешно удалён.");
+                SCMSNotificationLog::instance()->pushMessage("Пользователь \"$oSiteuser->name\" успешно удалён.");
             } catch (Exception $e) {
-                NotificationLog::instance()->pushError($e->getMessage());
+                SCMSNotificationLog::instance()->pushError($e->getMessage());
             }
         } else {
-            NotificationLog::instance()->pushError("Пользователь с ID {$siteuserId} не найден");
+            SCMSNotificationLog::instance()->pushError("Пользователь с ID {$siteuserId} не найден");
         }
 
 

@@ -4,7 +4,7 @@ namespace App\Modules\Gallery\Controllers\Admin;
 
 use App\Classes\AdministratorAreaController;
 use App\Modules\Gallery\Models\Gallery;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
@@ -22,9 +22,9 @@ class ControllerDelete extends AdministratorAreaController
         /** @var Gallery $oGallery */
         $oGallery = DataSource::factory(Gallery::cls(), $galleryId);
         if (is_null($oGallery) || !$oGallery->getPrimaryKey()) {
-            NotificationLog::instance()->pushError('Галерея не найдена.');
+            SCMSNotificationLog::instance()->pushError('Галерея не найдена.');
         } else {
-            NotificationLog::instance()->pushMessage("Галерея \"$oGallery->name\" успешно удалена.");
+            SCMSNotificationLog::instance()->pushMessage("Галерея \"$oGallery->name\" успешно удалена.");
             $oGallery->delete();
         }
 

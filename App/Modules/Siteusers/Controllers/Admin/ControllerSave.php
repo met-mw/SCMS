@@ -7,7 +7,7 @@ use App\Modules\Siteusers\Classes\Authorizator;
 use App\Modules\Siteusers\Models\Siteuser;
 use Exception;
 use SFramework\Classes\CoreFunctions;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
@@ -17,7 +17,7 @@ class ControllerSave extends AdministratorAreaController
     public function actionIndex()
     {
         if (CoreFunctions::isAJAX() && !$this->EmployeeAuthorizator->authorized()) {
-            NotificationLog::instance()->pushError('Нет доступа!');
+            SCMSNotificationLog::instance()->pushError('Нет доступа!');
             $this->Response->send();
 
             return;
@@ -41,10 +41,10 @@ class ControllerSave extends AdministratorAreaController
         $accept = Param::post('siteuser-edit-accept', false);
 
         if (!in_array($type, [Siteuser::TYPE_USER, Siteuser::TYPE_CONTRACTOR])) {
-            NotificationLog::instance()->pushError('Недопустимое значение поля "Тип".');
+            SCMSNotificationLog::instance()->pushError('Недопустимое значение поля "Тип".');
         }
         if (!in_array($status, [Siteuser::STATUS_UNCONFIRMED, Siteuser::STATUS_CONFIRMED, Siteuser::STATUS_DENIED])) {
-            NotificationLog::instance()->pushError('Недопустимое значение поля "Статус".');
+            SCMSNotificationLog::instance()->pushError('Недопустимое значение поля "Статус".');
         }
 
         $oSiteusers = DataSource::factory(Siteuser::cls());
@@ -61,14 +61,14 @@ class ControllerSave extends AdministratorAreaController
         if (!empty($aSiteusers)) {
             $oSiteuser = $aSiteusers[0];
             if ($oSiteuser->email == $email) {
-                NotificationLog::instance()->pushError('Пользователь с таким Email уже зарегистрирован в системе.');
+                SCMSNotificationLog::instance()->pushError('Пользователь с таким Email уже зарегистрирован в системе.');
             }
             if ($oSiteuser->phone == $phone) {
-                NotificationLog::instance()->pushError('Пользователь с таким телефоном уже зарегистрирован в системе.');
+                SCMSNotificationLog::instance()->pushError('Пользователь с таким телефоном уже зарегистрирован в системе.');
             }
         }
 
-        if (CoreFunctions::isAJAX() && NotificationLog::instance()->hasProblems()) {
+        if (CoreFunctions::isAJAX() && SCMSNotificationLog::instance()->hasProblems()) {
             $this->Response->send();
             return;
         }
@@ -92,12 +92,12 @@ class ControllerSave extends AdministratorAreaController
         try {
             $oSiteuser->commit();
         } catch (Exception $e) {
-            NotificationLog::instance()->pushError($e->getMessage());
+            SCMSNotificationLog::instance()->pushError($e->getMessage());
         }
 
         $redirect = '';
-        if (!NotificationLog::instance()->hasProblems()) {
-            NotificationLog::instance()->pushMessage("Пользователь \"{$oSiteuser->email}\" успешно " . ($siteuserId == 0 ? 'добавлен' : 'отредактирован') . ".");
+        if (!SCMSNotificationLog::instance()->hasProblems()) {
+            SCMSNotificationLog::instance()->pushMessage("Пользователь \"{$oSiteuser->email}\" успешно " . ($siteuserId == 0 ? 'добавлен' : 'отредактирован') . ".");
             $redirect = "/admin/modules/siteusers/edit/?id={$oSiteuser->getPrimaryKey()}";
             if ($accept->exists()) {
                 $redirect = '/admin/modules/siteusers/';

@@ -13,7 +13,7 @@ use SFramework\Classes\DataGrid\Action;
 use SFramework\Classes\DataGrid\DataSet\ArrayDataSet;
 use SFramework\Classes\DataGrid\Header;
 use SFramework\Classes\DataGrid\Menu\Item;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SFramework\Views\DataGrid\ViewCondition;
 use SFramework\Views\DataGrid\ViewCutString;
@@ -33,7 +33,7 @@ class ControllerMain extends AdministratorAreaController
         /** @var Gallery $oGallery */
         $oGallery = DataSource::factory(Gallery::cls(), $galleryId);
         if (!$oGallery) {
-            NotificationLog::instance()->pushError("Запрошенная галерея с номером \"{$galleryId}\" не существует.");
+            SCMSNotificationLog::instance()->pushError("Запрошенная галерея с номером \"{$galleryId}\" не существует.");
             $this->Frame->render();
 
             return;

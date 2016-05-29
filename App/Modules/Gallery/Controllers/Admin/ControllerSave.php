@@ -4,7 +4,7 @@ namespace App\Modules\Gallery\Controllers\Admin;
 
 use App\Classes\AdministratorAreaController;
 use App\Modules\Gallery\Models\Gallery;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
@@ -23,7 +23,7 @@ class ControllerSave extends AdministratorAreaController
         $description = Param::post('gallery-edit-description')
             ->asString();
 
-        if (!NotificationLog::instance()->hasProblems()) {
+        if (!SCMSNotificationLog::instance()->hasProblems()) {
             /** @var Gallery $oGallery */
             $oGallery = DataSource::factory(Gallery::cls(), $galleryId == 0 ? null : $galleryId);
             $oGallery->name = $name;
@@ -32,7 +32,7 @@ class ControllerSave extends AdministratorAreaController
 
             $oGallery->commit();
 
-            NotificationLog::instance()->pushMessage("Галерея \"{$oGallery->name}\" успешно " . ($galleryId == 0 ? 'добавлена' : 'отредактирована') . '.');
+            SCMSNotificationLog::instance()->pushMessage("Галерея \"{$oGallery->name}\" успешно " . ($galleryId == 0 ? 'добавлена' : 'отредактирована') . '.');
             $redirect = '';
             if (Param::post('gallery-edit-accept', false)->exists()) {
                 $redirect = '/admin/modules/gallery/';

@@ -1,6 +1,6 @@
 <?php
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Frame;
-use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Registry;
 use SFramework\Classes\Router;
 use SORM\DataSource;
@@ -8,7 +8,17 @@ use SORM\DataSource;
 
 require_once('vendor' . DIRECTORY_SEPARATOR . 'autoload.php');
 
-NotificationLog::instance()->setProductionMode();
+// Регистрируем обработчик ошибок
+register_shutdown_function('dbg_last_error');
+function dbg_last_error()
+{
+    $e = error_get_last();
+    if (($e['type'] & E_COMPILE_ERROR) || ($e['type'] & E_ERROR) || ($e['type'] & E_CORE_ERROR) || ($e['type'] & E_RECOVERABLE_ERROR)) {
+        SCMSNotificationLog::instance()->logSystemMessage(SCMSNotificationLog::TYPE_ERROR, "{$e['type']} | {$e['message']} | {$e['file']} | {$e['line']}");
+    }
+}
+
+SCMSNotificationLog::instance()->setProductionMode();
 //NotificationLog::instance()->setDevelopMode();
 
 DataSource::setup('mysql', include('App' . DIRECTORY_SEPARATOR . 'Config' . DIRECTORY_SEPARATOR . 'mysql.php'));
@@ -52,7 +62,11 @@ if (file_exists($configFileName)) {
     $router = Registry::router();
     $router->setConfig(include($configFileName));
     $router->setRoute($_SERVER['REQUEST_URI']);
-    $router->route();
+    try {
+        $router->route();
+    } catch (Exception $e) {
+        SCMSNotificationLog::instance()->logSystemMessage(SCMSNotificationLog::TYPE_ERROR, $e->getMessage(), $e->getCode());
+    }
 } else {
     throw new Exception('Конфигурация роутинга отсутствует.');
 }

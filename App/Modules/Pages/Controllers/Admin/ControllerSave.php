@@ -4,7 +4,7 @@ namespace App\Modules\Pages\Controllers\Admin;
 
 use App\Classes\AdministratorAreaController;
 use App\Modules\Pages\Models\Page;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
@@ -25,7 +25,7 @@ class ControllerSave extends AdministratorAreaController {
         $active = (bool)Param::post('page-edit-active')
             ->exists();
 
-        if (!NotificationLog::instance()->hasProblems()) {
+        if (!SCMSNotificationLog::instance()->hasProblems()) {
             /** @var Page $oPage */
             $oPage = DataSource::factory(Page::cls(), $pageId == 0 ? null : $pageId);
             $oPage->name = $name;
@@ -38,7 +38,7 @@ class ControllerSave extends AdministratorAreaController {
 
             $oPage->commit();
 
-            NotificationLog::instance()->pushMessage("Страница \"{$oPage->name}\" успешно " . ($pageId == 0 ? 'добавлена' : 'отредактирована') . '.');
+            SCMSNotificationLog::instance()->pushMessage("Страница \"{$oPage->name}\" успешно " . ($pageId == 0 ? 'добавлена' : 'отредактирована') . '.');
             $redirect = '';
             if (Param::post('page-edit-accept', false)->exists()) {
                 $redirect = '/admin/modules/pages/';

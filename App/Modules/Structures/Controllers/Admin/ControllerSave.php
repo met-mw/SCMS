@@ -9,7 +9,7 @@ use App\Models\ModuleSetting;
 use App\Models\StructureSetting;
 use App\Modules\Structures\Classes\Retrievers\StructureRetriever;
 use App\Models\Structure;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 use SORM\Tools\Builder;
@@ -41,7 +41,7 @@ class ControllerSave extends AdministratorAreaController
 
         $accept = Param::post('structure-accept', false);
 
-        if (NotificationLog::instance()->hasProblems()) {
+        if (SCMSNotificationLog::instance()->hasProblems()) {
             $this->Response->send();
             return;
         }
@@ -80,8 +80,8 @@ class ControllerSave extends AdministratorAreaController
         }
         $StructureHelper->createProxyController($StructureHelper->getPath($oStructure));
 
-        if (!NotificationLog::instance()->hasProblems()) {
-            NotificationLog::instance()->pushMessage("Структура \"{$oStructure->name}\" успешно " . ($structureId == 0 ? 'добавлена' : 'отредактирована') . ".");
+        if (!SCMSNotificationLog::instance()->hasProblems()) {
+            SCMSNotificationLog::instance()->pushMessage("Структура \"{$oStructure->name}\" успешно " . ($structureId == 0 ? 'добавлена' : 'отредактирована') . ".");
         }
 
         $redirect = "/admin/modules/structures/edit/?pk={$oStructure->getPrimaryKey()}";

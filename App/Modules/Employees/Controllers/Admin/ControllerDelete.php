@@ -4,7 +4,7 @@ namespace App\Modules\Employees\Controllers\Admin;
 
 use App\Classes\AdministratorAreaController;
 use App\Modules\Employees\Models\Admin\Employee;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
@@ -18,11 +18,11 @@ class ControllerDelete extends AdministratorAreaController {
         /** @var Employee $oEmployee */
         $oEmployee = DataSource::factory(Employee::cls(), $employeeId);
         if ($oEmployee->id) {
-            NotificationLog::instance()->pushMessage("Сотрудник \"$oEmployee->name\" успешно удалён.");
+            SCMSNotificationLog::instance()->pushMessage("Сотрудник \"$oEmployee->name\" успешно удалён.");
             $oEmployee->deleted = true;
             $oEmployee->commit();
         } else {
-            NotificationLog::instance()->pushError("Сотрутник с ID {$employeeId} не найден");
+            SCMSNotificationLog::instance()->pushError("Сотрутник с ID {$employeeId} не найден");
         }
 
 

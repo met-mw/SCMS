@@ -59,7 +59,7 @@ class ViewCatalogue extends View {
             <br/>
             <? if ($categoriesRealCount > 0): ?>
             <? while ($categoriesCount <= $categoriesRealCount): ?>
-                <div class="row">
+                <div class="row eq-height">
                 <? $currentCategorySteps = $categoriesOffset + $this->categoriesPerRow > $categoriesRealCount ? $categoriesRealCount : $categoriesOffset + $this->categoriesPerRow ?>
                 <? for ($i = $categoriesOffset; $i < $currentCategorySteps; $i++): ?>
                     <?
@@ -98,7 +98,7 @@ class ViewCatalogue extends View {
             <? endif; ?>
             <? if ($itemsRealCount > 0): ?>
             <? while ($itemsCount <= $itemsRealCount): ?>
-            <div class="row">
+            <div class="row eq-height">
                 <? $currentItemSteps = $itemsOffset + $this->itemsPerRow > $itemsRealCount ? $itemsRealCount : $itemsOffset + $this->itemsPerRow ?>
                 <? for ($i = $itemsOffset; $i < $currentItemSteps; $i++): ?>
                     <?

@@ -17,6 +17,9 @@ use SORM\Entity;
 class Gallery extends Entity
 {
 
+    const DISPLAY_TYPE_FANCY = 1;
+    const DISPLAY_TYPE_GALLERIA = 2;
+
     protected $tableName = 'module_gallery';
 
     public function getGalleryItems($orderFieldName = 'id', $order = 'asc')

@@ -12,7 +12,7 @@ use SFramework\Classes\DataGrid;
 use SFramework\Classes\DataGrid\Action;
 use SFramework\Classes\DataGrid\DataSet\ArrayDataSet;
 use SFramework\Classes\DataGrid\Header;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SFramework\Views\DataGrid\ViewChange;
 use SFramework\Views\DataGrid\ViewCondition;
@@ -37,7 +37,7 @@ class ControllerMain extends AdministratorAreaController {
             /** @var Category $oParentCategoryFact */
             $oParentCategoryFact = DataSource::factory(Category::cls(), $parentCategoryId);
             if ($oParentCategoryFact->isNew()) {
-                NotificationLog::instance()->pushError('Недопустимое значение параметра!');
+                SCMSNotificationLog::instance()->pushError('Недопустимое значение параметра!');
                 $this->Frame->render();
                 return;
             }

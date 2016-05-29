@@ -13,6 +13,7 @@ use SORM\Entity;
  * @property int $module_id;
  * @property string $parameter;
  * @property string $entity;
+ * @property string $list;
  * @property string $alias;
  * @property string $description;
  */

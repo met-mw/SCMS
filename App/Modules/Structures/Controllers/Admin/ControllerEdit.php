@@ -11,7 +11,7 @@ use App\Modules\Structures\Views\Admin\ViewStructureEdit;
 use App\Views\Admin\ViewBreadcrumbs;
 use App\Views\Admin\ViewModuleConfiguration;
 use SFramework\Classes\Breadcrumb;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 use SORM\Entity;
@@ -87,7 +87,7 @@ class ControllerEdit extends AdministratorAreaController {
             ->noEmpty('Пропущен обязательный параметр "structure_id".')
             ->asInteger(true, '"structure_id" должен быть числом.');
         if ($structureId == 0) {
-            NotificationLog::instance()->pushError("Не указана целевая структура.");
+            SCMSNotificationLog::instance()->pushError("Не указана целевая структура.");
             $this->Response->send();
             exit;
         }
@@ -116,11 +116,20 @@ class ControllerEdit extends AdministratorAreaController {
         if ($oModule->getPrimaryKey()) {
             $aModulesSettings = $oModule->getModuleSettings();
             foreach ($aModulesSettings as $oModuleSetting) {
-                $oEntities = DataSource::factory($oModuleSetting->entity);
-                $oEntities->builder()
-                    ->where('deleted=0');
+                $type = Module::TYPE_LIST;
+                if (!is_null($oModuleSetting->entity)) {
+                    $oEntities = DataSource::factory($oModuleSetting->entity);
+                    $oEntities->builder()
+                        ->where('deleted=0');
 
-                $aEntities = $oEntities->findAll();
+                    $list = $oEntities->findAll();
+                    $type = Module::TYPE_ENTITY;
+                } elseif (!is_null($oModuleSetting->list)) {
+                    $list = json_decode($oModuleSetting->list, true);
+                } else {
+                    $list = [];
+                }
+
                 $oStructureSetting = null;
                 if ($oStructure->id) {
                     $oStructureSettings = DataSource::factory(StructureSetting::cls());
@@ -137,8 +146,9 @@ class ControllerEdit extends AdministratorAreaController {
                 }
 
                 $settings[] = [
+                    'type' => $type,
                     'setting' => $oModuleSetting,
-                    'list' => $aEntities,
+                    'list' => $list,
                     'value' => is_null($oStructureSetting) ? null : $oStructureSetting->value
                 ];
             }

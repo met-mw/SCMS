@@ -39,7 +39,7 @@ class ViewMenu extends ViewMasterMenu {
                             <a href="/admin/modules/employees/authorization/unauthorize">Выход</a>
                         </li>
                     </ul>
-                    <p class="navbar-text navbar-right"><span class="label label-info">Активный сотрудник: <?= $this->currentEmployee->name ?></span></p>
+                    <p class="navbar-text navbar-right" style="color: #ffffff; font-weight: 600;"><span class="glyphicon glyphicon-user"></span>&nbsp;<?= $this->currentEmployee->name ?></p>
                 </div>
             </div>
         </nav>

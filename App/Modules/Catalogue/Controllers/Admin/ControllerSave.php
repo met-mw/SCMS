@@ -6,7 +6,7 @@ use App\Classes\AdministratorAreaController;
 use App\Modules\Catalogue\Models\Category;
 use App\Modules\Catalogue\Models\Item;
 use SFramework\Classes\CoreFunctions;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
@@ -14,7 +14,7 @@ class ControllerSave extends AdministratorAreaController {
 
     public function actionCategory() {
         if (CoreFunctions::isAJAX() && !$this->EmployeeAuthorizator->authorized()) {
-            NotificationLog::instance()->pushError('Нет доступа!');
+            SCMSNotificationLog::instance()->pushError('Нет доступа!');
             $this->Response->send();
             return;
         }
@@ -32,7 +32,7 @@ class ControllerSave extends AdministratorAreaController {
 
         $accept = Param::post('catalogue-category-accept', false);
 
-        if (CoreFunctions::isAJAX() && NotificationLog::instance()->hasProblems()) {
+        if (CoreFunctions::isAJAX() && SCMSNotificationLog::instance()->hasProblems()) {
             $this->Response->send();
             return;
         }
@@ -51,8 +51,8 @@ class ControllerSave extends AdministratorAreaController {
 
         $oCategory->commit();
 
-        if (!NotificationLog::instance()->hasProblems()) {
-            NotificationLog::instance()->pushMessage("Категория \"{$oCategory->name}\" успешно " . ($categoryId == 0 ? 'добавлена' : 'отредактирована') . ".");
+        if (!SCMSNotificationLog::instance()->hasProblems()) {
+            SCMSNotificationLog::instance()->pushMessage("Категория \"{$oCategory->name}\" успешно " . ($categoryId == 0 ? 'добавлена' : 'отредактирована') . ".");
         }
 
         $redirect = "/admin/modules/catalogue/edit/?id={$oCategory->getPrimaryKey()}";
@@ -67,7 +67,7 @@ class ControllerSave extends AdministratorAreaController {
 
     public function actionItem() {
         if (CoreFunctions::isAJAX() && !$this->EmployeeAuthorizator->authorized()) {
-            NotificationLog::instance()->pushError('Нет доступа!');
+            SCMSNotificationLog::instance()->pushError('Нет доступа!');
             $this->Response->send();
             return;
         }
@@ -87,7 +87,7 @@ class ControllerSave extends AdministratorAreaController {
 
         $accept = Param::post('catalogue-item-accept', false);
 
-        if (CoreFunctions::isAJAX() && NotificationLog::instance()->hasProblems()) {
+        if (CoreFunctions::isAJAX() && SCMSNotificationLog::instance()->hasProblems()) {
             $this->Response->send();
             return;
         }
@@ -108,8 +108,8 @@ class ControllerSave extends AdministratorAreaController {
 
         $oItem->commit();
 
-        if (!NotificationLog::instance()->hasProblems()) {
-            NotificationLog::instance()->pushMessage("Позиция \"{$oItem->name}\" успешно " . ($categoryId == 0 ? 'добавлена' : 'отредактирована') . ".");
+        if (!SCMSNotificationLog::instance()->hasProblems()) {
+            SCMSNotificationLog::instance()->pushMessage("Позиция \"{$oItem->name}\" успешно " . ($categoryId == 0 ? 'добавлена' : 'отредактирована') . ".");
         }
 
         $redirect = "/admin/modules/catalogue/edit/?id={$oItem->getPrimaryKey()}";

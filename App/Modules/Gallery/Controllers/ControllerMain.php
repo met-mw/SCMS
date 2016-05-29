@@ -11,6 +11,7 @@ class ControllerMain extends PublicAreaController
 {
 
     public $gallery_id;
+    public $gallery_display_type;
 
     public function actionIndex()
     {
@@ -18,6 +19,7 @@ class ControllerMain extends PublicAreaController
         $oGallery = DataSource::factory(Gallery::cls(), $this->gallery_id);
 
         $view = new MainView();
+        $view->displayType = $this->gallery_display_type;
         $view->oGallery = $oGallery;
         $view->oStructure = $this->oStructure;
         $view->render();

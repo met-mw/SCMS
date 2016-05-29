@@ -7,7 +7,7 @@ use App\Modules\Employees\Models\Admin\Employee;
 use App\Modules\Employees\Views\Admin\Forms\ViewRegistration;
 use App\Views\Admin\ViewBreadcrumbs;
 use SFramework\Classes\Breadcrumb;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
@@ -49,10 +49,10 @@ class ControllerRegistration extends AdministratorAreaController {
                 ->asString(true, "Недопустимое значение поля \"Повтор пароля\".");
 
             if ($password != $passwordRepeat) {
-                NotificationLog::instance()->pushError("\"Пароль\" и \"Повтор пароля\" должны быть одинаковы.");
+                SCMSNotificationLog::instance()->pushError("\"Пароль\" и \"Повтор пароля\" должны быть одинаковы.");
             }
 
-            if (NotificationLog::instance()->hasProblems()) {
+            if (SCMSNotificationLog::instance()->hasProblems()) {
                 $this->Response->send();
                 exit;
             }
@@ -66,11 +66,11 @@ class ControllerRegistration extends AdministratorAreaController {
             $oEmployee->deleted = false;
             $oEmployee->commit();
 
-            NotificationLog::instance()->pushMessage("Успешно зарегистрирован!");
+            SCMSNotificationLog::instance()->pushMessage("Успешно зарегистрирован!");
             $this->Response->send('/admin/modules/employees');
             exit;
         } else {
-            NotificationLog::instance()->pushError("Форма регистрации сотрудника заполнена неверно!");
+            SCMSNotificationLog::instance()->pushError("Форма регистрации сотрудника заполнена неверно!");
         }
 
         $this->Response->send();

@@ -1,5 +1,6 @@
 <?php
 return [
-    'name' => 'Дэнас29.ru',
-    'description' => 'Простая система управления контентом.'
+    'name' => 'SCMS',
+    'description' => 'Простая система управления контентом.',
+    'favicon' => 'favicon.ico'
 ];

@@ -6,7 +6,7 @@ namespace App\Modules\Employees\Controllers\Admin;
 
 use App\Classes\AdministratorAreaController;
 use App\Modules\Employees\Models\Admin\Employee;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
@@ -32,18 +32,18 @@ class ControllerSave extends AdministratorAreaController {
 
         if (!empty($newPassword)) {
             if (!$this->EmployeeAuthorizator->verifyPassword($this->EmployeeAuthorizator->getCurrentUser(), $currentEmployeePassword)) {
-                NotificationLog::instance()->pushError('Вы указали неверный пароль.');
+                SCMSNotificationLog::instance()->pushError('Вы указали неверный пароль.');
             }
 
             if ($newPassword != $newPasswordRepeat) {
-                NotificationLog::instance()->pushError('"Новый пароль" и "Повтор нового пароля" должны быть заполены одинаково.');
+                SCMSNotificationLog::instance()->pushError('"Новый пароль" и "Повтор нового пароля" должны быть заполены одинаково.');
             }
         }
 
         /** @var Employee $oEmployee */
         $oEmployee = DataSource::factory(Employee::cls(), $employeeId);
         if (!$oEmployee->getPrimaryKey()) {
-            NotificationLog::instance()->pushError('Редактируемый сотрудник не определён.');
+            SCMSNotificationLog::instance()->pushError('Редактируемый сотрудник не определён.');
         }
 
         /** @var Employee $aEmployee */
@@ -59,17 +59,17 @@ class ControllerSave extends AdministratorAreaController {
             ->limit(1);
         $aEmployees = $aEmployee->findAll();
         if (sizeof($aEmployees) > 0) {
-            NotificationLog::instance()->pushError('Данный Email уже используется другим сотрудником.');
+            SCMSNotificationLog::instance()->pushError('Данный Email уже используется другим сотрудником.');
         }
 
-        if (!NotificationLog::instance()->hasProblems()) {
+        if (!SCMSNotificationLog::instance()->hasProblems()) {
             $oEmployee->name = $name;
             $oEmployee->email = $email;
             $oEmployee->password = $this->EmployeeAuthorizator->preparePassword($newPassword);
 
             $oEmployee->commit();
 
-            NotificationLog::instance()->pushMessage("Сотрудник \"{$oEmployee->email}\" успешно отредактирован");
+            SCMSNotificationLog::instance()->pushMessage("Сотрудник \"{$oEmployee->email}\" успешно отредактирован");
             $redirect = '';
             if (Param::post('employee-accept', false)->exists()) {
                 $redirect = '/admin/modules/employees/';

@@ -12,7 +12,6 @@ use App\Views\Admin\ViewNotificationsModal;
 use SFramework\Classes\Breadcrumb;
 use SFramework\Classes\Controller;
 use SFramework\Classes\Frame;
-use SFramework\Classes\NotificationLog;
 use SFramework\Classes\Response;
 
 class PublicAreaController extends Controller 
@@ -33,7 +32,7 @@ class PublicAreaController extends Controller
         $this->Frame = $Frame;
         $this->oStructure = $oStructure;
 
-        $this->Response = new Response(NotificationLog::instance());
+        $this->Response = new Response(SCMSNotificationLog::instance());
         $this->BreadcrumbsView = new ViewBreadcrumbs();
         $this->BreadcrumbsView->Breadcrumbs = [];
         if (!$this->oStructure->is_main) {

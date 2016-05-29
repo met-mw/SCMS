@@ -6,7 +6,7 @@ use App\Classes\AdministratorAreaController;
 use App\Modules\Catalogue\Models\Category;
 use App\Modules\Catalogue\Models\Item;
 use SFramework\Classes\CoreFunctions;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
@@ -14,7 +14,7 @@ class ControllerDelete extends AdministratorAreaController {
 
     public function actionIndex() {
         if (CoreFunctions::isAJAX() && !$this->EmployeeAuthorizator->authorized()) {
-            NotificationLog::instance()->pushError('Нет доступа!');
+            SCMSNotificationLog::instance()->pushError('Нет доступа!');
             $this->Response->send();
             return;
         }
@@ -28,14 +28,14 @@ class ControllerDelete extends AdministratorAreaController {
             $oCategory = DataSource::factory(Category::cls(), $id);
             $this->categoryDeepDelete($oCategory);
 
-            NotificationLog::instance()->pushMessage("Категория \"{$oCategory->name}\" успешно удалена.");
+            SCMSNotificationLog::instance()->pushMessage("Категория \"{$oCategory->name}\" успешно удалена.");
         } else {
             /** @var Item $oItem */
             $oItem = DataSource::factory(Item::cls(), $id);
             $oItem->deleted = true;
             $oItem->commit();
 
-            NotificationLog::instance()->pushMessage("Позиция \"{$oItem->name}\" успешно удалена.");
+            SCMSNotificationLog::instance()->pushMessage("Позиция \"{$oItem->name}\" успешно удалена.");
         }
 
         $this->Response->send();
@@ -43,7 +43,7 @@ class ControllerDelete extends AdministratorAreaController {
 
     public function actionGroup() {
         // TODO: Реализовать групповое удаление
-        NotificationLog::instance()->pushMessage('Данная функция отключена в связи с техническими работами.');
+        SCMSNotificationLog::instance()->pushMessage('Данная функция отключена в связи с техническими работами.');
         $this->Response->send();
     }
 

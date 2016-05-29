@@ -10,7 +10,7 @@ use App\Modules\Catalogue\Views\ViewCatalogue;
 use App\Modules\Catalogue\Views\ViewItem;
 use SFramework\Classes\Breadcrumb;
 use SFramework\Classes\CoreFunctions;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
@@ -32,7 +32,7 @@ class ControllerMain extends PublicAreaController {
                     $categoryId = $oItem->category_id;
                     $view->oItem = $oItem;
                 } else {
-                    NotificationLog::instance()->pushError("Товар не найден.");
+                    SCMSNotificationLog::instance()->pushError("Товар не найден.");
                 }
                 break;
             case 'add-to-cart':
@@ -42,20 +42,20 @@ class ControllerMain extends PublicAreaController {
                 /** @var Item $oItem */
                 $oItem = DataSource::factory(Item::cls(), $id);
                 if (!$oItem) {
-                    NotificationLog::instance()->pushError('Товар, который Вы пытаетесь добавить в корзину не существует.');
+                    SCMSNotificationLog::instance()->pushError('Товар, который Вы пытаетесь добавить в корзину не существует.');
                 }
 
                 if (!$count) {
-                    NotificationLog::instance()->pushError('Количество товара должно быть больше нуля.');
+                    SCMSNotificationLog::instance()->pushError('Количество товара должно быть больше нуля.');
                 }
 
-                if (NotificationLog::instance()->hasProblems()) {
+                if (SCMSNotificationLog::instance()->hasProblems()) {
                     $this->Response->send();
                     return;
                 }
 
                 $this->cart->addItem($id, $count);
-                NotificationLog::instance()->pushMessage("Товар \"{$oItem->name}\" в количестве {$count} (шт.) успешно добавлен в корзину. Теперь Вы можете перейти к оформлению заказа или продолжить покупки.");
+                SCMSNotificationLog::instance()->pushMessage("Товар \"{$oItem->name}\" в количестве {$count} (шт.) успешно добавлен в корзину. Теперь Вы можете перейти к оформлению заказа или продолжить покупки.");
                 $this->Response->send('', ['totalCount' => $this->cart->getTotalCount()]);
                 return;
                 break;

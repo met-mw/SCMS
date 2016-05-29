@@ -8,7 +8,7 @@ use App\Views\Admin\ViewInformationModal;
 use App\Views\Admin\ViewMenu;
 use App\Views\Admin\ViewNotificationsModal;
 use SFramework\Classes\Controller;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Pagination;
 use SFramework\Classes\Registry;
 use SFramework\Classes\Response;
@@ -47,7 +47,7 @@ abstract class AdministratorAreaController extends Controller
         $this->moduleName = $moduleName;
 
         $this->ModuleInstaller = new ModuleInstaller($this->moduleName);
-        $this->Response = new Response(NotificationLog::instance());
+        $this->Response = new Response(SCMSNotificationLog::instance());
 
         $this->config = Registry::get('config');
         $this->Frame = Registry::frame('back');
@@ -69,21 +69,28 @@ abstract class AdministratorAreaController extends Controller
         $mainMenu = new ViewMenu($this->config['name'], $this->EmployeeAuthorizator->getCurrentUser());
         $mainMenu->itemsList
             ->addItem('', 'Панель управления')
-            ->addItem('configuration', 'Конфигурация')
-            ->addItem('modules', 'Модули')
+            ->addItem('configuration', 'Конфигурация системы')
+            ->addItem('modules', 'Инструменты')
+            ->addItem('service', 'Сервис')
         ;
         $modulesMenu = $mainMenu->itemsList->getItem('modules');
         $modulesMenu->itemsList
             ->addItem('structures', 'Структура сайта')
             ->addItem('pages', 'Статичные страницы')
-            ->addItem('catalogue', 'Каталог')
-            ->addItem('employees', 'Сотрудники')
-            ->addItem('siteusers', 'Пользователи')
-            ->addItem('recall', 'Обратные звонки')
-            ->addItem('gallery', 'Галерея')
-            ->addItem('news', 'Новости')
-            ->addItem('frames', 'Фреймы')
-            ->addItem('modules', 'Модули')
+            ->addItem('catalogue', 'Каталог товаров')
+            ->addItem('employees', 'Управление сотрудниками')
+            ->addItem('siteusers', 'Управление пользователями')
+            ->addItem('gallery', 'Галерея изображений')
+            ->addItem('news', 'Новостная лента')
+            ->addItem('frames', 'Макеты сайта')
+            ->addItem('modules', 'Управление модулями')
+        ;
+
+        $serviceMenu = $mainMenu->itemsList->getItem('service');
+        $serviceMenu->itemsList
+            ->addItem('moduleinstaller', 'Установщик модулей')
+            ->addItem('about', 'О проекте')
+            ->addItem('licence', 'Лицензионное соглашение')
         ;
 
         $currentPath = explode('?', $this->Router->getRoute());

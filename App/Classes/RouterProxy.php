@@ -4,7 +4,7 @@ namespace App\Classes;
 
 use SFramework\Classes\Router;
 
-class Proxy
+class RouterProxy
 {
 
     /** @var Router */

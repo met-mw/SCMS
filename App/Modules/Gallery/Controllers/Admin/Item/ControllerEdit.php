@@ -9,7 +9,7 @@ use App\Modules\Gallery\Views\Admin\Item\ViewEditForm;
 use App\Views\Admin\ViewBreadcrumbs;
 use SFramework\Classes\Breadcrumb;
 use SFramework\Classes\CoreFunctions;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
@@ -28,7 +28,7 @@ class ControllerEdit extends AdministratorAreaController
         /** @var Gallery $oGallery */
         $oGallery = DataSource::factory(Gallery::cls(), $galleryId);
         if ($oGalleryItem->isNew() && $oGallery->isNew()) {
-            NotificationLog::instance()->pushError('Недопустимое значение параметра!');
+            SCMSNotificationLog::instance()->pushError('Недопустимое значение параметра!');
             $this->Frame->render();
 
             return;

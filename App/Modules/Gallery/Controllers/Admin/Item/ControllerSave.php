@@ -5,7 +5,7 @@ namespace App\Modules\Gallery\Controllers\Admin\Item;
 use App\Classes\AdministratorAreaController;
 use App\Modules\Gallery\Models\Gallery;
 use App\Modules\Gallery\Models\GalleryItem;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 
@@ -34,10 +34,10 @@ class ControllerSave extends AdministratorAreaController
         /** @var Gallery $oGallery */
         $oGallery = DataSource::factory(Gallery::cls(), $galleryId);
         if ($oGallery->isNew()) {
-            NotificationLog::instance()->pushError("Попытка добавить элемент в несуществующую галерею.");
+            SCMSNotificationLog::instance()->pushError("Попытка добавить элемент в несуществующую галерею.");
         }
 
-        if (!NotificationLog::instance()->hasProblems()) {
+        if (!SCMSNotificationLog::instance()->hasProblems()) {
             /** @var GalleryItem $oGalleryItem */
             $oGalleryItem = DataSource::factory(GalleryItem::cls(), $galleryItemId == 0 ? null : $galleryItemId);
             $oGalleryItem->name = $name;
@@ -48,7 +48,7 @@ class ControllerSave extends AdministratorAreaController
 
             $oGalleryItem->commit();
 
-            NotificationLog::instance()->pushMessage("Элемент \"{$oGalleryItem->name}\" успешно " . ($galleryItemId == 0 ? "добавлен в галерею \"{$oGalleryItem->getGallery()->name}\"" : 'отредактирован') . '.');
+            SCMSNotificationLog::instance()->pushMessage("Элемент \"{$oGalleryItem->name}\" успешно " . ($galleryItemId == 0 ? "добавлен в галерею \"{$oGalleryItem->getGallery()->name}\"" : 'отредактирован') . '.');
             $redirect = '';
             if (Param::post('gallery-item-edit-accept', false)->exists()) {
                 $redirect = "/admin/modules/gallery/item/?gallery_id={$oGalleryItem->gallery_id}";

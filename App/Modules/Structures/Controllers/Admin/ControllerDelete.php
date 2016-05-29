@@ -4,7 +4,7 @@ namespace App\Modules\Structures\Controllers\Admin;
 
 use App\Classes\AdministratorAreaController;
 use App\Models\Structure;
-use SFramework\Classes\NotificationLog;
+use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
 use SORM\DataSource;
 use SORM\Tools\Builder;
@@ -18,7 +18,7 @@ class ControllerDelete extends AdministratorAreaController {
         $oStructure = DataSource::factory(Structure::cls(), $structureId);
         $name = $oStructure->name;
         $this->deepDelete($oStructure);
-        NotificationLog::instance()->pushMessage("Структура \"{$name}\" успешно удалена.");
+        SCMSNotificationLog::instance()->pushMessage("Структура \"{$name}\" успешно удалена.");
 
         $this->Response->send();
     }

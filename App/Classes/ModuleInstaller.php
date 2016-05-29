@@ -8,7 +8,7 @@ class ModuleInstaller {
 
     protected $moduleName;
 
-    public function __construct($moduleName)
+    public function __construct($moduleName = null)
     {
         $this->moduleName = $moduleName;
     }
@@ -34,6 +34,19 @@ class ModuleInstaller {
         }
 
         return include(SFW_MODULES_ROOT . $moduleName . DIRECTORY_SEPARATOR . 'manifest.php');
+    }
+
+    public function scanModules()
+    {
+        $modulesRoot = scandir(SFW_MODULES_ROOT);
+        $modulesRoot = array_diff($modulesRoot, ['.', '..']);
+
+        $manifests = [];
+        foreach ($modulesRoot as $moduleFolder) {
+            $manifests[] = $this->getManifest($moduleFolder);
+        }
+
+        return $manifests;
     }
 
 } 
