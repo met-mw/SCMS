@@ -21,12 +21,12 @@ class SCMSNotificationLog extends NotificationLog
         $oSCMSNotificationLog->commit();
     }
 
-    protected function pushAny($type, $text)
+    public function pushAny($type, $text, $code = 0)
     {
         parent::pushAny($type, $text);
 
         if ($type != self::TYPE_MESSAGE) {
-            $this->logSystemMessage($type, $text);
+            $this->logSystemMessage($type, $text, $code);
         }
     }
 

@@ -4,6 +4,7 @@ use SFramework\Classes\Frame;
 use SFramework\Classes\Registry;
 use SFramework\Classes\Router;
 use SORM\DataSource;
+use SFramework\Classes\Response;
 
 
 require_once('vendor' . DIRECTORY_SEPARATOR . 'autoload.php');
@@ -66,6 +67,9 @@ if (file_exists($configFileName)) {
         $router->route();
     } catch (Exception $e) {
         SCMSNotificationLog::instance()->logSystemMessage(SCMSNotificationLog::TYPE_ERROR, $e->getMessage(), $e->getCode());
+        $response = new Response(SCMSNotificationLog::instance());
+        SCMSNotificationLog::instance()->pushAny(SCMSNotificationLog::TYPE_ERROR, $e->getMessage(), $e->getCode());
+        $response->send();
     }
 } else {
     throw new Exception('Конфигурация роутинга отсутствует.');

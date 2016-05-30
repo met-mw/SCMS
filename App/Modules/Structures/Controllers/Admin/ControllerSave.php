@@ -73,7 +73,9 @@ class ControllerSave extends AdministratorAreaController
         }
 
         $oStructure->commit();
-        $this->applyStructureSettings($oStructure);
+        if ($oStructure->module_id) {
+            $this->saveStructureSettings($oStructure);
+        }
 
         if ($structureId != 0) {
             $StructureHelper->removeProxyController($oldPath);
@@ -94,33 +96,29 @@ class ControllerSave extends AdministratorAreaController
         $this->Response->send($redirect);
     }
 
-    protected function applyStructureSettings(Structure $oStructure)
+    protected function saveStructureSettings(Structure $oStructure)
     {
-        if (!$oStructure->module_id) {
-            return;
-        }
-
         /** @var Module $oModule */
         $oModule = $oStructure->getModule();
         /** @var ModuleSetting[] $aModuleSettings */
         $aModuleSettings = $oModule->getModuleSettings();
-
-        /** @var StructureSetting[] $aStructureSettings */
-        $aStructureSettings = $oStructure->getStructureSettings();
-
         foreach ($aModuleSettings as $oModuleSetting) {
-            $changed = false;
-            foreach ($aStructureSettings as $oStructureSetting) {
-                if ($oModuleSetting->module_id == $oStructureSetting->module_setting_id) {
-                    $oStructureSetting->value = is_null($oModuleSetting->entity)
-                        ? (string)Param::post($oModuleSetting->parameter, false)->asString()
-                        : (string)Param::post($oModuleSetting->parameter, false)->asInteger();
-                    $oStructureSetting->commit();
-                    $changed = true;
-                }
-            }
+            /** @var StructureSetting $oStructureSettings */
+            $oStructureSettings = DataSource::factory(StructureSetting::cls());
+            $oStructureSettings->builder()
+                ->where("module_setting_id={$oModuleSetting->id}")
+                ->whereAnd()
+                ->where("structure_id={$oStructure->id}");
+            /** @var StructureSetting[] $aStructureSettings */
+            $aStructureSettings = $oStructureSettings->findAll();
 
-            if (!$changed) {
+            if (!empty($aStructureSettings)) {
+                $oStructureSetting = $aStructureSettings[0];
+                $oStructureSetting->value = is_null($oModuleSetting->entity)
+                    ? (string)Param::post($oModuleSetting->parameter, false)->asString()
+                    : (string)Param::post($oModuleSetting->parameter, false)->asInteger();
+                $oStructureSetting->commit();
+            } else {
                 /** @var StructureSetting $oNewStructureSetting */
                 $oNewStructureSetting = DataSource::factory(StructureSetting::cls());
                 $oNewStructureSetting->structure_id = $oStructure->id;
