@@ -1,5 +1,5 @@
 <?php
-namespace App\Controllers\Admin\Modules\Employees\API;
+namespace App\Controllers\Admin\Modules\Employees\Api;
 
 
 use App\Classes\AdministratorAreaProxyController;

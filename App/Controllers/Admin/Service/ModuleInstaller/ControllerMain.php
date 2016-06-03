@@ -13,7 +13,7 @@ class ControllerMain extends AdministratorAreaController
         $ModuleInstaller = new ModuleInstaller($this->ModuleDirectory);
         $manifests = $ModuleInstaller->findManifests();
 
-        $this->Frame->bindData('content', 'Установщик модулей');
+        $this->Frame->bindData('content', 'Установщик модулей находится в стадии разработки.');
         $this->Frame->render();
     }
 

@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\Employees\Controllers\Admin\API;
+namespace App\Modules\Employees\Controllers\Admin\Api;
 
 
 use App\Classes\AdministratorAreaController;

@@ -18,6 +18,16 @@ class Configurator
         return $this->projectConfig;
     }
 
+    public function getProjectConfigAsRows()
+    {
+        $configAsRows = [];
+        foreach ($this->getProjectConfig() as $name => $data) {
+            $configAsRows[] = ['name' => $name, 'data' => $data];
+        }
+
+        return $configAsRows;
+    }
+
     public function setProjectConfig(array $projectConfig)
     {
         $this->projectConfig = $projectConfig;
