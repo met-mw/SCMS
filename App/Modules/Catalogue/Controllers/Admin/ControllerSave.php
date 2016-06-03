@@ -13,7 +13,7 @@ use SORM\DataSource;
 class ControllerSave extends AdministratorAreaController {
 
     public function actionCategory() {
-        if (CoreFunctions::isAJAX() && !$this->EmployeeAuthorizator->authorized()) {
+        if (CoreFunctions::isAJAX() && !$this->EmployeeAuthentication->authenticated()) {
             SCMSNotificationLog::instance()->pushError('Нет доступа!');
             $this->Response->send();
             return;
@@ -66,7 +66,7 @@ class ControllerSave extends AdministratorAreaController {
     }
 
     public function actionItem() {
-        if (CoreFunctions::isAJAX() && !$this->EmployeeAuthorizator->authorized()) {
+        if (CoreFunctions::isAJAX() && !$this->EmployeeAuthentication->authenticated()) {
             SCMSNotificationLog::instance()->pushError('Нет доступа!');
             $this->Response->send();
             return;

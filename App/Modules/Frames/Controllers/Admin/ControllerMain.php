@@ -25,7 +25,7 @@ class ControllerMain extends AdministratorAreaController {
         $dataGridView = new ViewDataGrid();
         $retriever = new FramesRetriever();
 
-        $manifest = $this->ModuleInstaller->getManifest($this->moduleName);
+        $manifest = $this->ModuleInstaller->getManifest($this->ModuleDirectory);
         $dataGrid = new DataGrid('frames', '/admin/modules/frames/', 'name', $manifest['meta']['alias'], $pageNumber, $itemsPerPage, $manifest['meta']['description']);
         $dataGrid->getMenu()
             ->addElement(new Item('Создать новый фрейм', '/admin/modules/frames/edit/'))
@@ -47,8 +47,7 @@ class ControllerMain extends AdministratorAreaController {
         $viewBreadcrumbs = new ViewBreadcrumbs();
         $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
-            new Breadcrumb('Модули', '/modules'),
-            new Breadcrumb('Фреймы', '/frames')
+            new Breadcrumb('Фреймы', '/modules/frames')
         ];
 
         $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs);

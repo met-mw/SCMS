@@ -5,6 +5,7 @@ namespace App\Modules\Frames\Controllers\Admin;
 use App\Classes\AdministratorAreaController;
 use App\Models\Structure;
 use Exception;
+use SFileSystem\Classes\File;
 use SFramework\Classes\CoreFunctions;
 use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
@@ -15,7 +16,7 @@ class ControllerDelete extends AdministratorAreaController
 
     public function actionIndex()
     {
-        if (CoreFunctions::isAJAX() && !$this->EmployeeAuthorizator->authorized()) {
+        if (CoreFunctions::isAJAX() && !$this->EmployeeAuthentication->authenticated()) {
             SCMSNotificationLog::instance()->pushError('Нет доступа!');
             $this->Response->send();
             return;
@@ -24,8 +25,8 @@ class ControllerDelete extends AdministratorAreaController
 
         $frameName = Param::get('name', true)->asString(true, 'Недопустимое имя фрейма!');
 
-        $frameFileName = SFW_APP_ROOT . 'Frames' . DIRECTORY_SEPARATOR . $frameName;
-        if (!file_exists($frameFileName)) {
+        $FrameFile = new File(SFW_MODULES_FRAMES . $frameName);
+        if (!$FrameFile->exists()) {
             SCMSNotificationLog::instance()->pushError("Фрейм с именем \"{$frameName}\" не найден!");
         }
 
@@ -55,7 +56,7 @@ class ControllerDelete extends AdministratorAreaController
         }
 
         try {
-            unlink($frameFileName);
+            $FrameFile->delete();
         } catch (Exception $e) {
             SCMSNotificationLog::instance()->pushError('При удалении фрейма произошла ошибка.');
         }

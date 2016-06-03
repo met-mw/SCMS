@@ -31,7 +31,10 @@ class ControllerSave extends AdministratorAreaController {
             ->asString();
 
         if (!empty($newPassword)) {
-            if (!$this->EmployeeAuthorizator->verifyPassword($this->EmployeeAuthorizator->getCurrentUser(), $currentEmployeePassword)) {
+            if (!$this->EmployeeAuthentication->verifyPassword(
+                $currentEmployeePassword,
+                $this->EmployeeAuthentication->getCurrentUser()->password
+            )) {
                 SCMSNotificationLog::instance()->pushError('Вы указали неверный пароль.');
             }
 
@@ -65,7 +68,7 @@ class ControllerSave extends AdministratorAreaController {
         if (!SCMSNotificationLog::instance()->hasProblems()) {
             $oEmployee->name = $name;
             $oEmployee->email = $email;
-            $oEmployee->password = $this->EmployeeAuthorizator->preparePassword($newPassword);
+            $oEmployee->password = $this->EmployeeAuthentication->encodePassword($newPassword, Employee::SALT);
 
             $oEmployee->commit();
 

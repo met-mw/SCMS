@@ -4,18 +4,72 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6e7c05480db60ce4c569be2db696b6f4",
-    "content-hash": "35a1039e53bf626f91f28810fbb384f0",
+    "hash": "504c43f4f7df57f9e1a8b729144adae5",
+    "content-hash": "9b1185d699e683983ec0985b8c001c58",
     "packages": [
+        {
+            "name": "met_mw/sdatagrid",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/met-mw/SDataGrid.git",
+                "reference": "044b85a1a9e30ee86fd5413a29bdd07043feddfe"
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SDataGrid\\": "src/SDataGrid"
+                }
+            },
+            "authors": [
+                {
+                    "name": "met-mw",
+                    "email": "met-mw@rambler.ru"
+                }
+            ],
+            "time": "2016-06-02 12:49:18"
+        },
+        {
+            "name": "met_mw/sfilesystem",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/met-mw/SFileSystem.git",
+                "reference": "2360672b6d9de32b79523b346d1fa1e488275a24"
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SFileSystem\\": "src/SFileSystem"
+                }
+            },
+            "authors": [
+                {
+                    "name": "met-mw",
+                    "email": "met-mw@rambler.ru"
+                }
+            ],
+            "time": "2016-06-03 11:31:51"
+        },
         {
             "name": "met_mw/sframework",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/met-mw/SFramework.git",
-                "reference": "8a87b9c0771e2cd2977fe1919006033bc84ac48d"
+                "reference": "505511e20635ee89fe5096c64853f59a5f32d8fd"
             },
             "require": {
+                "met_mw/sdatagrid": "@dev",
+                "met_mw/sfilesystem": "@dev",
+                "met_mw/signinbase": "@dev",
+                "met_mw/slog": "@dev",
                 "met_mw/sorm": "@dev",
                 "php": ">=5.6.0"
             },
@@ -32,7 +86,59 @@
                     "email": "met-mw@rambler.ru"
                 }
             ],
-            "time": "2016-05-30 09:35:56"
+            "time": "2016-06-03 10:43:17"
+        },
+        {
+            "name": "met_mw/signinbase",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/met-mw/SignInBase.git",
+                "reference": "ae5102f01b0f9fadd71232503609c29c43466d73"
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SignInBase\\": "src/SignInBase"
+                }
+            },
+            "authors": [
+                {
+                    "name": "met-mw",
+                    "email": "met-mw@rambler.ru"
+                }
+            ],
+            "time": "2016-06-03 13:09:34"
+        },
+        {
+            "name": "met_mw/slog",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/met-mw/SLog.git",
+                "reference": "8090221ae349ec1a83ec08252359a50563367500"
+            },
+            "require": {
+                "met_mw/sfilesystem": "@dev",
+                "php": ">=5.6.0",
+                "psr/log": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SFileSystem\\": "src/SLog"
+                }
+            },
+            "authors": [
+                {
+                    "name": "met-mw",
+                    "email": "met-mw@rambler.ru"
+                }
+            ],
+            "time": "2016-06-01 22:00:28"
         },
         {
             "name": "met_mw/sorm",
@@ -40,7 +146,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/met-mw/SORM.git",
-                "reference": "6857017bfa197e19224c3055650564c43b331bd4"
+                "reference": "2007ef1b3bc0cd60d5649d4498203518e63e5e72"
             },
             "type": "library",
             "autoload": {
@@ -58,7 +164,54 @@
                 }
             ],
             "description": "Simple and lightweight ORM library.",
-            "time": "2016-05-21 15:04:33"
+            "time": "2016-06-03 14:38:25"
+        },
+        {
+            "name": "psr/log",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/d8e60a5619fff77f9669da8997697443ef1a1d7e",
+                "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "Psr/Log/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2016-01-06 21:40:42"
         }
     ],
     "packages-dev": [],

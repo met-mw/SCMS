@@ -2,13 +2,14 @@
 namespace App\Classes;
 
 
-use App\Modules\Employees\Classes\Authorizator;
+use App\Classes\Authentication\Authentication;
+use App\Classes\Authentication\HttpAuthentication;
 use App\Views\Admin\ViewConfirmationModal;
 use App\Views\Admin\ViewInformationModal;
 use App\Views\Admin\ViewMenu;
 use App\Views\Admin\ViewNotificationsModal;
+use SFileSystem\Classes\Directory;
 use SFramework\Classes\Controller;
-use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Pagination;
 use SFramework\Classes\Registry;
 use SFramework\Classes\Response;
@@ -29,12 +30,14 @@ abstract class AdministratorAreaController extends Controller
 
     /** @var Router */
     protected $Router;
-    /** @var string */
-    protected $moduleName;
+    /** @var Directory */
+    protected $ModuleDirectory;
     /** @var array */
     protected $config;
-    /** @var Authorizator */
-    protected $EmployeeAuthorizator;
+    /** @var Authentication */
+    protected $EmployeeAuthentication;
+    /** @var HttpAuthentication */
+    protected $HTTPEmployeeAuthentication;
     /** @var Pagination */
     protected $Pagination;
     /** @var Response */
@@ -42,17 +45,18 @@ abstract class AdministratorAreaController extends Controller
     /** @var ModuleInstaller */
     protected $ModuleInstaller;
 
-    public function __construct($moduleName = '')
+    public function __construct($ModuleDirectory = null)
     {
-        $this->moduleName = $moduleName;
+        $this->ModuleDirectory = $ModuleDirectory;
 
-        $this->ModuleInstaller = new ModuleInstaller($this->moduleName);
+        $this->ModuleInstaller = new ModuleInstaller();
         $this->Response = new Response(SCMSNotificationLog::instance());
 
         $this->config = Registry::get('config');
         $this->Frame = Registry::frame('back');
         $this->Router = Registry::router();
-        $this->EmployeeAuthorizator = new Authorizator();
+        $this->EmployeeAuthentication = new Authentication();
+        $this->HTTPEmployeeAuthentication = new HttpAuthentication();
 
         $this->Frame->addCss('/public/assets/js/fancybox2/source/jquery.fancybox.css');
         $this->Frame->bindView('menu', $this->buildMenu());
@@ -66,7 +70,7 @@ abstract class AdministratorAreaController extends Controller
      */
     private function buildMenu()
     {
-        $mainMenu = new ViewMenu($this->config['name'], $this->EmployeeAuthorizator->getCurrentUser());
+        $mainMenu = new ViewMenu($this->config['name'], $this->EmployeeAuthentication->getCurrentUser());
         $mainMenu->itemsList
             ->addItem('', 'Панель управления')
             ->addItem('configuration', 'Конфигурация системы')
@@ -89,8 +93,8 @@ abstract class AdministratorAreaController extends Controller
         $serviceMenu = $mainMenu->itemsList->getItem('service');
         $serviceMenu->itemsList
             ->addItem('moduleinstaller', 'Установщик модулей')
+            ->addItem('logger', 'Системные оповещения')
             ->addItem('about', 'О проекте')
-            ->addItem('licence', 'Лицензионное соглашение')
         ;
 
         $currentPath = explode('?', $this->Router->getRoute());
@@ -101,8 +105,28 @@ abstract class AdministratorAreaController extends Controller
 
     public function authorizeIfNot()
     {
-        if (!$this->EmployeeAuthorizator->authorized()) {
+        if (!$this->EmployeeAuthentication->authenticated()) {
             header('Location: /admin/modules/employees/authorization');
+            exit;
+        }
+    }
+
+    public function httpAuthorizeIfNot()
+    {
+        if (!isset($_SERVER['PHP_AUTH_USER'])) {
+            header('WWW-Authenticate: Basic realm="SCMS Authentication System"');
+            header('HTTP/1.0 401 Unauthorized');
+
+            echo $this->Response->arrayToJSON(['authentication' => 'error', 'message' => 'Вы должны ввести корректный логин и пароль для получения доступа к ресурсу.']);
+            exit;
+        }
+
+        $this->HTTPEmployeeAuthentication->signIn($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
+        if (!$this->HTTPEmployeeAuthentication->authenticated()) {
+            header('WWW-Authenticate: Basic realm="SCMS Authentication System"');
+            header('HTTP/1.0 401 Unauthorized');
+
+            echo $this->Response->arrayToJSON(['authentication' => 'error', 'message' => 'Вы должны ввести корректный логин и пароль для получения доступа к ресурсу.']);
             exit;
         }
     }

@@ -16,7 +16,7 @@ class ControllerDelete extends AdministratorAreaController
     public function actionIndex()
     {
         if (CoreFunctions::isAJAX()) {
-            if (!$this->EmployeeAuthorizator->authorized()) {
+            if (!$this->EmployeeAuthentication->authenticated()) {
                 SCMSNotificationLog::instance()->pushError('Нет доступа.');
                 $this->Response->send();
                 return;

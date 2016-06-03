@@ -9,6 +9,7 @@ requirejs.config({
         'jquery-textchange': 'bower_components/jquery-textchange/jquery.textchange',
         'jquery-mosaic-flow': 'bower_components/jquery.mosaicflow/jquery.mosaicflow.min',
         'jquery-galleria': 'bower_components/jquery-galleria/src/galleria',
+        'jquery-lightbox': 'bower_components/lightbox2/src/js/lightbox',
         'jquery-zoom': 'bower_components/jquery-zoom/jquery.zoom',
         'jquery-galleria-classic-theme': 'bower_components/jquery-galleria/src/themes/classic/galleria.classic',
         'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap.min',

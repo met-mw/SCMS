@@ -21,14 +21,13 @@ class ControllerEdit extends AdministratorAreaController {
 
         $frameName = Param::get('name', false)->asString(false);
         $view = new ViewEditForm();
-        $view->FrameName = $frameName;
+        $view->frameName = $frameName;
 
         // Подготовка хлебных крошек
         $viewBreadcrumbs = new ViewBreadcrumbs();
         $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
-            new Breadcrumb('Модули', '/modules'),
-            new Breadcrumb('Фреймы', '/frames'),
+            new Breadcrumb('Фреймы', '/modules/frames'),
             new Breadcrumb($frameName ? "Редактирование фрейма \"{$frameName}\"" : 'Создание нового фрейма', '')
         ];
 

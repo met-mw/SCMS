@@ -16,7 +16,7 @@ class ControllerSave extends AdministratorAreaController
 
     public function actionIndex()
     {
-        if (CoreFunctions::isAJAX() && !$this->EmployeeAuthorizator->authorized()) {
+        if (CoreFunctions::isAJAX() && !$this->EmployeeAuthentication->authenticated()) {
             SCMSNotificationLog::instance()->pushError('Нет доступа!');
             $this->Response->send();
 

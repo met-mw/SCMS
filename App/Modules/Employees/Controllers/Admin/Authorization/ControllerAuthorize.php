@@ -24,7 +24,7 @@ class ControllerAuthorize extends AdministratorAreaController {
             ->asString(true, 'Недопустимый пароль.');
 
         $redirect = '';
-        if ($this->EmployeeAuthorizator->authorize($email, $password)) {
+        if ($this->EmployeeAuthentication->signIn($email, $password)) {
             $redirect = '/admin';
         } else {
             SCMSNotificationLog::instance()->pushError('Неверно указан email или пароль.');

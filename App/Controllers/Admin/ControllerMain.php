@@ -30,7 +30,7 @@ class ControllerMain extends AdministratorAreaController {
         DataSource::getCurrent()->query($Select->table('notification_log')->field('count(*)', 'count')->build());
         $logsCount = DataSource::getCurrent()->fetchAssoc()[0]['count'];
 
-        $modulesManifests = $ModuleInstaller->scanModules();
+        $modulesManifests = $ModuleInstaller->findManifests();
 
         $view->aNotificationLogs = $aNotificationLogs;
         $view->modulesManifests = $modulesManifests;

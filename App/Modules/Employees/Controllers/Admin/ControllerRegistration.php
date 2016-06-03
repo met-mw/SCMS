@@ -21,8 +21,7 @@ class ControllerRegistration extends AdministratorAreaController {
         $viewBreadcrumbs = new ViewBreadcrumbs();
         $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
-            new Breadcrumb('Модули', '/modules'),
-            new Breadcrumb('Сотрудники', '/employees'),
+            new Breadcrumb('Сотрудники', '/modules/employees'),
             new Breadcrumb('Добавление нового сотрудника', '')
         ];
 
@@ -61,7 +60,7 @@ class ControllerRegistration extends AdministratorAreaController {
             $oEmployee = DataSource::factory(Employee::cls());
             $oEmployee->name = $name;
             $oEmployee->email = $email;
-            $oEmployee->password = $this->EmployeeAuthorizator->preparePassword($password);
+            $oEmployee->password = $this->EmployeeAuthentication->encodePassword($password, Employee::SALT);
             $oEmployee->active = true;
             $oEmployee->deleted = false;
             $oEmployee->commit();

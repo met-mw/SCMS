@@ -7,7 +7,7 @@ use App\Classes\AdministratorAreaController;
 class ControllerUnauthorize extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->EmployeeAuthorizator->unauthorize();
+        $this->EmployeeAuthentication->signOut();
         header('Location: /admin');
     }
 

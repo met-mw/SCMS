@@ -2,31 +2,36 @@
 namespace App\Classes;
 
 
+use App\Classes\Log\DBLogger;
 use SFramework\Classes\NotificationLog;
-use SORM\DataSource;
 
 class SCMSNotificationLog extends NotificationLog
 {
 
-    public function logSystemMessage($type, $text, $code = 0)
-    {
-        /** @var \App\Models\NotificationLog $oSCMSNotificationLog */
-        $oSCMSNotificationLog = DataSource::factory(\App\Models\NotificationLog::cls());
-        $oSCMSNotificationLog->code = $code;
-        $oSCMSNotificationLog->type = $type;
-        $oSCMSNotificationLog->message = addslashes($text);
-        $oSCMSNotificationLog->ip = $_SERVER["REMOTE_ADDR"];
-        $oSCMSNotificationLog->date = date('Y-m-d H:i:s');
+    /** @var DBLogger */
+    public $DBLogger;
 
-        $oSCMSNotificationLog->commit();
+    public function __construct()
+    {
+        $this->DBLogger = new DBLogger();
     }
 
     public function pushAny($type, $text, $code = 0)
     {
         parent::pushAny($type, $text);
 
-        if ($type != self::TYPE_MESSAGE) {
-            $this->logSystemMessage($type, $text, $code);
+        switch ($type) {
+            case self::TYPE_ERROR:
+                $this->DBLogger->error($text);
+                break;
+            case self::TYPE_WARNING:
+                $this->DBLogger->warning($text);
+                break;
+            case self::TYPE_NOTICE:
+                $this->DBLogger->notice($text);
+                break;
+            default:
+                break;
         }
     }
 

@@ -15,11 +15,11 @@ class ViewEditForm extends View {
     }
 
     public function currentRender() {
-        $isNew = is_null($this->FrameName);
+        $isNew = is_null($this->frameName);
 
         $action = '/admin/modules/frames/save/';
         if (!$isNew) {
-            $content = file_get_contents(SFW_APP_ROOT . 'Frames' . DIRECTORY_SEPARATOR . $this->FrameName);
+            $content = file_get_contents(SFW_APP_ROOT . 'Frames' . DIRECTORY_SEPARATOR . $this->frameName);
         } else {
             $content = '';
         }
@@ -32,7 +32,7 @@ class ViewEditForm extends View {
 
                 <div class="form-group">
                     <label for="frame-name">Наименование</label>
-                    <input class="form-control" name="frame-name" type="text" placeholder="Наименование" value="<?= $this->FrameName ?>">
+                    <input class="form-control" name="frame-name" type="text" placeholder="Наименование" value="<?= $this->frameName ?>">
                     <span class="help-block">Название файла фрейма</span>
                 </div>
 

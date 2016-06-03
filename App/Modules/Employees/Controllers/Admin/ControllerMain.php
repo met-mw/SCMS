@@ -26,7 +26,7 @@ class ControllerMain extends AdministratorAreaController {
         $pageNumber = Param::get('employee-page', false)->asInteger(false);
         $itemsPerPage = Param::get('employee-items-per-page', false)->asInteger(false);
 
-        $manifest = $this->ModuleInstaller->getManifest($this->moduleName);
+        $manifest = $this->ModuleInstaller->getManifest($this->ModuleDirectory);
 
         $dataGridView = new ViewDataGrid();
         $retriever = new EmployeesRetriever();
@@ -64,8 +64,7 @@ class ControllerMain extends AdministratorAreaController {
         $viewBreadcrumbs = new ViewBreadcrumbs();
         $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
-            new Breadcrumb('Модули', '/modules'),
-            new Breadcrumb('Сотрудники', '/employees')
+            new Breadcrumb('Сотрудники', '/modules/employees')
         ];
 
         $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs);

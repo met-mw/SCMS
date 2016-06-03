@@ -9,14 +9,30 @@
     "minimum-stability": "dev",
     "version": "0.0.1",
     "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/met-mw/SORM.git"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/met-mw/SFramework.git"
-        }
+      {
+        "type": "git",
+        "url": "https://github.com/met-mw/SignInBase.git"
+      },
+      {
+        "type": "git",
+        "url": "https://github.com/met-mw/SFileSystem.git"
+      },
+      {
+        "type": "git",
+        "url": "https://github.com/met-mw/SDataGrid.git"
+      },
+      {
+        "type": "git",
+        "url": "https://github.com/met-mw/SLog.git"
+      },
+      {
+        "type": "git",
+        "url": "https://github.com/met-mw/SORM.git"
+      },
+      {
+        "type": "git",
+        "url": "https://github.com/met-mw/SFramework.git"
+      }
     ],
     "require": {
         "php": ">=5.6.0",

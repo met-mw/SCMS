@@ -2,21 +2,19 @@
 namespace App\Views\Admin;
 
 
+use App\Classes\Configurator;
 use SFramework\Classes\View;
 
 class ViewConfiguration extends View
 {
 
+    /** @var Configurator */
+    public $Configurator;
+
     public function currentRender()
     {
         ?>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6">
-                    Данный раздед панели администратора находится в разработке.
-                </div>
-            </div>
-        </div>
+        Вывод формы конфига
         <?
     }
 

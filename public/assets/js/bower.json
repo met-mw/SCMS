@@ -26,6 +26,7 @@
     "jquery-textchange": "~0.2.3",
     "jquery.mosaicflow": "~0.2.5",
     "jquery-galleria": "~1.4.2",
-    "jquery-zoom": "~1.7.15"
+    "jquery-zoom": "~1.7.15",
+    "lightbox2": "lightbox#~2.8.2"
   }
 }

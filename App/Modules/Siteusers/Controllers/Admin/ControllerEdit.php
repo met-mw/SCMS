@@ -30,8 +30,7 @@ class ControllerEdit extends AdministratorAreaController
         $viewBreadcrumbs = new ViewBreadcrumbs();
         $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
-            new Breadcrumb('Модули', '/modules'),
-            new Breadcrumb('Пользователи', '/siteusers')
+            new Breadcrumb('Пользователи', '/modules/siteusers')
         ];
         if ($oSiteuser !== null) {
             $viewBreadcrumbs->Breadcrumbs[] = new Breadcrumb("Редактирование \"{$oSiteuser->name}\"", '');

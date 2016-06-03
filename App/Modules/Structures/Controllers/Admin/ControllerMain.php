@@ -33,7 +33,7 @@ class ControllerMain extends AdministratorAreaController {
         if ($parentPK != 0) {
             $addItemUrl .= "?parent_pk={$parentPK}";
         }
-        $manifest = $this->ModuleInstaller->getManifest($this->moduleName);
+        $manifest = $this->ModuleInstaller->getManifest($this->ModuleDirectory);
 
         $dataGridView = new ViewDataGrid();
         $retriever = new StructureRetriever();
@@ -80,8 +80,7 @@ class ControllerMain extends AdministratorAreaController {
         $viewBreadcrumbs = new ViewBreadcrumbs();
         $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
-            new Breadcrumb('Модули', '/modules'),
-            new Breadcrumb('Структура сайта', '/structures')
+            new Breadcrumb('Структура сайта', '/modules/structures')
         ];
         $breadcrumbsParentPK = $parentPK;
         $structureBreadcrumbs = [];

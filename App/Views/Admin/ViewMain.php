@@ -27,7 +27,7 @@ class ViewMain extends View {
                 </blockquote>
             </div>
             <div class="col-lg-8">
-                <p>Системные сообщения <span class="badge alert-danger"><?= $this->logsCount ?></span></p>
+                <p>Системные оповещения <span class="badge alert-danger"><?= $this->logsCount ?></span></p>
                 <div class="table-responsive" style="height: 200px; overflow: auto;">
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
@@ -85,7 +85,7 @@ class ViewMain extends View {
             <div class="row eq-height">
                 <? foreach($this->modulesManifests as $moduleManifest): ?>
                 <div class="col-md-4 col-sm-6 col-xs-12">
-                    <blockquote style="border-left-color: #58aac6;">
+                    <blockquote style="border-left-color: #58aac6; overflow: auto;">
                         <p>
                             <span class="glyphicon glyphicon-pushpin"></span>
                             &nbsp;

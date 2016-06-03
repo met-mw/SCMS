@@ -2,6 +2,7 @@
 namespace App\Classes;
 
 
+use SFileSystem\Classes\Directory;
 use SFramework\Classes\Router;
 
 class RouterProxy
@@ -19,6 +20,7 @@ class RouterProxy
         $foundedRoutes = [];
         preg_match('/^App\\\\Controllers\\\\(?:Admin\\\\)?Modules\\\\([a-zA-Z0-9_-]+)/', $this->Router->currentControllerName, $foundedRoutes);
         $moduleName = end($foundedRoutes);
+        $ModuleDirectory = new Directory(SFW_MODULES_ROOT . $moduleName);
 
         $moduleClassName = str_replace(
             [
@@ -37,7 +39,7 @@ class RouterProxy
         );
 
         /** @var AdministratorAreaController $moduleController */
-        $moduleController = new $moduleClassName($moduleName);
+        $moduleController = new $moduleClassName($ModuleDirectory);
         $moduleController->{$this->Router->currentActionName}();
     }
 

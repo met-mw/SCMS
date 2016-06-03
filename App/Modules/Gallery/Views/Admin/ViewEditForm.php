@@ -79,7 +79,7 @@ class ViewEditForm extends View
 
                     <div class="col-xs-12">
                         <div class="container">
-                            <div class="row">
+                            <div class="row eq-height">
                                 <? foreach ($aGalleryItems as $oGalleryItem): ?>
                                     <div class="col-md-3 col-sm-4 col-xs-6 thumb">
                                         <a class="fancyimage" rel="group" href="<?= $oGalleryItem->path ?>">

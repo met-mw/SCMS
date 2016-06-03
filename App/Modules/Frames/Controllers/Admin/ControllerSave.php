@@ -4,6 +4,7 @@ namespace App\Modules\Frames\Controllers\Admin;
 
 use App\Classes\AdministratorAreaController;
 use Exception;
+use SFileSystem\Classes\File;
 use SFramework\Classes\CoreFunctions;
 use App\Classes\SCMSNotificationLog;
 use SFramework\Classes\Param;
@@ -11,7 +12,7 @@ use SFramework\Classes\Param;
 class ControllerSave extends AdministratorAreaController {
 
     public function actionIndex() {
-        if (CoreFunctions::isAJAX() && !$this->EmployeeAuthorizator->authorized()) {
+        if (CoreFunctions::isAJAX() && !$this->EmployeeAuthentication->authenticated()) {
             SCMSNotificationLog::instance()->pushError('Нет доступа!');
             $this->Response->send();
             return;
@@ -22,9 +23,9 @@ class ControllerSave extends AdministratorAreaController {
         $frameName = Param::post('frame-name')->asString();
         $frameContent = Param::post('frame-content')->asString();
 
-        $frameFileName = SFW_APP_ROOT . 'Frames' . DIRECTORY_SEPARATOR . $frameName;
-        $isNew = !file_exists($frameFileName);
-        file_put_contents($frameFileName, $frameContent);
+        $FrameFile = new File(SFW_MODULES_FRAMES . $frameName);
+        $isNew = !$FrameFile->exists();
+        $FrameFile->setContent($frameContent);
 
         if (Param::post('frame-accept', false)->exists()) {
             $redirect = '/admin/modules/frames/';

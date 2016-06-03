@@ -29,6 +29,8 @@ class ViewMenu extends ViewMasterMenu {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    <a class="navbar-brand" target="_blank" href="/" title="Просмотреть пользовательскую часть сайта"><span class="glyphicon glyphicon-eye-open"></span></a>
+                    &nbsp;&nbsp;
                     <a class="navbar-brand" href="/<?= $this->pathRoot ?>"><?= $this->projectName ?></a>
                 </div>
 

@@ -48,8 +48,7 @@ class ControllerEdit extends AdministratorAreaController {
         $viewBreadcrumbs = new ViewBreadcrumbs();
         $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
-            new Breadcrumb('Модули', '/modules'),
-            new Breadcrumb('Каталог', '/catalogue')
+            new Breadcrumb('Каталог', '/modules/catalogue')
         ];
 
         if ($parentId) {

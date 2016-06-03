@@ -3,50 +3,91 @@ namespace App\Classes;
 
 
 use Exception;
+use SFileSystem\Classes\Directory;
+use SFileSystem\Interfaces\InterfaceIODirectory;
 
-class ModuleInstaller {
+class ModuleInstaller
+{
 
-    protected $moduleName;
+    /** @var Directory */
+    protected $ModulesRoot;
 
-    public function __construct($moduleName = null)
+    public function __construct()
     {
-        $this->moduleName = $moduleName;
+        $this->ModulesRoot = new Directory(SFW_MODULES_ROOT);
     }
 
-    public function install($moduleName = null)
+    public function findModule($moduleName)
     {
-        $modulePath = SFW_MODULES_ROOT . $moduleName . DIRECTORY_SEPARATOR;
-        $manifest = $this->getManifest($moduleName);
+        $ModuleDirectory = $this->ModulesRoot->getDirectory($moduleName);
+        return $ModuleDirectory->exists() ? $ModuleDirectory : null;
+    }
+
+    public function install($moduleName)
+    {
+        $ModuleDirectory = $this->findModule($moduleName);
+        if (!$ModuleDirectory) {
+            SCMSNotificationLog::instance()->pushError("Модуль \"{$moduleName}\" не найден.");
+
+            return false;
+        }
+        $ManifestFile = $this->getManifest($ModuleDirectory);
 
         // TODO: Реализовать установку модуля.
     }
 
-    public function useMigration($moduleName = null)
+    public function useMigration($moduleName)
     {
 
     }
 
-    public function getManifest($moduleName = null)
+    public function findAllModules()
     {
-        $filePath = SFW_MODULES_ROOT . $moduleName . DIRECTORY_SEPARATOR . 'manifest.php';
-        if (!file_exists($filePath)) {
-            throw new Exception("Манифест модуля \"{$moduleName}\" не обнаружен.");
+        $this->ModulesRoot->scan();
+        return $this->ModulesRoot->getDirectories();
+    }
+
+    public function getManifest(Directory $ModuleDirectory)
+    {
+        if (!$ModuleDirectory) {
+            SCMSNotificationLog::instance()->pushError("Модуль \"{$ModuleDirectory->getName()}\" не найден.");
+            return null;
         }
 
-        return include(SFW_MODULES_ROOT . $moduleName . DIRECTORY_SEPARATOR . 'manifest.php');
-    }
-
-    public function scanModules()
-    {
-        $modulesRoot = scandir(SFW_MODULES_ROOT);
-        $modulesRoot = array_diff($modulesRoot, ['.', '..']);
-
-        $manifests = [];
-        foreach ($modulesRoot as $moduleFolder) {
-            $manifests[] = $this->getManifest($moduleFolder);
+        $ManifestFile = $ModuleDirectory->getFile('manifest.php');
+        if (!$ManifestFile || !$ManifestFile->exists()) {
+            throw new Exception("Манифест модуля \"{$ModuleDirectory->getName()}\" не найден.");
         }
 
-        return $manifests;
+        return include($ManifestFile->getPath());
     }
 
-} 
+    public function findManifests()
+    {
+        $ModulesDirectories = $this->findAllModules();
+
+        $ManifestsFiles = [];
+        foreach ($ModulesDirectories as $ModuleDirectory) {
+            $ManifestsFiles[] = $this->getManifest($ModuleDirectory);
+        }
+
+        return $ManifestsFiles;
+    }
+
+    public function findControllers($moduleFolderName)
+    {
+        $controllersRoot = SFW_MODULES_ROOT . $moduleFolderName . DIRECTORY_SEPARATOR . 'Controllers' . DIRECTORY_SEPARATOR . 'Admin' . DIRECTORY_SEPARATOR;
+
+    }
+
+    protected function scanControllersFolder($controllersFolderName)
+    {
+
+    }
+
+    public function createProxyControllers()
+    {
+
+    }
+
+}

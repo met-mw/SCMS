@@ -27,8 +27,7 @@ class ControllerEdit extends AdministratorAreaController {
         $viewBreadcrumbs = new ViewBreadcrumbs();
         $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
-            new Breadcrumb('Модули', '/modules'),
-            new Breadcrumb('Сотрудники', '/employees'),
+            new Breadcrumb('Сотрудники', '/modules/employees'),
             new Breadcrumb("Редактирование \"{$oEmployee->email}\"", '')
         ];
 

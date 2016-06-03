@@ -2,24 +2,27 @@
 namespace App\Modules\Frames\Classes\Retrievers;
 
 
+use SFileSystem\Classes\Directory;
+
 class FramesRetriever
 {
 
     public function getFrames()
     {
-        $frames = scandir(SFW_APP_ROOT . 'Frames');
-        $frames = array_diff($frames, ['.', '..']);
+        $FramesFiles = $this->getList();
         $framesDataArray = [];
-        foreach ($frames as $frame) {
-            $framesDataArray[] = ['name' => $frame];
+        foreach ($FramesFiles as $FrameFile) {
+            $framesDataArray[] = ['name' => $FrameFile->getName()];
         }
 
         return $framesDataArray;
     }
 
     public function getList() {
-        $frames = scandir(SFW_APP_ROOT . 'Frames');
-        return array_diff($frames, ['.', '..']);
+        $FramesDirectory = new Directory(SFW_MODULES_FRAMES);
+        $FramesDirectory->scan();
+
+        return $FramesDirectory->getFiles();
     }
 
 } 

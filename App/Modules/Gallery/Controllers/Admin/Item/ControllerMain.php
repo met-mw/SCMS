@@ -42,7 +42,7 @@ class ControllerMain extends AdministratorAreaController
         $pageNumber = Param::get('gallery-item-page', false)->asInteger(false);
         $itemsPerPage = Param::get('gallery-item-items-per-page', false)->asInteger(false);
 
-        $manifest = $this->ModuleInstaller->getManifest($this->moduleName);
+        $manifest = $this->ModuleInstaller->getManifest($this->ModuleDirectory);
 
         $dataGridView = new ViewDataGrid();
         $retriever = new GalleryRetriever();
@@ -80,8 +80,7 @@ class ControllerMain extends AdministratorAreaController
         $viewBreadcrumbs = new ViewBreadcrumbs();
         $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
-            new Breadcrumb('Модули', '/modules'),
-            new Breadcrumb('Галереи', '/gallery'),
+            new Breadcrumb('Галереи', '/modules/gallery'),
             new Breadcrumb("Элементы галереи \"{$oGallery->name}\"", ''),
         ];
 

@@ -2,5 +2,5 @@
 return [
     'name' => 'SCMS',
     'description' => 'Простая система управления контентом.',
-    'favicon' => 'favicon.ico'
+    'favicon' => ['href' => 'favicon.ico', 'type' => 'image/x-icon']
 ];
