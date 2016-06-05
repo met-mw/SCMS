@@ -70,7 +70,7 @@ abstract class AdministratorAreaController extends Controller
      */
     private function buildMenu()
     {
-        $mainMenu = new ViewMenu($this->config['name'], $this->EmployeeAuthentication->getCurrentUser());
+        $mainMenu = new ViewMenu($this->config['name'], $this->EmployeeAuthentication);
         $mainMenu->itemsList
             ->addItem('', 'Панель управления')
             ->addItem('configuration', 'Конфигурация системы')
@@ -117,7 +117,7 @@ abstract class AdministratorAreaController extends Controller
             header('WWW-Authenticate: Basic realm="SCMS Authentication System"');
             header('HTTP/1.0 401 Unauthorized');
 
-            echo $this->Response->arrayToJSON(['authentication' => 'error', 'message' => 'Вы должны ввести корректный логин и пароль для получения доступа к ресурсу.']);
+            echo $this->Response->arrayToJSON(['authenticate' => 'error', 'message' => 'Вы должны ввести корректный логин и пароль для получения доступа к ресурсу.', 'employee' => null]);
             exit;
         }
 
@@ -126,7 +126,7 @@ abstract class AdministratorAreaController extends Controller
             header('WWW-Authenticate: Basic realm="SCMS Authentication System"');
             header('HTTP/1.0 401 Unauthorized');
 
-            echo $this->Response->arrayToJSON(['authentication' => 'error', 'message' => 'Вы должны ввести корректный логин и пароль для получения доступа к ресурсу.']);
+            echo $this->Response->arrayToJSON(['authenticate' => 'error', 'message' => 'Вы должны ввести корректный логин и пароль для получения доступа к ресурсу.', 'employee' => null]);
             exit;
         }
     }

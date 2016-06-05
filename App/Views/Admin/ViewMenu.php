@@ -2,19 +2,18 @@
 namespace App\Views\Admin;
 
 
+use App\Classes\Authentication\Authentication;
 use App\Modules\Employees\Models\Admin\Employee;
 use App\Views\ViewMenu as ViewMasterMenu;
 
 class ViewMenu extends ViewMasterMenu {
 
-    /** @var Employee */
-    public $currentEmployee;
+    /** @var Authentication */
+    public $Authentication;
 
-    public function __construct($projectName, Employee $currentEmployee = null) {
-        $this->optional[] = 'currentEmployee';
-
+    public function __construct($projectName, Authentication $Authentication) {
         $this->pathRoot = 'admin';
-        $this->currentEmployee = $currentEmployee;
+        $this->Authentication = $Authentication;
         parent::__construct($projectName);
     }
 
@@ -41,7 +40,7 @@ class ViewMenu extends ViewMasterMenu {
                             <a href="/admin/modules/employees/authorization/unauthorize">Выход</a>
                         </li>
                     </ul>
-                    <p class="navbar-text navbar-right" style="color: #ffffff; font-weight: 600;"><span class="glyphicon glyphicon-user"></span>&nbsp;<?= $this->currentEmployee->name ?></p>
+                    <p class="navbar-text navbar-right" style="color: #ffffff; font-weight: 600;"><span class="glyphicon glyphicon-user"></span>&nbsp;<?= $this->Authentication->getCurrentUser()->name ?></p>
                 </div>
             </div>
         </nav>
