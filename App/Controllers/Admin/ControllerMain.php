@@ -12,7 +12,7 @@ use SORM\Tools\Builder\Select;
 class ControllerMain extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $ModuleInstaller = new ModuleInstaller();
         $view = new ViewMain();

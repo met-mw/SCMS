@@ -26,7 +26,7 @@ class ControllerMain extends AdministratorAreaController
 
     public function actionIndex()
     {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $galleryId = Param::get('gallery_id')->asInteger(true, 'Недопустимое значение номера галереи.');
 

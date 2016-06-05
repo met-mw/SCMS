@@ -15,7 +15,7 @@ class ControllerDelete extends AdministratorAreaController
 
     public function actionIndex()
     {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $galleryItemId = Param::get('id')
             ->noEmpty('Не задан обязательный параметр.')

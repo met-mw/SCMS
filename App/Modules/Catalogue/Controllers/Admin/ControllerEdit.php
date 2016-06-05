@@ -16,7 +16,7 @@ use SORM\DataSource;
 class ControllerEdit extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $isCategory = Param::get('is_category')->asInteger(true, "Недопустимое значение параметра.");
         $id = Param::get('id', false)->asInteger(false);

@@ -12,7 +12,7 @@ use SORM\DataSource;
 class ControllerMain extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $view = new ViewList();
         $view->response = new ViewResponse($this->alertClass, $this->alertHeader, $this->alertText);

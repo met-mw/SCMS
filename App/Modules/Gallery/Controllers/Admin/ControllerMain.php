@@ -21,7 +21,7 @@ class ControllerMain extends AdministratorAreaController
 
     public function actionIndex()
     {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $pageNumber = Param::get('gallery-page', false)->asInteger(false);
         $itemsPerPage = Param::get('gallery-items-per-page', false)->asInteger(false);

@@ -11,7 +11,7 @@ use SORM\DataSource;
 class ControllerShow extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $this->Frame->addCss('\public\assets\css\edit-form.css');
         $this->Frame->addCss('\public\assets\css\main-menu.css');

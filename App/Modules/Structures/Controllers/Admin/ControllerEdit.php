@@ -20,7 +20,7 @@ use SORM\Tools\Builder;
 class ControllerEdit extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $this->Frame->addCss('/public/assets/css/edit-form.css');
         $this->Frame->addCss('/public/assets/css/main-menu.css');
@@ -80,7 +80,7 @@ class ControllerEdit extends AdministratorAreaController {
     }
 
     public function actionAjaxModuleConfig() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $structureId = Param::get('structure_id')
             ->noEmpty('Пропущен обязательный параметр "structure_id".')

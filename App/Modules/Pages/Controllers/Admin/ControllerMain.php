@@ -23,7 +23,7 @@ use SORM\Tools\Builder;
 class ControllerMain extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $pageNumber = Param::get('page-page', false)->asInteger(false);
         $itemsPerPage = Param::get('page-items-per-page', false)->asInteger(false);

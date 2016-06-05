@@ -16,7 +16,7 @@ class ControllerEdit extends AdministratorAreaController
 
     public function actionIndex()
     {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $galleryId = Param::get('id', false)->asInteger(false);
 

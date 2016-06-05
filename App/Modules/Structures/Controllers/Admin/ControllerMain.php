@@ -23,7 +23,7 @@ use SORM\Tools\Builder;
 class ControllerMain extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $parentPK = (int)Param::get('parent_pk', false)->asInteger(false);
         $pageNumber = Param::get('structure-page', false)->asInteger(false);

@@ -13,7 +13,7 @@ class ControllerMain extends AdministratorAreaController
 
     public function actionIndex()
     {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $view = new ViewAbout();
         $view->credits = Registry::get('credits');

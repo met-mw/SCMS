@@ -66,7 +66,7 @@ class ViewCatalogue extends View {
                     $oCategory = $this->aCategories[$i];
                     $this->viewCutString->setValue($oCategory->description);
                     ?>
-                    <div class="col-lg-<?= ceil(12 / $this->categoriesPerRow) ?> col-md-<?= ceil(12 / $this->categoriesPerRow) ?> col-sm-<?= ceil(12 / ceil($this->categoriesPerRow / 2)) ?> col-xs-<?= ceil(12 / ceil($this->categoriesPerRow / 2)) ?>">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
                         <div class="thumbnail">
                             <div class="caption text-center">
                                 <h4><a href="?category_id=<?= $oCategory->id ?>"><?= $oCategory->name ?></a></h4>
@@ -106,7 +106,7 @@ class ViewCatalogue extends View {
                     $this->viewCutString->setValue($oItem->description);
                     $this->viewMoney->setValue($oItem->price);
                     ?>
-                    <div class="col-lg-<?= ceil(12 / $this->itemsPerRow) ?> col-md-<?= ceil(12 / $this->itemsPerRow) ?> col-sm-<?= ceil(12 / ceil($this->itemsPerRow / 2)) ?> col-xs-<?= ceil(12 / ceil($this->itemsPerRow / 2)) ?>">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 ?>">
                         <div class="thumbnail">
                             <div class="caption text-center">
                                 <h4><a href="?action=show-item&item_id=<?= $oItem->id ?>"><?= $oItem->name ?></a></h4>

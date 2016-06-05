@@ -19,7 +19,7 @@ class ControllerSave extends AdministratorAreaController {
             return;
         }
 
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $categoryId = Param::post('catalogue-category-id', false)->asInteger(false);
 
@@ -72,7 +72,7 @@ class ControllerSave extends AdministratorAreaController {
             return;
         }
 
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $categoryId = Param::post('catalogue-item-id', false)->asInteger(false);
 

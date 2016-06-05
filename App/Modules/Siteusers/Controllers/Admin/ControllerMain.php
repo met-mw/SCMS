@@ -21,9 +21,9 @@ class ControllerMain extends AdministratorAreaController
 {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $pageNumber = Param::get('employee-page', false)->asInteger(false);
         $itemsPerPage = Param::get('employee-items-per-page', false)->asInteger(false);

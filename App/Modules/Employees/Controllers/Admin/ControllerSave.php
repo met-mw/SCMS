@@ -13,7 +13,7 @@ use SORM\DataSource;
 class ControllerSave extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $employeeId = Param::post('employee-id')->asInteger(true, 'Не указан обязательный параметр.');
 

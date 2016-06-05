@@ -22,7 +22,7 @@ class ControllerDelete extends AdministratorAreaController
                 return;
             }
         } else {
-            $this->authorizeIfNot();
+            $this->needAuthenticate();
         }
 
         $siteuserId = Param::get('id')

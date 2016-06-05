@@ -13,7 +13,7 @@ use SORM\DataSource;
 class ControllerEdit extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $pageId = Param::get('id', false)->asInteger(false);
 

@@ -16,7 +16,7 @@ class ControllerMain extends AdministratorAreaController
 
     public function actionIndex()
     {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
         $Configurator = new Configurator(Registry::get('config'));
 
         $view = new ViewConfiguration();
@@ -73,7 +73,7 @@ class ControllerMain extends AdministratorAreaController
         $viewBreadcrumbs = new ViewBreadcrumbs();
         $viewBreadcrumbs->Breadcrumbs = [
             new Breadcrumb('Панель управления', '/admin'),
-            new Breadcrumb('Конфигурация системы', '')
+            new Breadcrumb('Настройки', '')
         ];
 
         $this->Frame->bindView('breadcrumbs', $viewBreadcrumbs);

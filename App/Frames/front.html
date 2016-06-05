@@ -8,20 +8,32 @@
         <!--label[css]-->
         <!--label[js]-->
     </head>
-    <body>
+    <body style="padding-top: 70px;">
         <div class="container" style="font-size: 18px;">
             <div class="row text-center hidden-xs">
-                <div class="col-sm-5 text-left" style="padding: 8px 8px 8px 20px;">
-                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-                    &nbsp;<a href="/catalogue/?action=show-cart" data-toggle="modal" data-target="#modal-catalogue-cart">Моя корзина</a>
-                    &nbsp;<span id="catalogue-cart-count" title="Количество товаров в корзине" class="badge" style="padding-left: 15px; padding-right: 15px; background-color: #409358;">
-                        <!--label[catalogue-cart-total-count]-->
-                    </span>
+                <div class="col-sm-4">
+                    <a class="btn" href="/catalogue/?action=show-cart" data-toggle="modal" data-target="#modal-catalogue-cart">
+                        <img style="height: 100px;" src="/public/assets/images/shopping-cart.svg" /><span id="catalogue-cart-count" title="Количество товаров в корзине" class="badge" style="padding-left: 15px; padding-right: 15px; background-color: #409358;"><!--label[catalogue-cart-total-count]--></span>
+                    </a>
                 </div>
-                <div class="col-sm-7 text-right" style="padding: 8px 20px 8px 8px;">
-                    <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp;8(800)000-00-00
-                    &nbsp;
-                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;<a href="mailto:denas29@gmail.com">denas29@gmail.com</a>
+                <div class="col-sm-4">
+                    <a class="btn" href="tel:8(800)000-00-00">
+                        <img style="height: 100px;" src="/public/assets/images/mobile-phone.svg" />
+                    </a>
+                </div>
+                <div class="col-sm-4">
+                    <a class="btn" href="mailto:denas29@gmail.com">
+                        <img style="height: 100px;" src="/public/assets/images/send-email.svg" />
+                    </a>
+                </div>
+                <div class="col-sm-4">
+                    <a class="btn" href="/catalogue/?action=show-cart" data-toggle="modal" data-target="#modal-catalogue-cart">Моя корзина</a>
+                </div>
+                <div class="col-sm-4">
+                    <a class="btn" href="tel:8(800)000-00-00">8(800)000-00-00</a>
+                </div>
+                <div class="col-sm-4">
+                    <a class="btn" href="mailto:denas29@gmail.com">denas29@gmail.com</a>
                 </div>
             </div>
         </div>
@@ -33,18 +45,26 @@
             </div>
         </div>
         <div class="container" id="anchor-general-start">
-            <div class="row text-left hidden-sm hidden-md hidden-lg">
-                <div class="col-xs-12">
-                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;<a href="/catalogue/?action=show-cart" data-toggle="modal" data-target="#modal-catalogue-cart">Моя корзина</a>&nbsp;<span id="catalogue-cart-count" title="Количество товаров в корзине" class="badge" style="padding-left: 15px; padding-right: 15px; background-color: #409358;"><!--label[catalogue-cart-total-count]--></span>
-                    <hr/>
-                    <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp;8(800)000-00-00
-                    <hr/>
-                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;<a href="mailto:denas29@gmail.com">denas29@gmail.com</a>
-                    <hr/>
+            <div class="row text-center hidden-sm hidden-md hidden-lg">
+                <div class="col-xs-4">
+                    <a class="btn" href="/catalogue/?action=show-cart" data-toggle="modal" data-target="#modal-catalogue-cart">
+                        <img style="height: 40px;" src="/public/assets/images/shopping-cart.svg" /><span id="catalogue-cart-count" title="Количество товаров в корзине" class="badge" style="padding-left: 15px; padding-right: 15px; background-color: #409358;"><!--label[catalogue-cart-total-count]--></span>
+                    </a>
+                </div>
+                <div class="col-xs-4" style="border-left: 1px #777 solid; border-right: 1px #777 solid;">
+                    <a class="btn" href="tel:8(800)000-00-00">
+                        <img style="height: 40px;" src="/public/assets/images/mobile-phone.svg" />
+                    </a>
+                </div>
+                <div class="col-xs-4">
+                    <a class="btn" href="mailto:denas29@gmail.com">
+                        <img style="height: 40px;" src="/public/assets/images/send-email.svg" />
+                    </a>
                 </div>
             </div>
+            <br/>
             <div class="row">
-                <div class="col-lg-4 col-md-4">
+                <div class="col-lg-4 col-md-4 hidden-xs">
                     <div class="thumbnail hidden-xs hidden-sm" style="height: 200px;">
                         <a href="#"><img src="/public/assets/images/denas.png"></a>
                         <div class="caption" style="font-size: 13px;">
@@ -60,7 +80,39 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 col-md-8">
+                <div class="col-lg-4 col-md-4 hidden-xs">
+                    <div class="thumbnail hidden-xs hidden-sm" style="height: 200px;">
+                        <a href="#"><img src="/public/assets/images/denas.png"></a>
+                        <div class="caption" style="font-size: 13px;">
+                            <p class="text-justify">Мы являемся официальными дистрибьюторами корпорации "ДЭНАС МС" (Россия, Северодвинск), известного производителя лечебных аппаратов для динамической электронейростимуляции (ДЭНС).</p>
+                        </div>
+                    </div>
+                    <div class="thumbnail hidden-md hidden-lg">
+                        <a href="#">
+                            <img src="/public/assets/images/denas.png">
+                        </a>
+                        <div class="caption" style="font-size: 13px;">
+                            <p class="text-justify">Мы являемся официальными дистрибьюторами корпорации "ДЭНАС МС" (Россия, Северодвинск), известного производителя лечебных аппаратов для динамической электронейростимуляции (ДЭНС).</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 hidden-xs">
+                    <div class="thumbnail hidden-xs hidden-sm" style="height: 200px;">
+                        <a href="#"><img src="/public/assets/images/denas.png"></a>
+                        <div class="caption" style="font-size: 13px;">
+                            <p class="text-justify">Мы являемся официальными дистрибьюторами корпорации "ДЭНАС МС" (Россия, Северодвинск), известного производителя лечебных аппаратов для динамической электронейростимуляции (ДЭНС).</p>
+                        </div>
+                    </div>
+                    <div class="thumbnail hidden-md hidden-lg">
+                        <a href="#">
+                            <img src="/public/assets/images/denas.png">
+                        </a>
+                        <div class="caption" style="font-size: 13px;">
+                            <p class="text-justify">Мы являемся официальными дистрибьюторами корпорации "ДЭНАС МС" (Россия, Северодвинск), известного производителя лечебных аппаратов для динамической электронейростимуляции (ДЭНС).</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 hidden-xs">
                     <div id="main-carousel" class="carousel slide" data-ride="carousel" data-interval="15000" data-pause="hover">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
@@ -109,7 +161,6 @@
                     </div>
                 </div>
             </div>
-            <hr class="hidden-md hidden-lg" />
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <!--label[breadcrumbs]-->

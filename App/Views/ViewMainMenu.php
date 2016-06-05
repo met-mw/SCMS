@@ -6,7 +6,7 @@ class ViewMainMenu extends ViewMenu {
 
     public function currentRender() {
         ?>
-        <div class="navbar navbar-custom" role="navigation">
+        <div class="navbar navbar-custom navbar-fixed-top" role="navigation">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">

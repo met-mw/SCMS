@@ -73,7 +73,7 @@ abstract class AdministratorAreaController extends Controller
         $mainMenu = new ViewMenu($this->config['name'], $this->EmployeeAuthentication);
         $mainMenu->itemsList
             ->addItem('', 'Панель управления')
-            ->addItem('configuration', 'Конфигурация системы')
+            ->addItem('configuration', 'Настройки')
             ->addItem('modules', 'Инструменты')
             ->addItem('service', 'Сервис')
         ;
@@ -103,7 +103,7 @@ abstract class AdministratorAreaController extends Controller
         return $mainMenu;
     }
 
-    public function authorizeIfNot()
+    public function needAuthenticate()
     {
         if (!$this->EmployeeAuthentication->authenticated()) {
             header('Location: /admin/modules/employees/authorization');
@@ -111,7 +111,7 @@ abstract class AdministratorAreaController extends Controller
         }
     }
 
-    public function httpAuthorizeIfNot()
+    public function needHttpAuthenticate()
     {
         if (!isset($_SERVER['PHP_AUTH_USER'])) {
             header('WWW-Authenticate: Basic realm="SCMS Authentication System"');

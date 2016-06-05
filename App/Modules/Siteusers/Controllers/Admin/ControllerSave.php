@@ -23,7 +23,7 @@ class ControllerSave extends AdministratorAreaController
             return;
         }
 
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
         $siteuserAuthorizator = new Authorizator();
 
         $siteuserId = Param::post('siteuser-edit-id', false)->asInteger(false);

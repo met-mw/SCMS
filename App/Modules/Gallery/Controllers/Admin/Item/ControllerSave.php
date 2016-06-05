@@ -14,7 +14,7 @@ class ControllerSave extends AdministratorAreaController
 
     public function actionIndex()
     {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $galleryId = Param::post('gallery-id')->asInteger(true, 'Недопустимое значние номера галереи.');
         $galleryItemId = Param::post('gallery-item-edit-id', false)->asInteger(false);

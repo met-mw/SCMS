@@ -29,7 +29,7 @@ use SORM\Tools\Builder;
 class ControllerMain extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $parentCategoryId = Param::get('parent_pk', false);
         if ($parentCategoryId->exists()) {

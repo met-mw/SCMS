@@ -21,7 +21,7 @@ class ControllerDelete extends AdministratorAreaController
             $this->Response->send();
             return;
         }
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $frameName = Param::get('name', true)->asString(true, 'Недопустимое имя фрейма!');
 

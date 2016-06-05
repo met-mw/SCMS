@@ -11,7 +11,7 @@ use SORM\DataSource;
 class ControllerSave extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $pageId = Param::post('page-edit-id', false)->asInteger(false);
 

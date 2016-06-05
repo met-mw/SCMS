@@ -11,7 +11,7 @@ use SORM\DataSource;
 class ControllerDelete extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $pageId = Param::get('id')
             ->noEmpty('Не задан обязательный параметр.')

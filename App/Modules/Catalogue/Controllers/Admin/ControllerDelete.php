@@ -19,7 +19,7 @@ class ControllerDelete extends AdministratorAreaController {
             return;
         }
 
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
         $isCategory = Param::get('is_category')->asInteger(true, "Недопустимое значение параметра.");
         $id = Param::get('id')->asInteger();
 

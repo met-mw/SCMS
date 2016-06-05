@@ -13,7 +13,7 @@ use SORM\DataSource;
 class ControllerEdit extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $pk = Param::get('id', true)->asInteger(true, 'Не указан обязательный параметр.');
 

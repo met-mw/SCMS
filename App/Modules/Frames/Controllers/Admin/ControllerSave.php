@@ -18,7 +18,7 @@ class ControllerSave extends AdministratorAreaController {
             return;
         }
 
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $frameName = Param::post('frame-name')->asString();
         $frameContent = Param::post('frame-content')->asString();

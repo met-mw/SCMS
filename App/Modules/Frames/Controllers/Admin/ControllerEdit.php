@@ -13,7 +13,7 @@ use SFramework\Classes\Param;
 class ControllerEdit extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $frame = $this->Frame;
         $frame->addCss('/public/assets/js/bower_components/markitup/markitup/skins/markitup/style.css');

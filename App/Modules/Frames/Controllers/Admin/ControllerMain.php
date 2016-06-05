@@ -17,7 +17,7 @@ use SFramework\Classes\Param;
 class ControllerMain extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $pageNumber = Param::get('frames-page', false)->asInteger(false);
         $itemsPerPage = Param::get('frames-items-per-page', false)->asInteger(false);

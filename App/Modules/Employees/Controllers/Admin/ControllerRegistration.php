@@ -14,7 +14,7 @@ use SORM\DataSource;
 class ControllerRegistration extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
         $view = new ViewRegistration();
 
         // Подготовка хлебных крошек
@@ -31,7 +31,7 @@ class ControllerRegistration extends AdministratorAreaController {
     }
 
     public function actionSignup() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         if (Param::post('employee-registration-form-sign-up', false)->exists()) {
             $name = Param::post('employee-registration-form-name', false)

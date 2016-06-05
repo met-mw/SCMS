@@ -19,7 +19,7 @@ class ControllerSave extends AdministratorAreaController
 
     public function actionIndex()
     {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
 
         $StructureHelper = new StructureHelper(SFW_APP_ROOT . 'Controllers' . DIRECTORY_SEPARATOR);
 

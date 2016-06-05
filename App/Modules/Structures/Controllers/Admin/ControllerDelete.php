@@ -12,7 +12,7 @@ use SORM\Tools\Builder;
 class ControllerDelete extends AdministratorAreaController {
 
     public function actionIndex() {
-        $this->authorizeIfNot();
+        $this->needAuthenticate();
         $structureId = Param::get('id')->asInteger();
         /** @var Structure $oStructure */
         $oStructure = DataSource::factory(Structure::cls(), $structureId);
