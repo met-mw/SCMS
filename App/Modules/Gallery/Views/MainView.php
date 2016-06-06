@@ -38,6 +38,9 @@ class MainView extends View
             <? endif; ?>
 
             <? if ($this->displayType == Gallery::DISPLAY_TYPE_GALLERIA): ?>
+                <blockquote>
+                    <p>Для перехода в полноэкранный режим сделайте двойное нажатие по галерее.</p>
+                </blockquote>
                 <div class="galleria">
                     <? foreach ($aGalleryItems as $oGalleryItem): ?>
                         <a href="<?= $oGalleryItem->path ?>">

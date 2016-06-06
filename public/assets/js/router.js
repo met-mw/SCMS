@@ -102,7 +102,7 @@ define(
                 {
                     'base-path': '/',
                     'pattern': '^(/?)',
-                    'modules': ['module.catalogue.cart', 'scms.content-to-modal', 'module.gallery.init']
+                    'modules': ['module.catalogue.cart', 'scms.content-to-modal', 'module.gallery.init', 'fancybox-init']
                 },
                 {
                     'base-path': '/catalogue/',

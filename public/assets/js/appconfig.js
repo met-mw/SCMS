@@ -21,6 +21,7 @@ requirejs.config({
         'markitup.init': '/public/assets/js/library/markitup.init',
         'jquery.markitup': 'bower_components/markitup/markitup/jquery.markitup',
         'markitup.sets': 'bower_components/markitup/markitup/sets/default/set',
+        'fancybox-init': 'main/fancybox-init',
         'sform': 'forms/jquery.sform',
         'sajaxloader': 'jquery.sajaxloader',
         'modal': 'forms/modal',
