@@ -28,9 +28,9 @@ class MainView extends View
             <? if ($this->displayType == Gallery::DISPLAY_TYPE_FANCY): ?>
             <div class="row eq-height">
                 <? foreach ($aGalleryItems as $oGalleryItem): ?>
-                    <div class="col-md-3 col-sm-4 col-xs-6">
+                    <div class="col-md-3 col-sm-3 col-xs-4">
                         <a class="fancyimage thumbnail" rel="group" href="<?= $oGalleryItem->path ?>">
-                            <img class="img-responsive" src="<?= $oGalleryItem->path ?>" />
+                            <img class="img-responsive" src="<?= $oGalleryItem->getPathToThumbnail() ?>" />
                         </a>
                     </div>
                 <? endforeach; ?>
@@ -44,7 +44,7 @@ class MainView extends View
                 <div class="galleria">
                     <? foreach ($aGalleryItems as $oGalleryItem): ?>
                         <a href="<?= $oGalleryItem->path ?>">
-                            <img src="<?= $oGalleryItem->path ?>" data-big="<?= $oGalleryItem->path ?>" data-title="<?= $oGalleryItem->name ?>" data-description="<?= $oGalleryItem->description ?>" />
+                            <img src="<?= $oGalleryItem->getPathToThumbnail() ?>" data-big="<?= $oGalleryItem->path ?>" data-title="<?= $oGalleryItem->name ?>" data-description="<?= $oGalleryItem->description ?>" />
                         </a>
                     <? endforeach; ?>
                 </div>

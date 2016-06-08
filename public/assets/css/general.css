@@ -30,7 +30,8 @@ body.modal-open {
 }
 
 .galleria {
-    height: 600px;
+    min-height: 600px;
+    height: 100%;
     width: 100%;
 }
 

@@ -21,9 +21,13 @@ class GalleryItem extends Entity
 
     protected $tableName = 'module_gallery_item';
 
+    public function getPathToThumbnail()
+    {
+        return str_replace('/uploads/', '/thumbs/', $this->path);
+    }
+
     public function getGallery()
     {
-        // $aStructureSettings = $this->findRelationCache($this->getPrimaryKeyName(), StructureSetting::cls());
         /** @var Gallery[] $aGalleries */
         $aGalleries = $this->findRelationCache('gallery_id', Gallery::cls());
         if (empty($aGalleries)) {

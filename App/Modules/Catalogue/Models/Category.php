@@ -33,6 +33,11 @@ class Category extends Entity {
         'deleted' => 'Удалён'
     ];
 
+    public function getSmallThumbnail()
+    {
+        return str_replace('/uploads/', '/thumbs/', $this->thumbnail);
+    }
+
     public function getChildCategories()
     {
         /** @var Category[] $aCategories */

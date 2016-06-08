@@ -67,12 +67,12 @@ class ViewCatalogue extends View {
                     $this->viewCutString->setValue($oCategory->description);
                     ?>
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                        <div class="btn-group-vertical center-block" style="width: 100%;" role="group">
+                        <div class="btn-group-vertical" style="width: 100%; padding: 10px;" role="group">
                             <a type="button" class="content-to-modal btn btn-default" role="button" title="Просмотреть описание во всплывающем окне"><span class="glyphicon glyphicon-blackboard"></span>&nbsp;Смотреть описание</a>
                             <div class="hidden" style="display: none;"><?= $oCategory->description ?></div>
                             <a href="?category_id=<?= $oCategory->id ?>" class="btn" style="border-left: 1px #ccc solid; border-right: 1px #ccc solid;"><h4><?= $oCategory->name ?></h4></a>
                             <a href="<?= $oCategory->thumbnail ?>" class="btn fancybox" style="border-left: 1px #ccc solid; border-right: 1px #ccc solid;">
-                                <img src="<?= $oCategory->thumbnail ?>" style="max-height: 150px;" alt="<?= $oCategory->name ?>"/>
+                                <img src="<?= $oCategory->getSmallThumbnail() ?>" style="max-height: 150px;" alt="<?= $oCategory->name ?>"/>
                             </a>
                             <a href="?category_id=<?= $oCategory->id ?>" class="btn btn-info" role="button" title="Просмотреть подробности">
                                 <span class="glyphicon glyphicon-eye-open"></span>&nbsp;Смотреть товары
@@ -96,13 +96,10 @@ class ViewCatalogue extends View {
                     $this->viewMoney->setValue($oItem->price);
                     ?>
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                        <div class="btn-group-vertical center-block" style="width: 100%;" role="group">
+                        <div class="btn-group-vertical" style="width: 100%; padding: 10px;" role="group">
                             <a type="button" class="content-to-modal btn btn-default" role="button" title="Просмотреть описание во всплывающем окне"><span class="glyphicon glyphicon-blackboard"></span>&nbsp;Смотреть описание</a>
                             <div class="hidden" style="display: none;"><?= $oItem->description ?></div>
                             <a href="?action=show-item&item_id=<?= $oItem->id ?>" class="btn" style="border-left: 1px #ccc solid; border-right: 1px #ccc solid;"><h4><?= $oItem->name ?></h4></a>
-                            <div class="text-center" style="padding-bottom: 5px; padding-top: 5px; border-top: 0; border-left: 1px #ccc solid; border-right: 1px #ccc solid;">
-                                <span class="text-success"><?= $oItem->price ?></span>&nbsp;<span class="glyphicon glyphicon-ruble"></span>
-                            </div>
                             <div class="btn" style="border-bottom: 0; border-left: 1px #ccc solid; border-right: 1px #ccc solid;">
                                 <div class="input-group">
                                     <input type="number" min="1" value="1" class="form-control text-center" placeholder="Количество" />
@@ -113,8 +110,11 @@ class ViewCatalogue extends View {
                                     </span>
                                 </div>
                             </div>
+                            <div class="text-center" style="padding-bottom: 5px; padding-top: 5px; border-top: 0; border-left: 1px #ccc solid; border-right: 1px #ccc solid;">
+                                <span class="text-success" style="font-size: 1.3em;"><?= $oItem->price ?></span>&nbsp;<span class="glyphicon glyphicon-ruble"></span>
+                            </div>
                             <a href="<?= $oItem->thumbnail ?>" class="btn fancybox" style="border-bottom: 0; border-left: 1px #ccc solid; border-right: 1px #ccc solid;">
-                                <img src="<?= $oItem->thumbnail ?>" style="max-height: 150px;" alt="<?= $oItem->name ?>"/>
+                                <img src="<?= $oItem->getSmallThumbnail() ?>" style="max-height: 150px;" alt="<?= $oItem->name ?>"/>
                             </a>
                             <a href="?action=show-item&item_id=<?= $oItem->id ?>" class="btn btn-info" role="button" title="Просмотреть подробности">
                                 <span class="glyphicon glyphicon-eye-open"></span>&nbsp;Смотреть детали

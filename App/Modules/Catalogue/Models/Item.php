@@ -36,6 +36,11 @@ class Item extends Entity {
         'deleted' => 'Удалён'
     ];
 
+    public function getSmallThumbnail()
+    {
+        return str_replace('/uploads/', '/thumbs/', $this->thumbnail);
+    }
+
     public function getCategory()
     {
         /** @var Category[] $aCategories */
