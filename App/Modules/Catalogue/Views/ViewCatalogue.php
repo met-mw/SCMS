@@ -41,16 +41,18 @@ class ViewCatalogue extends View {
         $itemsCount = 1;
         ?>
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-sm-6 col-md-8" style="font-size: 1.4em; padding-bottom: 10px;">
+                    <span class="label label-primary">Всего категорий:&nbsp;<?= $categoriesRealCount ?></span>
+                    <span class="label label-primary">Всего товаров:&nbsp;<?= $itemsRealCount ?></span>
+                </div>
+                <div class="col-sm-6 col-md-4 text-right">
                     <form class="form-inline" method="get">
                         <fieldset>
-                            <div class="row">
-                                <div class="col-xs-8 col-sm-10">
-                                    <input class="form-control" style="width: 100%;" type="text" name="catalogue-search" placeholder="Поиск по каталогу" />
-                                </div>
-                                <div class="col-xs-4 col-sm-2">
-                                    <button class="btn btn-default" style="width: 100%;" type="submit">Искать</button>
-                                </div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="catalogue-search" placeholder="Найти в каталоге...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit" title="Начать поиск"><span class="glyphicon glyphicon-search"></span></button>
+                                </span>
                             </div>
                         </fieldset>
                     </form>
@@ -58,40 +60,27 @@ class ViewCatalogue extends View {
             </div>
             <br/>
             <? if ($categoriesRealCount > 0): ?>
-            <? while ($categoriesCount <= $categoriesRealCount): ?>
                 <div class="row eq-height">
-                <? $currentCategorySteps = $categoriesOffset + $this->categoriesPerRow > $categoriesRealCount ? $categoriesRealCount : $categoriesOffset + $this->categoriesPerRow ?>
-                <? for ($i = $categoriesOffset; $i < $currentCategorySteps; $i++): ?>
+                <? for ($i = $categoriesOffset; $i < $categoriesRealCount; $i++): ?>
                     <?
                     $oCategory = $this->aCategories[$i];
                     $this->viewCutString->setValue($oCategory->description);
                     ?>
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                        <div class="thumbnail">
-                            <div class="caption text-center">
-                                <h4><a href="?category_id=<?= $oCategory->id ?>"><?= $oCategory->name ?></a></h4>
-                            </div>
-                            <a href="?category_id=<?= $oCategory->id ?>">
+                        <div class="btn-group-vertical center-block" style="width: 100%;" role="group">
+                            <a type="button" class="content-to-modal btn btn-default" role="button" title="Просмотреть описание во всплывающем окне"><span class="glyphicon glyphicon-blackboard"></span>&nbsp;Смотреть описание</a>
+                            <div class="hidden" style="display: none;"><?= $oCategory->description ?></div>
+                            <a href="?category_id=<?= $oCategory->id ?>" class="btn" style="border-left: 1px #ccc solid; border-right: 1px #ccc solid;"><h4><?= $oCategory->name ?></h4></a>
+                            <a href="<?= $oCategory->thumbnail ?>" class="btn fancybox" style="border-left: 1px #ccc solid; border-right: 1px #ccc solid;">
                                 <img src="<?= $oCategory->thumbnail ?>" style="max-height: 150px;" alt="<?= $oCategory->name ?>"/>
                             </a>
-                            <div class="caption text-center" style="overflow: hidden; height: 100px;">
-                                <div><? $this->viewCutString->render() ?></div>
-                            </div>
-                            <div class="caption" style="background-color: #f9f9f9; border-top: 1px solid #e5e5e5;">
-                                <p class="text-center">
-                                    <a href="?category_id=<?= $oCategory->id ?>" class="btn btn-default" role="button">
-                                        <span class="glyphicon glyphicon-eye-open" title="Просмотреть подробности"></span>
-                                        <span class="hidden-xs">&nbsp;Смотреть товары</span>
-                                    </a>
-                                </p>
-                            </div>
+                            <a href="?category_id=<?= $oCategory->id ?>" class="btn btn-info" role="button" title="Просмотреть подробности">
+                                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;Смотреть товары
+                            </a>
                         </div>
                     </div>
-                    <? $categoriesCount++; ?>
                 <? endfor; ?>
                 </div>
-                <? $categoriesOffset += $this->categoriesPerRow; ?>
-            <? endwhile; ?>
                 <? if ($itemsRealCount > 0): ?>
                 <hr/>
                 <? endif; ?>
@@ -106,37 +95,30 @@ class ViewCatalogue extends View {
                     $this->viewCutString->setValue($oItem->description);
                     $this->viewMoney->setValue($oItem->price);
                     ?>
-                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 ?>">
-                        <div class="thumbnail">
-                            <div class="caption text-center">
-                                <h4><a href="?action=show-item&item_id=<?= $oItem->id ?>"><?= $oItem->name ?></a></h4>
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                        <div class="btn-group-vertical center-block" style="width: 100%;" role="group">
+                            <a type="button" class="content-to-modal btn btn-default" role="button" title="Просмотреть описание во всплывающем окне"><span class="glyphicon glyphicon-blackboard"></span>&nbsp;Смотреть описание</a>
+                            <div class="hidden" style="display: none;"><?= $oItem->description ?></div>
+                            <a href="?action=show-item&item_id=<?= $oItem->id ?>" class="btn" style="border-left: 1px #ccc solid; border-right: 1px #ccc solid;"><h4><?= $oItem->name ?></h4></a>
+                            <div class="text-center" style="padding-bottom: 5px; padding-top: 5px; border-top: 0; border-left: 1px #ccc solid; border-right: 1px #ccc solid;">
+                                <span class="text-success"><?= $oItem->price ?></span>&nbsp;<span class="glyphicon glyphicon-ruble"></span>
                             </div>
-                            <a href="?action=show-item&item_id=<?= $oItem->id ?>">
-                                <img src="<?= $oItem->thumbnail ?>" style="max-height: 150px;" alt="<?= $oItem->name ?>"/>
-                            </a>
-                            <div class="caption text-center" style="overflow: hidden; height: 100px;">
-                                <div><? $this->viewCutString->render() ?></div>
-                            </div>
-                            <div class="caption text-center" style="border-top: 1px solid #e5e5e5;">
-                                <p class="text-success" style="font-size: 20px;"><? $this->viewMoney->render() ?></p>
-                            </div>
-                            <div class="caption" style="background-color: #f9f9f9; border-top: 1px solid #e5e5e5;">
-                                <div class="text-center">
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <a href="?action=show-item&item_id=<?= $oItem->id ?>" class="btn btn-default" role="button" title="Просмотреть подробности">
-                                                <span class="glyphicon glyphicon-eye-open" title="Просмотреть подробности"></span>
-                                            </a>
-                                        </span>
-                                        <input type="number" min="1" value="1" class="form-control text-center" placeholder="Количество" />
-                                        <span class="input-group-btn">
-                                            <a href="/catalogue?action=add-to-cart&id=<?= $oItem->id ?>" class="btn btn-success catalogue-add-to-cart" role="button" title="Положить в корзину">
-                                                <span class="glyphicon glyphicon-shopping-cart" title="Положить в корзину"></span>
-                                            </a>
-                                        </span>
-                                    </div>
+                            <div class="btn" style="border-bottom: 0; border-left: 1px #ccc solid; border-right: 1px #ccc solid;">
+                                <div class="input-group">
+                                    <input type="number" min="1" value="1" class="form-control text-center" placeholder="Количество" />
+                                    <span class="input-group-btn">
+                                        <a href="/catalogue?action=add-to-cart&id=<?= $oItem->id ?>" class="btn btn-success catalogue-add-to-cart" role="button" title="Положить в корзину">
+                                            <span class="glyphicon glyphicon-shopping-cart" title="Положить в корзину"></span>&nbsp;В корзину
+                                        </a>
+                                    </span>
                                 </div>
                             </div>
+                            <a href="<?= $oItem->thumbnail ?>" class="btn fancybox" style="border-bottom: 0; border-left: 1px #ccc solid; border-right: 1px #ccc solid;">
+                                <img src="<?= $oItem->thumbnail ?>" style="max-height: 150px;" alt="<?= $oItem->name ?>"/>
+                            </a>
+                            <a href="?action=show-item&item_id=<?= $oItem->id ?>" class="btn btn-info" role="button" title="Просмотреть подробности">
+                                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;Смотреть детали
+                            </a>
                         </div>
                     </div>
                     <? $itemsCount++; ?>

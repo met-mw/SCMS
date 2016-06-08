@@ -14,7 +14,7 @@ class ViewAbout extends View
     {
         ?>
         <div class="row">
-            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2">
+            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12">
                 <div class="block center-block thumbnail">
                     <div class="bg-primary text-center" style="padding: 5px;">
                         <?= $this->credits['name'] ?> (<?= $this->credits['fullname'] ?>)
@@ -25,6 +25,8 @@ class ViewAbout extends View
                     <div class="block text-justify" style="padding: 5px;">
                         <h4 class="text-center">Разработчик</h4>
                         <hr/>
+                        Организация: SProject<br/>
+                        Сайт: <a href="http://sproject.com" target="_blank">http://sproject.com</a><br/>
                         Имя: <?= $this->credits['author']['name'] ?><br/>
                         Никнейм: <?= $this->credits['author']['nick'] ?><br/>
                         E-mail: <a href="mailto:<?= $this->credits['author']['email'] ?>"><?= $this->credits['author']['email'] ?></a>

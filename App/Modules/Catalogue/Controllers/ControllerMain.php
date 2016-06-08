@@ -8,6 +8,8 @@ use App\Modules\Catalogue\Models\Item;
 use App\Modules\Catalogue\Views\ViewCart;
 use App\Modules\Catalogue\Views\ViewCatalogue;
 use App\Modules\Catalogue\Views\ViewItem;
+use SDataGrid\Classes\Column;
+use SDataGrid\Classes\DataGrid;
 use SFramework\Classes\Breadcrumb;
 use SFramework\Classes\CoreFunctions;
 use App\Classes\SCMSNotificationLog;
@@ -61,7 +63,97 @@ class ControllerMain extends PublicAreaController {
                 break;
             case 'show-cart':
                 $view = new ViewCart();
-                $view->cart = $this->cart;
+                $cart = $this->cart;
+
+                $DataGrid = new DataGrid();
+                $aItemsInCart = $this->cart->getItems();
+                $DataGrid->setCaption(empty($aItemsInCart) ? 'В Вашей корзине ещё нет ни одного товара' : 'Список товаров')
+                    ->setAttributes(['class' => 'table table-condensed'])
+                    ->addColumn(
+                        (new Column())
+                            ->setDisplayName('№')
+                            ->setHeaderAttributes(['style' => 'text-align: center; vertical-align: middle;'])
+                            ->setBodyAttributes(['style' => 'text-align: center; vertical-align: middle;'])
+                            ->switchOnCounter()
+                    )
+                    ->addColumn(
+                        (new Column())
+                            ->setDisplayName('Наименование')
+                            ->setHeaderAttributes(['style' => 'text-align: center; vertical-align: middle;'])
+                            ->setValueName('name')
+                    )
+                    ->addColumn(
+                        (new Column())
+                            ->setDisplayName('Цена')
+                            ->setHeaderAttributes(['style' => 'text-align: center; vertical-align: middle;'])
+                            ->setBodyAttributes(['style' => 'text-align: center; vertical-align: middle;'])
+                            ->setFooterAttributes(['style' => 'text-align: center; vertical-align: middle;', 'class' => 'text-success'])
+                            ->setCallback(
+                                function (Item $oItem) {
+                                    echo $oItem->price, '<span class="glyphicon glyphicon-ruble"></span>';
+                                }
+                            )
+                            ->setFooterCallback(
+                                function (array $aItems) {
+                                    ?>Итого:<?
+                                }
+                            )
+                    )
+                    ->addColumn(
+                        (new Column())
+                            ->setDisplayName('Количество')
+                            ->setHeaderAttributes(['style' => 'text-align: center; vertical-align: middle;'])
+                            ->setBodyAttributes(['style' => 'text-align: center; vertical-align: middle;'])
+                            ->setFooterAttributes(['style' => 'text-align: center; vertical-align: middle;', 'class' => 'text-danger'])
+                            ->setCallback(
+                                function (Item $oItem) use ($cart) {
+                                    ?><input type="number" min="1" class="form-control input-sm text-center catalogue-item-count" value="<?= $cart->getCountById($oItem->getPrimaryKey()) ?>" /><?
+                                }
+                            )
+                            ->setFooterCallback(
+                                function (array $aItems) use ($cart) {
+                                    echo $cart->getTotalCount();
+                                }
+                            )
+                    )
+                    ->addColumn(
+                        (new Column())
+                            ->setDisplayName('Сумма')
+                            ->setHeaderAttributes(['style' => 'text-align: center; vertical-align: middle;'])
+                            ->setBodyAttributes(['style' => 'text-align: center; vertical-align: middle;'])
+                            ->setFooterAttributes(['style' => 'text-align: center; vertical-align: middle;', 'class' => 'text-danger'])
+                            ->setCallback(
+                                function (Item $oItem) use ($cart) {
+                                    echo $cart->getCountById($oItem->getPrimaryKey()) * $oItem->price, '<span class="glyphicon glyphicon-ruble"></span>';
+                                }
+                            )
+                            ->setFooterCallback(
+                                function(array $aItems) use ($cart) {
+                                    /** @var Item[] $aItems */
+                                    $totalPrice = 0;
+                                    foreach ($aItems as $oItem) {
+                                        $totalPrice += $cart->getCountById($oItem->getPrimaryKey()) * $oItem->price;
+                                    }
+
+                                    echo $totalPrice, '<span class="glyphicon glyphicon-ruble"></span>';
+                                }
+                            )
+                    )
+                    ->addColumn(
+                        (new Column())
+                            ->setDisplayName('<span class="glyphicon glyphicon-option-horizontal"></span>')
+                            ->setHeaderAttributes(['style' => 'text-align: center; vertical-align: middle;'])
+                            ->setBodyAttributes(['style' => 'text-align: center; vertical-align: middle;'])
+                            ->setCallback(
+                                function (Item $oItem) {
+                                    echo '<a href="/catalogue?action=remove-from-cart?id=' . $oItem->getPrimaryKey() .'" class="btn btn-danger btn-xs catalogue-cart-remove" title="Удалить товар из конзины"><span class="glyphicon glyphicon-remove"></span></a>';
+                                }
+                            )
+                    )
+                    ->setDataSet($aItemsInCart);
+
+                $view->DataGrid = $DataGrid;
+                $view->goodCount = $cart->getTotalCount();
                 $view->render();
                 return;
                 break;

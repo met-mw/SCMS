@@ -13,7 +13,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/met-mw/SDataGrid.git",
-                "reference": "044b85a1a9e30ee86fd5413a29bdd07043feddfe"
+                "reference": "853a305b214a37c94237a851f3f5786717635d18"
             },
             "require": {
                 "php": ">=5.6.0"
@@ -30,7 +30,7 @@
                     "email": "met-mw@rambler.ru"
                 }
             ],
-            "time": "2016-06-02 12:49:18"
+            "time": "2016-06-07 14:22:30"
         },
         {
             "name": "met_mw/sfilesystem",
